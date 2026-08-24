@@ -56,6 +56,20 @@ p{color:rgba(255,255,255,.74);line-height:1.85}
 .toast{position:fixed;z-index:300;left:50%;bottom:24px;transform:translate(-50%,20px);opacity:0;padding:.8rem 1.1rem;border:1px solid var(--line);background:rgba(15,10,20,.8);backdrop-filter:blur(15px);border-radius:999px;color:#fff;transition:.4s var(--ease);pointer-events:none}.toast.show{opacity:1;transform:translate(-50%,0)}
 .final-orbit{width:min(300px,65vw);aspect-ratio:1;border:1px solid rgba(232,202,138,.34);border-radius:50%;margin:0 auto 2rem;display:grid;place-items:center;box-shadow:0 0 90px rgba(232,202,138,.1);animation:orbit 5s ease-in-out infinite}.final-orbit span{font:500 clamp(2rem,7vw,4.5rem) "Playfair Display"}
 @keyframes aurora{to{transform:translate3d(4%,2%,0) rotate(9deg)}}@keyframes flicker{to{transform:scale(1.16) rotate(3deg)}}@keyframes smoke{to{transform:translateY(-48px) scale(2);opacity:0}}@keyframes shake{25%{transform:rotate(2deg)}50%{transform:rotate(-3deg)}75%{transform:rotate(2deg)}}@keyframes fly{0%,100%{transform:translate(0,0);opacity:.15}50%{transform:translate(35px,-55px);opacity:1}}@keyframes confetti{0%{transform:translate(0,0) rotate(0);opacity:1}100%{transform:translate(var(--x),var(--y)) rotate(720deg);opacity:0}}@keyframes butterfly{0%{transform:translate(0,0) scale(.4);opacity:0}15%{opacity:1}100%{transform:translate(var(--x),var(--y)) rotate(var(--r)) scale(1);opacity:0}}@keyframes cursorStar{to{transform:translateY(-15px) scale(0);opacity:0}}@keyframes orbit{50%{transform:scale(1.03);box-shadow:0 0 110px rgba(232,202,138,.16)}}
+
+/* --- NEW AWESOME ANIMATIONS & FEATURES --- */
+.balloon { position:absolute; bottom:-60px; width:45px; height:55px; background:radial-gradient(circle at 12px 12px, rgba(255,255,255,0.7), currentColor); border-radius:50% 50% 50% 50% / 40% 40% 60% 60%; cursor:pointer; animation: floatUp 3.5s linear infinite; box-shadow: 0 0 15px currentColor; z-index: 10; }
+.balloon::after { content:""; position:absolute; bottom:-8px; left:50%; transform:translateX(-50%); width:0; height:0; border-left:5px solid transparent; border-right:5px solid transparent; border-bottom:8px solid currentColor; }
+.balloon::before { content:""; position:absolute; bottom:-40px; left:50%; width:1px; height:40px; background:rgba(255,255,255,0.5); }
+@keyframes floatUp { to { transform: translateY(-400px) rotate(var(--r)); } }
+.pop-burst { position:absolute; font-size:2.5rem; pointer-events:none; animation: popAnim 0.4s ease-out forwards; transform: translate(-50%, -50%); z-index: 11; }
+@keyframes popAnim { 0% { transform: translate(-50%, -50%) scale(0.5); opacity:1; } 100% { transform: translate(-50%, -50%) scale(2.5); opacity:0; } }
+.floating-heart { position: fixed; z-index: 1; pointer-events: none; animation: floatHeart 6s ease-in infinite; opacity: 0; filter: drop-shadow(0 0 5px rgba(255,255,255,0.5)); }
+@keyframes floatHeart { 0% { transform: translateY(105vh) scale(0.5); opacity: 0; } 20% { opacity: 0.6; } 100% { transform: translateY(-10vh) scale(1.3) rotate(30deg); opacity: 0; } }
+.btn.gold:not(:disabled) { animation: pulseGlow 2s infinite alternate; }
+@keyframes pulseGlow { from { box-shadow: 0 0 10px rgba(232, 202, 138, 0.2); } to { box-shadow: 0 0 25px rgba(232, 202, 138, 0.6); } }
+/* ----------------------------------------- */
+
 @media(max-width:650px){.wish-grid{grid-template-columns:1fr}.countdown{gap:5px}.time{border-radius:15px;padding:.8rem .15rem}.time strong{font-size:1.75rem}.card{border-radius:24px;padding:1.4rem;max-height:calc(100svh - 28px)}.music{top:11px;right:11px}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}}
 
@@ -229,12 +243,65 @@ button, .btn, .choice, .wish { min-height: 44px; }
 
 <!-- 06 -->
 <section class="scene">
-<div class="bg"></div><div class="aurora"></div>
-<div class="card"><div class="eyebrow">A few words from the heart</div><h2>For you 🌸</h2>
-<p class="urdu">دعا ہے کہ تیری ہر صبح مسکراہٹ سے شروع ہو،<br>ہر شام سکون لے کر آئے،<br>اور زندگی کا ہر نیا موڑ<br>تیرے لیے کوئی خوبصورت خوشخبری بن جائے۔</p>
-<div class="actions"><button class="btn gold" id="urduNext">یہ تو بس آغاز ہے ✨</button></div></div>
-</section>
+  <div class="bg"></div>
+  <div class="aurora aurora-one"></div>
+  <div class="aurora aurora-two"></div>
 
+  <div class="floating-petals">
+    <span>✦</span>
+    <span>✧</span>
+    <span>❀</span>
+    <span>♡</span>
+    <span>✦</span>
+  </div>
+
+  <div class="card">
+
+    <div class="top-line">
+      <span></span>
+      <i>♡</i>
+      <span></span>
+    </div>
+
+    <div class="divider">❈</div>
+
+    <p class="urdu">
+      دل سے بس اتنی سی دعا ہے کہ اللہ آپ کو ہمیشہ خوش رکھے،<br>
+      آپ کے چہرے کی مسکراہٹ کبھی کم نہ ہو،<br>
+      اور آپ کے دل کو ہمیشہ سکون نصیب ہو۔<br><br>
+
+      آپ کی ہر نیک خواہش پوری ہو،<br>
+      آپ کے ہر خواب کو ایک خوبصورت راستہ ملے،<br>
+      اور زندگی آپ کو وہ خوشیاں دے جن کے آپ واقعی مستحق ہیں۔<br><br>
+
+      جب کبھی راستہ مشکل ہو تو اللہ اسے آسان کر دے،<br>
+      جب کبھی دل تھک جائے تو اسے سکون دے،<br>
+      اور جب کبھی آنکھیں نم ہوں تو ان میں خوشی لے آئے۔<br><br>
+
+      آپ ہمیشہ سلامت رہیں، خوش رہیں،<br>
+      اپنی خوبصورت مسکراہٹ کے ساتھ آگے بڑھتی رہیں،<br>
+      اور اللہ آپ کو ہر اس چیز سے نوازے<br>
+      جو آپ کے لیے واقعی بہتر ہو۔ آمین۔ 🤍
+    </p>
+
+    <p class="signature">
+      اللہ آپ کو ہمیشہ خوش رکھے۔ 🤍
+    </p>
+
+    <div class="actions">
+      <button class="btn gold" id="urduNext">
+        یہ تو بس آغاز ہے
+        <span>✦</span>
+      </button>
+    </div>
+
+    <div class="bottom-note">
+      <span>from the heart</span>
+      <b>♡</b>
+    </div>
+
+  </div>
+</section>
 <!-- 07 -->
 <section class="scene">
 <div class="bg" style="background:linear-gradient(145deg,#151021,#463653,#10121d)"></div><div class="aurora"></div>
@@ -246,7 +313,7 @@ button, .btn, .choice, .wish { min-height: 44px; }
 <!-- 08 -->
 <section class="scene">
 <div class="bg" style="background:radial-gradient(circle at 50% 35%,#65485a,#18101c 55%,#08070c)"></div>
-<div class="card"><div class="eyebrow">A quiet wish for you</div><h2>ایک چھوٹی سی دعا 🤲</h2>
+<div class="card">
 <div class="type-wrap"><div id="duaType" class="urdu"></div></div>
 <div class="actions"><button class="btn gold locked" id="duaNext">آمین 🤍</button></div></div>
 </section>
@@ -281,6 +348,15 @@ button, .btn, .choice, .wish { min-height: 44px; }
 <div class="actions"><button class="btn gold" id="giftNext" disabled>Next Surprise →</button></div></div>
 </section>
 
+<!-- 11.5 NEW BALLOON SCENE -->
+<section class="scene">
+<div class="bg" style="background:radial-gradient(circle at 50% 50%,#3d2132,#130d18 70%,#000)"></div><div class="aurora"></div>
+<div class="card"><div class="eyebrow">Wait! A little challenge</div><h2>Pop 5 Balloons! 🎈</h2><p>Let's see how fast you can pop them!</p>
+<div id="balloonArea" style="position:relative; height: 280px; width:100%; overflow:hidden; border-radius:20px; border:1px solid rgba(255,255,255,0.15); background:rgba(255,255,255,0.02); margin: 1.5rem 0;"></div>
+<div class="pill-row"><span class="pill" id="balloonCount">Popped: 0 / 5</span></div>
+<div class="actions"><button class="btn gold locked" id="balloonNext" disabled>Now, the Cake! 🎂</button></div></div>
+</section>
+
 <!-- 12 -->
 <section class="scene">
 <div class="bg" style="background:radial-gradient(circle at 50% 35%,#5a3e4d,#130d18 60%,#07060b)"></div>
@@ -294,14 +370,37 @@ button, .btn, .choice, .wish { min-height: 44px; }
 <div class="bg" style="background:linear-gradient(180deg,#d58e80,#5b4664 42%,#111727 72%,#07090f)"></div><div class="aurora"></div><div id="fireflies"></div>
 <div class="card"><div class="eyebrow">A beautiful chapter begins</div><h2>Every birthday is the beginning of another amazing chapter.</h2><p>May this chapter bring peaceful mornings, exciting adventures, kind people, meaningful moments and countless reasons to smile.</p>
 <div class="secret-reveal" style="display:block;margin-top:1.5rem">
-<div class="micro-label">A little truth, just for Muntaha</div>
-<h3>You’re Dear to Me — In Your Own Special Way</h3>
-<p>Some people become important without needing a complicated name for the relationship. You are one of those people to me.</p>
 
-<p>So on your birthday, I just want to say: stay the same kind, genuine and beautiful person you are. Keep smiling, keep growing, and never forget that your happiness matters.</p>
-<p class="urdu">تم میرے لیے ایک عزیز انسان ہو، اور بس یہی رشتہ اپنی جگہ بہت خوبصورت ہے۔ اللہ تمہیں ہمیشہ خوش رکھے، عزت دے، سکون دے اور زندگی میں بہت سی کامیابیاں عطا فرمائے۔ آمین۔</p>
+<div class="micro-label">A little truth, just for Muntaha</div>
+
+<h3>You’re Dear to Me — In Your Own Special Way</h3>
+
+<p>
+Some people become important without needing a complicated reason.
+You are one of those people to me. I genuinely like your smile,
+your nature, your way of talking, and the little things that make you, you.
+</p>
+
+<p>
+I simply like having you around, and I always want to see you happy.
+There’s something quietly special about you, and I just wanted you to know that. 🤍
+</p>
+
+<p class="urdu">
+آپ مجھے اچھی لگتی ہیں، آپ کی مسکراہٹ، آپ کی باتیں اور آپ کا انداز بھی۔<br><br>
+بس دل سے یہی خواہش ہے کہ آپ ہمیشہ خوش رہیں، سکون میں رہیں،
+اپنے خواب پورے کریں اور زندگی میں بہت آگے جائیں۔
+اللہ آپ کو ہمیشہ اپنی حفاظت میں رکھے اور ہر نیک خواہش پوری فرمائے۔ آمین۔ 🤍
+</p>
+
 </div>
-<div class="actions"><button class="btn gold" id="chapterNext">One Last Thing… ✨</button></div></div>
+
+<div class="actions">
+  <button class="btn gold" id="chapterNext">
+    One Last Thing… ✨
+  </button>
+</div>
+</div>
 </section>
 
 <!-- 14 -->
@@ -310,8 +409,6 @@ button, .btn, .choice, .wish { min-height: 44px; }
 <div class="card"><div class="eyebrow">Wait… one last thing</div><h2>Did you really think that was all? 👀</h2><p id="lastJoke">You have reached the secret level of the birthday website.</p>
 <div class="actions"><button class="btn pink" id="lastBtn">Reveal It 😂</button><button class="btn gold" id="finalBtn">I’m ready ❤️</button></div></div>
 </section>
-
-
 
 <!-- 17 -->
 <section class="scene" id="shockScene">
@@ -354,7 +451,7 @@ button, .btn, .choice, .wish { min-height: 44px; }
 </div>
 <div id="secretReveal" class="secret-reveal hidden">
 <div class="micro-label">A secret just for you</div>
-<p class="urdu">کبھی کبھی کسی عزیز انسان کے لیے الفاظ واقعی کم پڑ جاتے ہیں۔ تم میرے لیے ایک ایسی ہی عزیز شخصیت ہو جس کے لیے دل سے ہمیشہ اچھا سوچتا ہوں۔ نہ کوئی خاص نام ضروری ہے، نہ کسی رشتے کی تعریف؛ بس تمہاری خوشی، عزت اور کامیابی میرے لیے اہم ہے۔ اللہ تمہیں ہمیشہ خوش رکھے، تمہارے راستے آسان کرے اور تمہیں ہر وہ خوشی دے جو تمہارے حق میں بہتر ہو۔ آمین۔ 🤍</p>
+<p class="urdu">کبھی کبھی کسی پسندیدہ انسان کے لیے الفاظ واقعی کم پڑ جاتے ہیں۔ تمہاری مسکراہٹ اچھی لگتی ہے اور دل ہمیشہ تمہارے لیے اچھا ہی چاہتا ہے۔ بس یہی خواہش ہے کہ تم خوش رہو، سکون میں رہو، کامیاب رہو اور زندگی تمہیں بہت سی خوبصورت خوشیاں دے۔ اللہ تمہیں ہمیشہ اپنی حفاظت میں رکھے۔ آمین۔ 🤍</p>
 <div id="secretCode" class="secret-code">M • 2 6 • R ✦</div>
 </div>
 <div class="actions"><button class="btn gold locked" id="envelopeNext" disabled>Now, the final surprise ❤️</button></div>
@@ -381,9 +478,11 @@ button, .btn, .choice, .wish { min-height: 44px; }
 <section class="scene">
 <div class="bg" style="background:linear-gradient(145deg,#17101c,#50374c,#0b0a11)"></div><div class="aurora"></div>
 <div class="card">
-<div class="eyebrow">A tiny collection of wishes</div><h2>Things I genuinely wish for you 🌷</h2>
-<div class="pill-row"><span class="pill">Peace of mind</span><span class="pill">Good health</span><span class="pill">Success</span><span class="pill">Beautiful memories</span><span class="pill">Sincere friendships</span><span class="pill">Confidence</span><span class="pill">New opportunities</span><span class="pill">Lots of laughter</span></div>
-<div class="letter" style="margin-top:1.4rem"><h3>A reminder</h3><p>You never have to prove your worth by becoming someone else. Keep your kindness, protect your peace, and keep moving toward the life you want.</p><p class="urdu">اپنی قدر کسی کے رویّے سے مت ناپنا۔ تم جیسی ہو، اپنی جگہ قیمتی ہو۔ اللہ تمہیں سکون، عزت، کامیابی اور خوشیوں سے نوازے۔ آمین۔</p></div>
+<div class="letter">
+<p class="urdu">میری خواہش ہے کہ تمہاری زندگی میں سکون بھی ہو، کامیابی بھی، اور وہ چھوٹی چھوٹی خوشیاں بھی جو بغیر کسی وجہ کے چہرے پر مسکراہٹ لے آئیں۔<br><br>
+تم ہمیشہ اپنے خوابوں کے قریب جاؤ، اچھے لوگوں سے گھری رہو، اور ہر نئے دن میں اپنے لیے کوئی نہ کوئی خوبصورت وجہ تلاش کر لو۔<br><br>
+اپنی مسکراہٹ سنبھال کر رکھنا، خود پر یقین رکھنا، اور بس ایسے ہی خوبصورت رہنا جیسے تم ہو۔ اللہ تمہیں ہمیشہ خوش رکھے۔ آمین۔ 🤍</p>
+</div>
 <div class="actions"><button class="btn gold" id="wishesNext">One final message →</button></div>
 </div></section>
 
@@ -391,19 +490,17 @@ button, .btn, .choice, .wish { min-height: 44px; }
 <section class="scene">
 <div class="bg" style="background:radial-gradient(circle at 50% 25%,#735364,#1a101a 60%,#060509)"></div><div class="aurora"></div>
 <div class="card">
-<div class="eyebrow">No complicated title needed</div><div class="quote-mark">“</div>
-<h2>You’re simply dear to me.</h2>
-
-<p class="urdu" style="margin-top:1.4rem">تم میرے لیے ایک عزیز انسان ہو۔ بس اتنا سا رشتہ بھی کبھی کبھی بہت خوبصورت ہوتا ہے۔ میری دعا ہے کہ تمہاری زندگی ہمیشہ آسانیوں، خوشیوں اور کامیابیوں سے بھری رہے۔</p>
+<div class="quote-mark">“</div>
+<p class="urdu" style="margin-top:1.4rem">تم مجھے اچھی لگتی ہو، تمہاری باتیں اور تمہاری مسکراہٹ بھی۔ بس دل سے یہی چاہتا ہوں کہ تم ہمیشہ خوش رہو، سکون میں رہو اور زندگی میں بہت آگے جاؤ۔ اللہ تمہاری ہر نیک خواہش پوری کرے۔ آمین۔ 🤍</p>
 <div class="actions"><button class="btn gold" id="messageNext">Open the final page ❤️</button></div>
 </div></section>
 
-<!-- 15 -->
+<!-- 20 -->
 <section class="scene">
 <div class="bg"></div><div class="aurora"></div><div class="grain"></div>
 <div class="card"><div class="final-orbit"><span>26<br>August</span></div><div class="eyebrow">Made especially for</div>
 <h1>Happy Birthday</h1><h2>Muntaha</h2>
-<p>Thank you for being one of those people who are simply dear to the heart.<br>Wishing you happiness, success, good health, peace, and countless wonderful memories in the year ahead.<br><br>You don’t need a special title to be important. Just keep being the person you are, and keep smiling. Have a beautiful birthday, Muntaha! ❤️</p>
+<p>You’re one of those people I genuinely like and feel happy to see smiling.<br>Wishing you happiness, success, peace, good health, and countless beautiful memories in the year ahead.<br><br>Keep being the kind, genuine person you are. Keep smiling, keep growing, and have a beautiful birthday, Muntaha! ❤️</p>
 <p class="urdu">اللہ تمہیں ہمیشہ خوش رکھے،<br>تمہاری ہر نیک دعا قبول فرمائے،<br>اور زندگی کے ہر قدم پر آسانیاں عطا فرمائے۔ آمین۔</p>
 <h3>🎉 Have the best birthday ever! 🎉</h3><p>With best wishes,<br><strong>Muhammad Rizwan</strong></p>
 <div class="actions"><button class="btn" id="replay">↻ Replay the Surprise</button></div></div>
@@ -422,7 +519,7 @@ button, .btn, .choice, .wish { min-height: 44px; }
 
 </div>
 <div id="toast" class="toast"></div>
-<audio id="music" src="music.mp3" loop preload="metadata"></audio>
+<audio id="music" src="music.mp3" loop preload="auto" autoplay playsinline></audio>
 
 <script>
 "use strict";
@@ -446,8 +543,18 @@ function stars(el,n=45){for(let i=0;i<n;i++){let s=document.createElement("i");s
 const style=document.createElement("style");style.textContent="@keyframes twinkle{50%{opacity:.15;transform:scale(.5)}}";document.head.appendChild(style);
 
 function musicInit(){
- $("#musicBtn").onclick=()=>{if(music.paused){music.play().then(()=>{musicStarted=true;$("#musicBtn").textContent="♫"}).catch(()=>{})}else{music.pause();musicStarted=false;$("#musicBtn").textContent="×"}};
- document.addEventListener("pointerdown",()=>{if(!musicStarted)music.play().then(()=>musicStarted=true).catch(()=>{})},{once:true});
+ const startMusic=()=>{
+  if(!music.paused)return;
+  music.volume=0.72;
+  music.play().then(()=>{musicStarted=true;$("#musicBtn").textContent="♫"}).catch(()=>{});
+ };
+ $("#musicBtn").onclick=()=>{
+  if(music.paused)startMusic();
+  else{music.pause();musicStarted=false;$("#musicBtn").textContent="×";}
+ };
+ startMusic();
+ document.addEventListener("pointerdown",()=>{if(!musicStarted)startMusic()},{once:true,passive:true});
+ document.addEventListener("keydown",()=>{if(!musicStarted)startMusic()},{once:true});
 }
 function loading(){
  let v=0;clearInterval(loadingTimer);loadingTimer=setInterval(()=>{v++;$("#bar").style.width=v+"%";$("#percent").textContent=v+"%";if(v>=100){clearInterval(loadingTimer);setTimeout(()=>show(1,true),500)}},27)
@@ -491,16 +598,32 @@ $("#cut").onclick=()=>{$("#cake").animate([{transform:"rotate(0)"},{transform:"r
 
 $("#refresh").onclick=async()=>{confetti(55);await sleep(450);show(2,true);stars($(".stars"),45);countdown();musicInit()};
 $("#ready").onclick=()=>{show(3);birthdayReveal()};
-$("#revealNext").onclick=go;$("#funnyNext").onclick=go;$("#urduNext").onclick=go;$("#poemNext").onclick=go;$("#duaNext").onclick=go;$("#wishNext").onclick=go;$("#letterNext").onclick=go;$("#giftNext").onclick=go;$("#cakeNext").onclick=go;$("#chapterNext").onclick=go;
+$("#revealNext").onclick=go;$("#funnyNext").onclick=go;$("#urduNext").onclick=go;$("#poemNext").onclick=go;$("#duaNext").onclick=go;$("#wishNext").onclick=go;$("#letterNext").onclick=go;$("#giftNext").onclick=go;$("#balloonNext").onclick=go;$("#cakeNext").onclick=go;$("#chapterNext").onclick=go;
 $("#lastBtn").onclick=()=>{$("#lastJoke").textContent="Plot twist: there is cake. And yes, you are required to have some. 🍰😂";confetti(35)};
-$("#finalBtn").onclick=()=>{confetti(100);show(14)};
+$("#finalBtn").onclick=()=>{confetti(100);show(15)}; // Adjust for new scenes
 $("#happy").onclick=()=>confetti(75);
 $("#replay").onclick=()=>{
  scenes.forEach((s,i)=>s.classList.toggle("active",i===0));
  scenes.forEach(s=>s.classList.remove("exit","birthday-live"));
  current=0; loading();
 };
-document.addEventListener("pointermove",e=>{if(matchMedia("(pointer:coarse)").matches)return;let s=document.createElement("i");s.className="star-cursor";s.style.left=e.clientX+"px";s.style.top=e.clientY+"px";document.body.appendChild(s);setTimeout(()=>s.remove(),700)},{passive:true});
+
+/* --- NEW MAGIC CURSOR --- */
+document.addEventListener("pointermove",e=>{
+  if(matchMedia("(pointer:coarse)").matches)return;
+  let s=document.createElement("i");
+  s.className="star-cursor";
+  s.style.left=e.clientX+"px";
+  s.style.top=e.clientY+"px";
+  const cols = ["#fff2b0", "#ffb0d1", "#b0d1ff", "#d1ffb0", "#f6d365"];
+  const c = cols[Math.floor(Math.random()*cols.length)];
+  s.style.background = c;
+  s.style.boxShadow = `0 0 15px ${c}`;
+  document.body.appendChild(s);
+  setTimeout(()=>s.remove(),700);
+},{passive:true});
+/* ----------------------- */
+
 document.addEventListener("pointerdown",e=>{holdTimer=setTimeout(()=>{butterflies(e.clientX,e.clientY);toast("🦋 A little magic escaped!")},3000)});
 document.addEventListener("pointerup",()=>clearTimeout(holdTimer));
 
@@ -523,7 +646,7 @@ function typeText(el, text, speed=32, onDone=()=>{}){
 function unlockAfterTyping(btn){btn.classList.remove("locked");}
 const poemText="May every chapter ahead be softer and brighter, may every dream find its way a little closer, and may every ordinary day hide an extraordinary reason to smile.";
 const duaText="یا اللہ، اس کے آنے والے سال کو خوشیوں، سکون، کامیابی، صحت اور بے شمار خوبصورت لمحات سے بھر دے۔\n\nاس کے دل کی نیک تمناؤں کو پورا فرما، اس کے راستے آسان فرما، اور اسے ہمیشہ اپنی رحمت اور حفاظت میں رکھ۔ آمین۔";
-const letterText="Happy Birthday, Muntaha!\n\nThere are some people who become dear to us simply because of the kind of person they are. You are one of those people.\n\nI’m not calling you my bestie, and I’m not trying to give this bond a romantic name. You’re just genuinely dear to me, and I truly wish good things for you.\n\nMay this new year of your life bring you peaceful days, sincere people, beautiful opportunities, success in whatever you choose, and plenty of moments that make you smile.\n\nKeep being yourself. Keep your heart kind, keep your dreams alive, and always remember that you deserve happiness and respect.\n\nHave a beautiful birthday, Muntaha.\n\nWith sincere good wishes,\nMuhammad Rizwan";
+const letterText="Happy Birthday, Muntaha!\n\nSome people become important simply because of the kind of person they are. You are one of those people to me. I genuinely like your smile, your nature, and the little things that make you, you.\n\nI simply want to see you happy, doing well, and moving toward everything you dream about. That is all I really wanted to say.\n\nMay this new year of your life bring peaceful days, beautiful opportunities, success, and plenty of moments that make you smile.\n\nKeep being yourself, keep your heart kind, and keep believing in the good things ahead.\n\nHave a beautiful birthday, Muntaha.\n\nWith sincere good wishes,\nMuhammad Rizwan";
 $("#poemNext").classList.add("locked");
 $("#duaNext").classList.add("locked");
 $("#letterNext").classList.add("locked");
@@ -534,6 +657,54 @@ function startGatedText(sceneIndex, el, text, btn, speed, extraClass){
  btn.disabled=true;btn.classList.add("locked");
  typeText(el,text,speed,()=>{btn.disabled=false;unlockAfterTyping(btn);confetti(12)});
 }
+
+/* --- NEW FEATURE LOGIC (Balloons & Overrides) --- */
+let popCount = 0; let balloonInterval; let fireworksInterval;
+function startBalloonGame() {
+  popCount = 0; $("#balloonCount").textContent = "Popped: 0 / 5";
+  $("#balloonNext").disabled = true; $("#balloonNext").classList.add("locked");
+  if(balloonInterval) clearInterval(balloonInterval);
+  balloonInterval = setInterval(()=>{
+    if(!scenes[current].querySelector("#balloonArea")) return; 
+    const area = $("#balloonArea");
+    const b = document.createElement("div");
+    b.className = "balloon";
+    const colors = ["#ff7eb3", "#ff758c", "#4facfe", "#00f2fe", "#f6d365", "#fda085"];
+    b.style.color = colors[Math.floor(Math.random()*colors.length)];
+    b.style.left = (Math.random() * 80 + 10) + "%";
+    b.style.setProperty("--r", (Math.random() * 30 - 15) + "deg");
+    b.onclick = (e) => {
+      b.remove();
+      popCount++;
+      $("#balloonCount").textContent = `Popped: ${popCount} / 5`;
+      const burst = document.createElement("div");
+      burst.className = "pop-burst"; burst.textContent = "✨";
+      burst.style.left = e.offsetX + "px"; burst.style.top = e.offsetY + "px";
+      area.appendChild(burst); setTimeout(()=>burst.remove(), 400);
+      confetti(8);
+      if (popCount >= 5) {
+         $("#balloonNext").disabled = false;
+         $("#balloonNext").classList.remove("locked");
+         if(popCount === 5) toast("🎉 Magic unlocked!");
+      }
+    };
+    area.appendChild(b);
+    setTimeout(() => { if(b.parentElement) b.remove(); }, 3400);
+  }, 600);
+}
+
+// Global Floating Hearts
+setInterval(()=>{
+   const h = document.createElement("div");
+   h.className = "floating-heart";
+   h.textContent = ["🤍","✨","🌸","🦋","🎂"][Math.floor(Math.random()*5)];
+   h.style.left = Math.random() * 100 + "vw";
+   h.style.animationDuration = (Math.random() * 3 + 4) + "s";
+   h.style.fontSize = (Math.random() * 1 + 0.8) + "rem";
+   document.body.appendChild(h);
+   setTimeout(()=>h.remove(), 7000);
+}, 1000);
+
 const originalShow=show;
 show=function(i,force=false){
  originalShow(i,force);
@@ -541,10 +712,25 @@ show=function(i,force=false){
  if(i===6)startGatedText(6,$("#poemType"),poemText,$("#poemNext"),25,"type-line");
  if(i===7)startGatedText(7,$("#duaType"),duaText,$("#duaNext"),24,"urdu");
  if(i===9)startGatedText(9,$("#letterType"),letterText,$("#letterNext"),20,"");
+ 
+ // Game & Fireworks check
+ if (scenes[current] && scenes[current].querySelector("#balloonArea")) {
+    startBalloonGame();
+ } else {
+    clearInterval(balloonInterval);
+ }
+ if (scenes[current] && scenes[current].querySelector(".final-orbit")) {
+    if(!fireworksInterval) fireworksInterval = setInterval(()=>confetti(25), 1500);
+ } else {
+    clearInterval(fireworksInterval);
+    fireworksInterval = null;
+ }
+
  },350);
 };
-$("#moon")?.addEventListener("click",()=>{confetti(18);toast("🌙 A shooting star just crossed the sky… ✨");let x=document.createElement("div");x.style.cssText="position:fixed;z-index:210;width:110px;height:2px;background:linear-gradient(90deg,transparent,#fff,#e8ca8a);left:75%;top:17%;transform:rotate(-25deg);box-shadow:0 0 16px #fff;pointer-events:none;";document.body.appendChild(x);x.animate([{transform:"translate(0,0) rotate(-25deg)",opacity:1},{transform:"translate(-65vw,55vh) rotate(-25deg)",opacity:0}],{duration:900,easing:"ease-in"}).onfinish=()=>x.remove()});
+/* ----------------------------------------------- */
 
+$("#moon")?.addEventListener("click",()=>{confetti(18);toast("🌙 A shooting star just crossed the sky… ✨");let x=document.createElement("div");x.style.cssText="position:fixed;z-index:210;width:110px;height:2px;background:linear-gradient(90deg,transparent,#fff,#e8ca8a);left:75%;top:17%;transform:rotate(-25deg);box-shadow:0 0 16px #fff;pointer-events:none;";document.body.appendChild(x);x.animate([{transform:"translate(0,0) rotate(-25deg)",opacity:1},{transform:"translate(-65vw,55vh) rotate(-25deg)",opacity:0}],{duration:900,easing:"ease-in"}).onfinish=()=>x.remove()});
 
 // Extra interactive birthday features
 const choices=$$(".choice"), choiceNext=$("#choiceNext"), choiceResult=$("#choiceResult");
@@ -572,11 +758,11 @@ function openEnvelope(){
 }
 envelope?.addEventListener("click",openEnvelope);
 envelope?.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" ")openEnvelope()});
-envelopeNext?.addEventListener("click",()=>show(17));
-$("#shockNext")?.addEventListener("click",()=>show(15));
-$("#giftsNext")?.addEventListener("click",()=>show(18));
-$("#wishesNext")?.addEventListener("click",()=>show(19));
-$("#messageNext")?.addEventListener("click",()=>show(20));
+envelopeNext?.addEventListener("click",()=>show(18));
+$("#shockNext")?.addEventListener("click",()=>show(16));
+$("#giftsNext")?.addEventListener("click",()=>show(19));
+$("#wishesNext")?.addEventListener("click",()=>show(20));
+$("#messageNext")?.addEventListener("click",()=>show(21)); // Navigate correctly with added scenes
 
 // Extra gift interactions
 $$('[data-gift]').forEach(g=>g.addEventListener('click',()=>{
@@ -612,6 +798,11 @@ show=function(i,force=false){
 };
 
 musicInit();loading();
+requestAnimationFrame(()=>{
+ scenes.forEach((scene,i)=>{
+  if(i===current){scene.style.visibility="visible";scene.style.pointerEvents="auto";}
+ });
+});
 </script>
 
 <script>
@@ -631,7 +822,7 @@ musicInit();loading();
     });
     document.querySelectorAll(".locked").forEach(function(el){
       if (el.id === "poemNext" || el.id === "duaNext" || el.id === "letterNext" ||
-          el.id === "choiceNext" || el.id === "envelopeNext") {
+          el.id === "choiceNext" || el.id === "envelopeNext" || el.id === "balloonNext") {
         el.classList.add("locked");
       }
     });
