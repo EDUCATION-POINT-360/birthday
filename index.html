@@ -1,0 +1,1213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0,
+                   maximum-scale=1.0, user-scalable=no">
+
+    <meta name="theme-color" content="#050505">
+    <meta name="color-scheme" content="dark">
+
+    <title>Private Birthday Access</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html,
+        body {
+            width: 100%;
+            min-height: 100%;
+        }
+
+        body {
+            min-height: 100vh;
+            min-height: 100dvh;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            overflow: hidden;
+
+            font-family:
+                Inter,
+                Poppins,
+                Arial,
+                sans-serif;
+
+            color: #fff;
+            background: #050505;
+        }
+
+        /* =========================================
+           BACKGROUND
+        ========================================= */
+
+        .background {
+            position: fixed;
+            inset: 0;
+            overflow: hidden;
+            z-index: 0;
+
+            background:
+                radial-gradient(
+                    circle at 15% 15%,
+                    rgba(0, 234, 255, .12),
+                    transparent 30%
+                ),
+                radial-gradient(
+                    circle at 85% 85%,
+                    rgba(255, 20, 147, .12),
+                    transparent 30%
+                ),
+                #050505;
+        }
+
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            pointer-events: none;
+            animation: floatOrb 9s ease-in-out infinite alternate;
+        }
+
+        .orb.one {
+            width: 240px;
+            height: 240px;
+
+            left: -100px;
+            top: -90px;
+
+            background: #00eaff;
+            opacity: .18;
+        }
+
+        .orb.two {
+            width: 300px;
+            height: 300px;
+
+            right: -120px;
+            bottom: -120px;
+
+            background: #ff1493;
+            opacity: .18;
+
+            animation-delay: 2s;
+        }
+
+        .orb.three {
+            width: 170px;
+            height: 170px;
+
+            left: 45%;
+            top: 42%;
+
+            background: #7c3cff;
+            opacity: .10;
+
+            animation-delay: 4s;
+        }
+
+        @keyframes floatOrb {
+            from {
+                transform: translate(0, 0) scale(1);
+            }
+
+            to {
+                transform: translate(35px, -25px) scale(1.12);
+            }
+        }
+
+        /* =========================================
+           PARTICLES
+        ========================================= */
+
+        .particles {
+            position: fixed;
+            inset: 0;
+
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .particle {
+            position: absolute;
+
+            width: 2px;
+            height: 2px;
+
+            border-radius: 50%;
+
+            background: rgba(255,255,255,.8);
+
+            box-shadow:
+                0 0 10px rgba(255,255,255,.7);
+
+            animation:
+                particleMove linear infinite;
+        }
+
+        @keyframes particleMove {
+            from {
+                transform: translateY(110vh);
+                opacity: 0;
+            }
+
+            15% {
+                opacity: 1;
+            }
+
+            85% {
+                opacity: 1;
+            }
+
+            to {
+                transform: translateY(-10vh);
+                opacity: 0;
+            }
+        }
+
+        /* =========================================
+           MAIN
+        ========================================= */
+
+        .container {
+            position: relative;
+            z-index: 5;
+
+            width: 100%;
+            max-width: 470px;
+
+            padding: 20px;
+        }
+
+        /* =========================================
+           CARD
+        ========================================= */
+
+        .card {
+            position: relative;
+
+            width: 100%;
+
+            padding:
+                38px
+                28px
+                30px;
+
+            border-radius: 30px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(255,255,255,.09),
+                    rgba(255,255,255,.025)
+                );
+
+            border:
+                1px solid rgba(255,255,255,.12);
+
+            box-shadow:
+                0 30px 90px rgba(0,0,0,.75),
+                inset 0 1px rgba(255,255,255,.08);
+
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+
+            animation:
+                cardEnter .8s ease;
+        }
+
+        @keyframes cardEnter {
+            from {
+                opacity: 0;
+                transform:
+                    translateY(30px)
+                    scale(.95);
+            }
+
+            to {
+                opacity: 1;
+                transform:
+                    translateY(0)
+                    scale(1);
+            }
+        }
+
+        /* =========================================
+           LOCK
+        ========================================= */
+
+        .lock {
+            width: 82px;
+            height: 82px;
+
+            margin:
+                0 auto
+                22px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 50%;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(0,234,255,.15),
+                    rgba(255,20,147,.15)
+                );
+
+            border:
+                1px solid rgba(255,255,255,.12);
+
+            box-shadow:
+                0 0 35px rgba(0,234,255,.12);
+
+            font-size: 34px;
+
+            animation:
+                lockPulse 3s ease-in-out infinite;
+        }
+
+        @keyframes lockPulse {
+            0%,
+            100% {
+                transform: scale(1);
+                box-shadow:
+                    0 0 25px rgba(0,234,255,.10);
+            }
+
+            50% {
+                transform: scale(1.05);
+                box-shadow:
+                    0 0 45px rgba(0,234,255,.20);
+            }
+        }
+
+        /* =========================================
+           TITLE
+        ========================================= */
+
+        .title {
+            text-align: center;
+
+            font-size:
+                clamp(27px, 7vw, 39px);
+
+            font-weight: 800;
+
+            letter-spacing: -1px;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #fff,
+                    #00eaff,
+                    #fff,
+                    #ff4db8,
+                    #fff
+                );
+
+            background-size: 300% auto;
+
+            -webkit-background-clip: text;
+            background-clip: text;
+
+            color: transparent;
+
+            animation:
+                titleGradient 6s linear infinite;
+        }
+
+        @keyframes titleGradient {
+            to {
+                background-position:
+                    300% center;
+            }
+        }
+
+        .subtitle {
+            margin-top: 10px;
+
+            text-align: center;
+
+            color:
+                rgba(255,255,255,.58);
+
+            font-size: 14px;
+
+            line-height: 1.6;
+        }
+
+        /* =========================================
+           INPUT
+        ========================================= */
+
+        .input-wrapper {
+            position: relative;
+
+            margin-top: 28px;
+        }
+
+        .code-input {
+            width: 100%;
+            height: 58px;
+
+            padding:
+                0 55px
+                0 18px;
+
+            border-radius: 17px;
+
+            border:
+                1px solid rgba(255,255,255,.12);
+
+            outline: none;
+
+            background:
+                rgba(0,0,0,.35);
+
+            color: #fff;
+
+            text-align: center;
+
+            font-size: 16px;
+
+            letter-spacing: 2px;
+
+            transition:
+                .25s ease;
+        }
+
+        .code-input::placeholder {
+            color:
+                rgba(255,255,255,.32);
+
+            letter-spacing: 0;
+        }
+
+        .code-input:focus {
+            border-color:
+                rgba(0,234,255,.65);
+
+            box-shadow:
+                0 0 0 4px
+                rgba(0,234,255,.07),
+
+                0 0 30px
+                rgba(0,234,255,.10);
+        }
+
+        /* =========================================
+           SHOW / HIDE
+        ========================================= */
+
+        .toggle {
+            position: absolute;
+
+            right: 13px;
+            top: 50%;
+
+            transform:
+                translateY(-50%);
+
+            width: 38px;
+            height: 38px;
+
+            border: none;
+
+            background:
+                transparent;
+
+            color:
+                rgba(255,255,255,.5);
+
+            cursor: pointer;
+
+            font-size: 17px;
+
+            border-radius: 10px;
+
+            transition:
+                .2s ease;
+        }
+
+        .toggle:hover {
+            color: #00eaff;
+
+            background:
+                rgba(255,255,255,.05);
+        }
+
+        /* =========================================
+           BUTTON
+        ========================================= */
+
+        .unlock-btn {
+            width: 100%;
+            height: 58px;
+
+            margin-top: 15px;
+
+            border: none;
+
+            border-radius: 17px;
+
+            cursor: pointer;
+
+            color: #fff;
+
+            font-size: 15px;
+            font-weight: 700;
+
+            background:
+                linear-gradient(
+                    100deg,
+                    #00bcd4,
+                    #007cff,
+                    #a000ff,
+                    #ff1493
+                );
+
+            background-size: 300% 100%;
+
+            box-shadow:
+                0 12px 35px
+                rgba(0,150,255,.18);
+
+            transition:
+                transform .2s ease,
+                box-shadow .2s ease;
+
+            animation:
+                buttonGradient 5s linear infinite;
+        }
+
+        @keyframes buttonGradient {
+            to {
+                background-position:
+                    300% 0;
+            }
+        }
+
+        .unlock-btn:hover {
+            transform:
+                translateY(-2px);
+
+            box-shadow:
+                0 16px 45px
+                rgba(0,150,255,.28);
+        }
+
+        .unlock-btn:active {
+            transform:
+                scale(.98);
+        }
+
+        .unlock-btn.loading {
+            pointer-events: none;
+            opacity: .7;
+        }
+
+        /* =========================================
+           MESSAGE
+        ========================================= */
+
+        .message {
+            min-height: 22px;
+
+            margin-top: 14px;
+
+            text-align: center;
+
+            font-size: 13px;
+
+            color:
+                rgba(255,255,255,.5);
+
+            transition:
+                .25s ease;
+        }
+
+        .message.error {
+            color: #ff6b8a;
+
+            animation:
+                shake .35s ease;
+        }
+
+        .message.success {
+            color: #5fffe5;
+        }
+
+        @keyframes shake {
+            0%,
+            100% {
+                transform: translateX(0);
+            }
+
+            25% {
+                transform: translateX(-7px);
+            }
+
+            50% {
+                transform: translateX(7px);
+            }
+
+            75% {
+                transform: translateX(-4px);
+            }
+        }
+
+        /* =========================================
+           FOOTER
+        ========================================= */
+
+        .footer {
+            margin-top: 24px;
+
+            text-align: center;
+
+            color:
+                rgba(255,255,255,.3);
+
+            font-size: 11px;
+
+            letter-spacing: .5px;
+        }
+
+        .footer span {
+            color:
+                rgba(0,234,255,.65);
+        }
+
+        /* =========================================
+           SUCCESS SCREEN
+        ========================================= */
+
+        .success-screen {
+            position: fixed;
+            inset: 0;
+
+            z-index: 50;
+
+            display: none;
+
+            align-items: center;
+            justify-content: center;
+
+            background:
+                #050505;
+
+            opacity: 0;
+
+            transition:
+                opacity .45s ease;
+        }
+
+        .success-screen.show {
+            display: flex;
+            opacity: 1;
+        }
+
+        .success-content {
+            text-align: center;
+            padding: 30px;
+        }
+
+        .success-icon {
+            width: 90px;
+            height: 90px;
+
+            margin: 0 auto 22px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 50%;
+
+            border:
+                1px solid rgba(0,255,200,.25);
+
+            background:
+                rgba(0,255,200,.08);
+
+            box-shadow:
+                0 0 50px
+                rgba(0,255,200,.15);
+
+            font-size: 38px;
+        }
+
+        .success-text {
+            font-size: 19px;
+            font-weight: 700;
+        }
+
+        .success-subtext {
+            margin-top: 8px;
+
+            color:
+                rgba(255,255,255,.5);
+
+            font-size: 13px;
+        }
+
+        /* =========================================
+           MOBILE
+        ========================================= */
+
+        @media (max-width: 480px) {
+
+            .container {
+                padding: 16px;
+            }
+
+            .card {
+                padding:
+                    32px
+                    20px
+                    26px;
+
+                border-radius: 26px;
+            }
+
+            .lock {
+                width: 72px;
+                height: 72px;
+                font-size: 30px;
+            }
+
+            .subtitle {
+                font-size: 13px;
+            }
+
+            .code-input,
+            .unlock-btn {
+                height: 56px;
+            }
+        }
+
+        /* =========================================
+           REDUCED MOTION
+        ========================================= */
+
+        @media (prefers-reduced-motion: reduce) {
+
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- =========================================
+         BACKGROUND
+    ========================================== -->
+
+    <div class="background">
+
+        <div class="orb one"></div>
+        <div class="orb two"></div>
+        <div class="orb three"></div>
+
+    </div>
+
+    <div class="particles" id="particles"></div>
+
+
+    <!-- =========================================
+         MAIN ACCESS CARD
+    ========================================== -->
+
+    <main class="container" id="mainContainer">
+
+        <section class="card">
+
+            <div class="lock">
+                🔐
+            </div>
+
+            <h1 class="title">
+                Private Wish
+            </h1>
+
+            <p class="subtitle">
+                Enter your private access code
+                to continue.
+            </p>
+
+
+            <form id="accessForm"
+                  autocomplete="off">
+
+                <div class="input-wrapper">
+
+                    <input
+                        id="codeInput"
+                        class="code-input"
+                        type="password"
+                        placeholder="Enter secret code"
+                        autocomplete="off"
+                        autocapitalize="none"
+                        spellcheck="false"
+                        maxlength="100"
+                        required
+                    >
+
+                    <button
+                        type="button"
+                        class="toggle"
+                        id="togglePassword"
+                        aria-label="Show password">
+
+                        👁
+
+                    </button>
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="unlock-btn"
+                    id="unlockButton">
+
+                    Unlock Your Surprise Page
+
+                </button>
+
+            </form>
+
+
+            <div
+                class="message"
+                id="message"
+                aria-live="polite">
+            </div>
+
+
+            <div class="footer">
+                Private Access •
+                <span>Muhammad Rizwan</span>
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- =========================================
+         SUCCESS SCREEN
+    ========================================== -->
+
+    <div
+        class="success-screen"
+        id="successScreen">
+
+        <div class="success-content">
+
+            <div class="success-icon">
+                ✓
+            </div>
+
+            <div class="success-text">
+                Access Granted
+            </div>
+
+            <div class="success-subtext">
+                Opening your private birthday page...
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <script>
+
+        /* ==================================================
+           CONFIGURATION
+        ================================================== */
+
+        const CONFIG = {
+
+            /* Code 1 */
+            code1: "Rizwan123",
+
+            /* Code 2 */
+            code2: "Wan123",
+
+            /* Page for Code 1 */
+            page1: "birthday1.html",
+
+            /* Page for Code 2 */
+            page2: "birthday2.html",
+
+            /* Redirect delay */
+            redirectDelay: 850
+
+        };
+
+
+        /* ==================================================
+           ELEMENTS
+        ================================================== */
+
+        const form =
+            document.getElementById("accessForm");
+
+        const input =
+            document.getElementById("codeInput");
+
+        const button =
+            document.getElementById("unlockButton");
+
+        const message =
+            document.getElementById("message");
+
+        const toggle =
+            document.getElementById("togglePassword");
+
+        const successScreen =
+            document.getElementById("successScreen");
+
+        const particles =
+            document.getElementById("particles");
+
+
+        /* ==================================================
+           CREATE PARTICLES
+        ================================================== */
+
+        function createParticles() {
+
+            const total = 35;
+
+            for (let i = 0; i < total; i++) {
+
+                const particle =
+                    document.createElement("span");
+
+                particle.className =
+                    "particle";
+
+                particle.style.left =
+                    Math.random() * 100 + "%";
+
+                particle.style.animationDuration =
+                    (5 + Math.random() * 9) + "s";
+
+                particle.style.animationDelay =
+                    (-Math.random() * 10) + "s";
+
+                const size =
+                    1 + Math.random() * 2.5;
+
+                particle.style.width =
+                    size + "px";
+
+                particle.style.height =
+                    size + "px";
+
+                particles.appendChild(particle);
+            }
+        }
+
+        createParticles();
+
+
+        /* ==================================================
+           SHOW / HIDE PASSWORD
+        ================================================== */
+
+        toggle.addEventListener(
+            "click",
+            function () {
+
+                if (input.type === "password") {
+
+                    input.type = "text";
+
+                    toggle.textContent = "🙈";
+
+                    toggle.setAttribute(
+                        "aria-label",
+                        "Hide password"
+                    );
+
+                } else {
+
+                    input.type = "password";
+
+                    toggle.textContent = "👁";
+
+                    toggle.setAttribute(
+                        "aria-label",
+                        "Show password"
+                    );
+                }
+
+                input.focus();
+            }
+        );
+
+
+        /* ==================================================
+           MESSAGE
+        ================================================== */
+
+        function showMessage(
+            text,
+            type = ""
+        ) {
+
+            message.textContent = text;
+
+            message.className =
+                "message " + type;
+        }
+
+
+        /* ==================================================
+           OPEN PAGE
+        ================================================== */
+
+        function openBirthdayPage(page) {
+
+            successScreen.classList.add("show");
+
+            setTimeout(
+                function () {
+
+                    window.location.replace(page);
+
+                },
+                CONFIG.redirectDelay
+            );
+        }
+
+
+        /* ==================================================
+           ACCESS CHECK
+        ================================================== */
+
+        function checkAccess(code) {
+
+            /*
+             * IMPORTANT:
+             *
+             * Code 1 ONLY opens page 1.
+             *
+             * Code 2 ONLY opens page 2.
+             */
+
+            if (code === CONFIG.code1) {
+
+                return CONFIG.page1;
+
+            }
+
+            if (code === CONFIG.code2) {
+
+                return CONFIG.page2;
+
+            }
+
+            return null;
+        }
+
+
+        /* ==================================================
+           FORM SUBMIT
+        ================================================== */
+
+        form.addEventListener(
+            "submit",
+            function (event) {
+
+                event.preventDefault();
+
+                const enteredCode =
+                    input.value.trim();
+
+                if (!enteredCode) {
+
+                    showMessage(
+                        "Please enter your secret code.",
+                        "error"
+                    );
+
+                    input.focus();
+
+                    return;
+                }
+
+
+                const page =
+                    checkAccess(enteredCode);
+
+
+                /* ==========================================
+                   WRONG CODE
+                ========================================== */
+
+                if (!page) {
+
+                    showMessage(
+                        "Incorrect access code.",
+                        "error"
+                    );
+
+                    input.value = "";
+
+                    input.focus();
+
+                    return;
+                }
+
+
+                /* ==========================================
+                   CORRECT CODE
+                ========================================== */
+
+                button.classList.add("loading");
+
+                button.textContent =
+                    "Access Granted...";
+
+                showMessage(
+                    "Opening private birthday page...",
+                    "success"
+                );
+
+                input.disabled = true;
+
+                openBirthdayPage(page);
+            }
+        );
+
+
+        /* ==================================================
+           ENTER KEY
+        ================================================== */
+
+        input.addEventListener(
+            "keydown",
+            function (event) {
+
+                if (event.key === "Enter") {
+
+                    event.preventDefault();
+
+                    form.requestSubmit();
+                }
+            }
+        );
+
+
+        /* ==================================================
+           CLEAR ERROR WHEN USER TYPES
+        ================================================== */
+
+        input.addEventListener(
+            "input",
+            function () {
+
+                if (
+                    message.classList.contains("error")
+                ) {
+
+                    showMessage("");
+                }
+            }
+        );
+
+
+        /* ==================================================
+           PREVENT EASY RIGHT CLICK
+        ================================================== */
+
+        document.addEventListener(
+            "contextmenu",
+            function (event) {
+
+                event.preventDefault();
+
+            }
+        );
+
+
+        /* ==================================================
+           PREVENT COMMON DEVTOOLS SHORTCUTS
+        ================================================== */
+
+        document.addEventListener(
+            "keydown",
+            function (event) {
+
+                if (
+                    event.key === "F12" ||
+                    (
+                        event.ctrlKey &&
+                        event.shiftKey &&
+                        (
+                            event.key === "I" ||
+                            event.key === "J" ||
+                            event.key === "C"
+                        )
+                    ) ||
+                    (
+                        event.ctrlKey &&
+                        event.key === "U"
+                    )
+                ) {
+
+                    event.preventDefault();
+
+                }
+
+            }
+        );
+
+
+        /* ==================================================
+           INITIAL FOCUS
+        ================================================== */
+
+        window.addEventListener(
+            "load",
+            function () {
+
+                setTimeout(
+                    function () {
+
+                        input.focus();
+
+                    },
+                    600
+                );
+
+            }
+        );
+
+    </script>
+
+</body>
+</html>

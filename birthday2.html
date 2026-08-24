@@ -1,0 +1,643 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0b0710">
+<title>For Muntaha ✨</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&family=Noto+Naskh+Arabic:wght@400;500;600;700&family=Noto+Nastaliq+Urdu:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--pink:#dcaab5;--gold:#e8ca8a;--cream:#fff7ec;--ink:#0b0710;--glass:rgba(255,255,255,.075);--line:rgba(255,255,255,.15);--ease:cubic-bezier(.22,1,.36,1)}
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#08060b;color:#fff}
+body{font-family:Poppins,sans-serif;-webkit-tap-highlight-color:transparent}
+button{font:inherit}
+button:focus-visible{outline:2px solid var(--gold);outline-offset:4px}
+#app{position:fixed;inset:0;overflow:hidden}
+.scene{position:absolute;inset:0;width:100%;height:100svh;display:grid;place-items:center;padding:22px;visibility:hidden;opacity:0;transform:scale(1.035);filter:blur(12px);pointer-events:none;transition:opacity .85s var(--ease),transform 1.05s var(--ease),filter 1.05s var(--ease),visibility 0s linear 1.05s}
+.scene.active{visibility:visible;opacity:1;transform:none;filter:none;pointer-events:auto;transition-delay:0s}
+.scene.exit{visibility:visible;opacity:0;transform:scale(.965);filter:blur(12px)}
+.bg,.aurora,.stars,.vignette,.grain{position:absolute;inset:0;pointer-events:none}
+.bg{background:radial-gradient(circle at 15% 15%,rgba(220,170,181,.25),transparent 30%),radial-gradient(circle at 85% 30%,rgba(232,202,138,.16),transparent 27%),linear-gradient(145deg,#100a13,#2b1824 50%,#07060a)}
+.aurora{background:conic-gradient(from 170deg,transparent,rgba(193,157,218,.12),transparent,rgba(101,176,216,.1),transparent);filter:blur(65px);animation:aurora 18s ease-in-out infinite alternate}
+.vignette{background:radial-gradient(circle,transparent 42%,rgba(0,0,0,.5) 100%)}
+.grain{opacity:.035;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.card{position:relative;z-index:5;width:min(930px,100%);max-height:calc(100svh - 42px);overflow:auto;scrollbar-width:none;padding:clamp(1.5rem,5vw,4rem);border:1px solid var(--line);border-radius:32px;background:linear-gradient(135deg,rgba(255,255,255,.11),rgba(255,255,255,.035));backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);box-shadow:0 35px 110px rgba(0,0,0,.42);text-align:center}
+.card::-webkit-scrollbar{display:none}
+.eyebrow{font-size:.66rem;letter-spacing:.24em;text-transform:uppercase;color:rgba(255,255,255,.52)}
+h1,h2,h3{font-family:"Playfair Display",serif;font-weight:500;line-height:.98;margin:.7rem 0}
+h1{font-size:clamp(3.2rem,10vw,8.4rem)}
+h2{font-size:clamp(2.25rem,6.5vw,5.6rem)}
+h3{font-size:clamp(1.45rem,3vw,2.2rem)}
+p{color:rgba(255,255,255,.74);line-height:1.85}
+.actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:1.7rem}
+.btn{border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.075);padding:.88rem 1.25rem;border-radius:999px;color:#fff;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:.5rem;transition:.38s var(--ease);box-shadow:0 12px 35px rgba(0,0,0,.18)}
+.btn:hover{transform:translateY(-3px);background:rgba(255,255,255,.14);box-shadow:0 18px 55px rgba(0,0,0,.28)}
+.btn.gold{border:0;color:#2b1b16;background:linear-gradient(135deg,#e8ca8a,#fff1c8)}
+.btn.pink{border:0;color:#2c1820;background:linear-gradient(135deg,#dcaab5,#f3cbd3)}
+.music{position:fixed;z-index:100;top:17px;right:17px;width:46px;height:46px;border-radius:50%;border:1px solid var(--line);background:rgba(10,7,14,.55);backdrop-filter:blur(15px);color:#fff;cursor:pointer}
+.hidden{display:none!important}
+.progress{height:5px;width:min(360px,75vw);margin:2rem auto 1rem;background:rgba(255,255,255,.1);border-radius:20px;overflow:hidden}.progress i{display:block;width:0;height:100%;background:linear-gradient(90deg,var(--pink),var(--gold));box-shadow:0 0 20px var(--gold)}
+.percent{font-size:.72rem;color:rgba(255,255,255,.48)}
+.error{font:500 clamp(5rem,18vw,11rem)/.8 "Cormorant Garamond";color:transparent;-webkit-text-stroke:1px rgba(255,255,255,.42)}
+.countdown{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin:2rem 0}.time{padding:1rem .3rem;border:1px solid var(--line);border-radius:20px;background:rgba(255,255,255,.05)}.time strong{display:block;font:600 clamp(1.8rem,6vw,4.4rem)/1 "Playfair Display"}.time span{font-size:.56rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.48)}
+.typed{min-height:70px;font:400 clamp(1.25rem,3vw,2rem) "Cormorant Garamond";color:rgba(255,255,255,.82)}
+.urdu{font-family:"Jameel Noori Nastaleeq","Noto Nastaliq Urdu","Noto Naskh Arabic",serif;direction:rtl;font-size:clamp(1.4rem,3.3vw,2.3rem);line-height:1.9;color:#fff8ee}
+.poem{font:400 clamp(1.35rem,3vw,2.1rem)/1.5 "Cormorant Garamond";color:#fff2e8;font-style:italic}
+.letter{background:linear-gradient(135deg,#fffaf0,#efd9c8);color:#38262d;border-radius:22px;padding:clamp(1.4rem,5vw,4rem);transform:rotate(-.6deg);box-shadow:0 30px 90px rgba(0,0,0,.35)}.letter h2{color:#3a2730}.letter p{font:400 clamp(1.05rem,2.4vw,1.45rem)/1.55 "Cormorant Garamond";color:#5b4650}
+.wish-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin:1.7rem 0}.wish{min-height:125px;text-align:left;border:1px solid var(--line);border-radius:22px;background:rgba(255,255,255,.05);color:#fff;padding:1.1rem;cursor:pointer;transition:.4s var(--ease)}.wish:hover,.wish.open{transform:translateY(-6px) rotate(-1deg);background:rgba(220,170,181,.13)}.wish b{display:block;margin-top:1rem;font:500 1.35rem "Cormorant Garamond"}.wish-detail{min-height:50px;font:400 1.3rem "Cormorant Garamond";color:rgba(255,255,255,.74)}
+.gift{width:190px;height:150px;position:relative;margin:1.7rem auto;cursor:pointer;transition:.5s var(--ease)}.gift .box{position:absolute;left:0;bottom:0;width:100%;height:105px;border-radius:8px;background:linear-gradient(135deg,#c98698,#854b63);box-shadow:0 25px 55px rgba(0,0,0,.35)}.gift .lid{position:absolute;z-index:3;left:-7px;top:12px;width:calc(100% + 14px);height:45px;border-radius:8px;background:linear-gradient(135deg,#e2acb7,#9b5970);transition:1s var(--ease)}.gift .ribbon{position:absolute;z-index:4;left:calc(50% - 12px);top:0;width:24px;height:100%;background:linear-gradient(90deg,#f6df9e,#b78a3a,#f8e4ac)}.gift.open .lid{transform:translateY(-78px) rotate(-7deg)}.gift.open{animation:shake .7s}
+.rewards{display:flex;flex-wrap:wrap;justify-content:center;gap:8px}.rewards span{padding:.55rem .8rem;border:1px solid var(--line);border-radius:999px;background:rgba(255,255,255,.06);font-size:.75rem}
+.cake{width:min(320px,78vw);height:240px;position:relative;margin:1.2rem auto;cursor:pointer}.plate{position:absolute;bottom:5px;left:5%;width:90%;height:28px;border-radius:50%;background:linear-gradient(#fff4e7,#c5a69b);box-shadow:0 15px 35px rgba(0,0,0,.35)}.layer{position:absolute;border-radius:16px 16px 12px 12px;box-shadow:inset 0 8px 0 rgba(255,255,255,.14),0 10px 20px rgba(0,0,0,.18)}.l1{bottom:28px;left:10%;width:80%;height:62px;background:#c98591}.l2{bottom:82px;left:14%;width:72%;height:55px;background:#e3b0b5}.l3{bottom:132px;left:19%;width:62%;height:47px;background:#efd0c4}.cream{position:absolute;z-index:2;bottom:120px;left:18%;width:64%;height:15px;border-radius:50%;background:#fff3df}.candle{position:absolute;z-index:4;bottom:175px;width:12px;height:38px;border-radius:5px;background:#fff0d4}.c1{left:34%}.c2{left:48%}.c3{left:62%}.flame{position:absolute;top:-19px;left:1px;width:10px;height:17px;border-radius:50%;background:#ffd36d;box-shadow:0 0 18px #ffd36d;animation:flicker .5s infinite alternate}.blown .flame{opacity:0;transform:scale(.1);transition:.3s}.blown .candle:after{content:"";position:absolute;top:-34px;left:0;width:12px;height:35px;background:radial-gradient(ellipse at 50% 100%,rgba(255,255,255,.55),transparent 60%);animation:smoke 1.8s forwards}
+.firefly{position:absolute;width:4px;height:4px;border-radius:50%;background:#fff1a0;box-shadow:0 0 13px #ffe6a0;animation:fly 5s ease-in-out infinite}
+.confetti{position:fixed;z-index:200;width:7px;height:13px;pointer-events:none;animation:confetti 1.7s cubic-bezier(.15,.75,.3,1) forwards}.butterfly{position:fixed;z-index:210;font-size:1.3rem;pointer-events:none;animation:butterfly 3.6s ease-out forwards}.star-cursor{position:fixed;z-index:220;width:5px;height:5px;border-radius:50%;background:#fff2b0;box-shadow:0 0 12px #ffe29a;pointer-events:none;animation:cursorStar .7s forwards}
+.toast{position:fixed;z-index:300;left:50%;bottom:24px;transform:translate(-50%,20px);opacity:0;padding:.8rem 1.1rem;border:1px solid var(--line);background:rgba(15,10,20,.8);backdrop-filter:blur(15px);border-radius:999px;color:#fff;transition:.4s var(--ease);pointer-events:none}.toast.show{opacity:1;transform:translate(-50%,0)}
+.final-orbit{width:min(300px,65vw);aspect-ratio:1;border:1px solid rgba(232,202,138,.34);border-radius:50%;margin:0 auto 2rem;display:grid;place-items:center;box-shadow:0 0 90px rgba(232,202,138,.1);animation:orbit 5s ease-in-out infinite}.final-orbit span{font:500 clamp(2rem,7vw,4.5rem) "Playfair Display"}
+@keyframes aurora{to{transform:translate3d(4%,2%,0) rotate(9deg)}}@keyframes flicker{to{transform:scale(1.16) rotate(3deg)}}@keyframes smoke{to{transform:translateY(-48px) scale(2);opacity:0}}@keyframes shake{25%{transform:rotate(2deg)}50%{transform:rotate(-3deg)}75%{transform:rotate(2deg)}}@keyframes fly{0%,100%{transform:translate(0,0);opacity:.15}50%{transform:translate(35px,-55px);opacity:1}}@keyframes confetti{0%{transform:translate(0,0) rotate(0);opacity:1}100%{transform:translate(var(--x),var(--y)) rotate(720deg);opacity:0}}@keyframes butterfly{0%{transform:translate(0,0) scale(.4);opacity:0}15%{opacity:1}100%{transform:translate(var(--x),var(--y)) rotate(var(--r)) scale(1);opacity:0}}@keyframes cursorStar{to{transform:translateY(-15px) scale(0);opacity:0}}@keyframes orbit{50%{transform:scale(1.03);box-shadow:0 0 110px rgba(232,202,138,.16)}}
+@media(max-width:650px){.wish-grid{grid-template-columns:1fr}.countdown{gap:5px}.time{border-radius:15px;padding:.8rem .15rem}.time strong{font-size:1.75rem}.card{border-radius:24px;padding:1.4rem;max-height:calc(100svh - 28px)}.music{top:11px;right:11px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}}
+
+.ambient{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.orb{position:absolute;border-radius:50%;filter:blur(2px);opacity:.42;animation:orbFloat 12s ease-in-out infinite}
+.orb.o1{width:180px;height:180px;left:8%;top:16%;background:radial-gradient(circle,#f4c7d0,transparent 70%)}
+.orb.o2{width:260px;height:260px;right:5%;bottom:12%;background:radial-gradient(circle,#e7c98c,transparent 68%);animation-delay:-4s}
+.orb.o3{width:120px;height:120px;left:48%;top:7%;background:radial-gradient(circle,#cdb9e8,transparent 70%);animation-delay:-7s}
+.moon{position:absolute;right:8%;top:9%;width:70px;height:70px;border-radius:50%;background:#fff1ca;box-shadow:0 0 50px rgba(255,236,178,.3);cursor:pointer;opacity:.9}
+.moon:after{content:"";position:absolute;left:21px;top:-3px;width:70px;height:70px;border-radius:50%;background:#17101b}
+.ribbon-hint{font-size:.72rem;letter-spacing:.08em;color:rgba(255,255,255,.52);margin-top:.6rem}
+.type-wrap{min-height:150px;display:grid;place-items:center}
+.type-line{font:400 clamp(1.3rem,3.5vw,2.2rem)/1.65 "Cormorant Garamond";color:#fff4ea;max-width:760px}
+.typing-caret{display:inline-block;width:2px;height:1.05em;background:var(--gold);vertical-align:-.14em;margin-left:4px;animation:blink .8s infinite}
+.locked{opacity:.38;pointer-events:none;transform:none!important}
+@keyframes orbFloat{50%{transform:translate3d(20px,-25px,0) scale(1.08)}}
+@keyframes blink{50%{opacity:0}}
+
+.urdu{font-family:"Jameel Noori Nastaleeq","Noto Nastaliq Urdu","Noto Naskh Arabic",serif!important;direction:rtl;text-align:center;line-height:2.25!important;letter-spacing:0;font-weight:500}
+.urdu-small{font-family:"Jameel Noori Nastaleeq","Noto Nastaliq Urdu",serif;direction:rtl;line-height:2.1;color:rgba(255,248,238,.8)}
+.quote-mark{font:700 5rem/0.4 "Cormorant Garamond";color:var(--gold);opacity:.55}
+.micro-label{font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.4)}
+.pill-row{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin:1.2rem 0}
+.pill{padding:.55rem .85rem;border:1px solid var(--line);border-radius:999px;background:rgba(255,255,255,.045);font-size:.72rem;color:rgba(255,255,255,.76)}
+.story{max-width:740px;margin:auto}
+.story p{margin:.8rem 0}
+.choice-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:1.3rem 0}
+.choice{border:1px solid var(--line);background:rgba(255,255,255,.055);border-radius:20px;color:#fff;padding:1rem;cursor:pointer;transition:.4s var(--ease)}
+.choice:hover{transform:translateY(-5px);background:rgba(255,255,255,.11)}
+.choice.selected{border-color:rgba(232,202,138,.7);box-shadow:0 0 35px rgba(232,202,138,.12)}
+.secret{min-height:50px;color:rgba(255,255,255,.75);font:400 1.35rem "Cormorant Garamond"}
+.envelope{width:220px;height:145px;margin:1.2rem auto;position:relative;cursor:pointer;perspective:700px}
+.env-body{position:absolute;inset:0;border-radius:12px;background:linear-gradient(145deg,#ead1c4,#a66c79);box-shadow:0 20px 55px rgba(0,0,0,.3)}
+.env-flap{position:absolute;z-index:3;left:0;top:0;width:0;height:0;border-left:110px solid transparent;border-right:110px solid transparent;border-top:78px solid #d49aa5;transform-origin:top;transition:1s var(--ease)}
+.envelope.open .env-flap{transform:rotateX(175deg)}
+.env-paper{position:absolute;z-index:2;left:18px;right:18px;top:20px;height:100px;background:#fff5e7;color:#4b3640;border-radius:8px;padding:1rem;font:500 1rem "Cormorant Garamond";transition:1s var(--ease);transform:translateY(15px)}
+.envelope.open .env-paper{transform:translateY(-62px)}
+.secret-code{font:600 1.4rem "Poppins";letter-spacing:.22em;color:var(--gold)}
+.badge{display:inline-flex;align-items:center;gap:.4rem;padding:.45rem .7rem;border-radius:999px;background:rgba(232,202,138,.1);border:1px solid rgba(232,202,138,.25);font-size:.68rem;color:#f1dca9}
+@media(max-width:650px){.choice-grid{grid-template-columns:1fr}.urdu{font-size:1.25rem!important}}
+
+.countdown-live{transition:.6s var(--ease)}
+.birthday-live{animation:birthGlow 2.4s ease-in-out infinite alternate}
+.birthday-live .eyebrow{color:#f4d99b}
+.live-message{font:500 clamp(1.4rem,3.5vw,2.4rem) "Cormorant Garamond";color:#fff1df;margin:1rem auto;max-width:760px}
+.shock{animation:shockIn .9s var(--ease)}
+.big-burst{font-size:clamp(2rem,7vw,5rem);filter:drop-shadow(0 0 25px rgba(232,202,138,.35))}
+.secret-reveal{margin:1rem auto;padding:1rem 1.2rem;border:1px solid rgba(232,202,138,.3);border-radius:18px;background:rgba(232,202,138,.07);max-width:650px}
+@keyframes birthGlow{to{filter:drop-shadow(0 0 28px rgba(232,202,138,.18))}}
+@keyframes shockIn{0%{opacity:0;transform:scale(.82) translateY(20px);filter:blur(12px)}60%{transform:scale(1.04)}100%{opacity:1;transform:none;filter:none}}
+
+/* Final responsive safety layer */
+.scene{overflow:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
+.card{width:min(930px,calc(100vw - 28px));margin:auto}
+img,video,canvas,svg{max-width:100%;height:auto}
+.btn,.choice,.wish{touch-action:manipulation}
+@media(max-width:650px){
+ .scene{padding:12px}
+ .card{width:100%;max-height:calc(100svh - 24px);padding:1.15rem;border-radius:22px}
+ h1{font-size:clamp(2.6rem,15vw,5rem)} h2{font-size:clamp(1.9rem,10vw,3.3rem)}
+ p{font-size:.95rem;line-height:1.7}
+ .actions{gap:8px}.btn{width:100%;min-height:48px;padding:.8rem 1rem}
+ .gift{transform:scale(.82);margin:.6rem auto}.cake{transform:scale(.86);margin:.3rem auto}
+ .envelope{transform:scale(.82);margin:.3rem auto}
+ .wish-grid{gap:8px}.wish{min-height:105px;padding:.9rem}
+ .letter{padding:1.15rem}.pill-row{gap:6px}.pill{font-size:.68rem}
+}
+@media(max-height:600px) and (orientation:landscape){
+ .scene{place-items:start center;padding:10px}.card{max-height:calc(100svh - 20px);padding:1rem}.card h1,.card h2{margin:.35rem 0}.actions{margin-top:.8rem}.countdown{margin:1rem 0}
+}
+
+/* FINAL RESPONSIVE SAFETY LAYER */
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+img, svg, video, canvas { max-width: 100%; height: auto; }
+button, .btn, .choice, .wish { min-height: 44px; }
+.scene { overflow: hidden; }
+.card { overflow-x: hidden; overflow-y: auto; overscroll-behavior: contain; }
+.card > * { max-width: 100%; }
+@media (max-width: 650px) {
+  .scene { padding: 12px; }
+  .card {
+    width: 100%;
+    max-height: calc(100svh - 24px);
+    padding: 1.15rem;
+    border-radius: 22px;
+  }
+  h1 { font-size: clamp(2.65rem, 14vw, 4.8rem); }
+  h2 { font-size: clamp(1.9rem, 10vw, 3.4rem); }
+  h3 { font-size: clamp(1.3rem, 6vw, 2rem); }
+  p { font-size: .95rem; line-height: 1.7; overflow-wrap: anywhere; }
+  .actions { gap: 8px; }
+  .btn { width: min(100%, 320px); padding: .8rem 1rem; }
+  .countdown { grid-template-columns: repeat(4, minmax(0,1fr)); }
+  .time strong { font-size: clamp(1.35rem, 8vw, 2.1rem); }
+  .wish-grid, .choice-grid { grid-template-columns: 1fr; }
+  .gift { transform-origin: center; }
+  .envelope { max-width: 220px; width: 78vw; }
+  .cake { width: min(320px, 82vw); }
+  .urdu { overflow-wrap: anywhere; }
+}
+@media (max-width: 380px) {
+  .card { padding: .95rem; }
+  .eyebrow { font-size: .58rem; letter-spacing: .16em; }
+  .countdown { gap: 4px; }
+  .time { padding: .65rem .1rem; }
+  .time span { font-size: .48rem; }
+  .actions .btn { font-size: .88rem; }
+}
+@media (orientation: landscape) and (max-height: 600px) {
+  .scene { padding: 8px; }
+  .card {
+    max-height: calc(100svh - 16px);
+    padding: 1rem 1.2rem;
+  }
+  h1, h2 { margin: .35rem 0; }
+  p { margin: .5rem 0; line-height: 1.5; }
+  .actions { margin-top: .8rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
+
+
+/* FINAL CLEAN RESPONSIVE */
+@media(max-width:650px){
+  .scene{padding:10px}
+  .card{max-height:calc(100svh - 20px);padding:1rem;border-radius:20px}
+  .actions .btn{max-width:100%;min-width:0}
+  .choice-grid,.wish-grid{grid-template-columns:1fr}
+  .urdu{overflow-wrap:anywhere}
+}
+</style>
+</head>
+<body>
+<div id="app">
+<button id="musicBtn" class="music" aria-label="Music">♫</button>
+
+<!-- 01 -->
+<section class="scene active">
+<div class="bg"></div><div class="aurora"></div><div class="grain"></div><div class="ambient"><i class="orb o1"></i><i class="orb o2"></i><i class="orb o3"></i></div>
+<div class="card"><div class="eyebrow">A tiny secret is being prepared</div><h2>Preparing something special…</h2><div class="progress"><i id="bar"></i></div><div class="percent" id="percent">0%</div></div>
+</section>
+
+<!-- 02 -->
+<section class="scene">
+<div class="bg"></div><div class="grain"></div><div class="ambient"><i class="orb o1"></i><i class="orb o2"></i></div>
+<div class="card"><div class="error">404</div><h2>Your birthday surprise couldn’t be found.</h2><p>Maybe refreshing will help… 🎉</p><div class="actions"><button class="btn gold" id="refresh">↻ Refresh</button></div></div>
+</section>
+
+<!-- 03 -->
+<section class="scene">
+<div class="bg"></div><div class="aurora"></div><div class="stars"></div><div class="moon" id="moon" title="Tap the moon"></div>
+<div class="card"><div class="eyebrow">26 August • Something special is coming</div><h2>Someone special has a birthday coming…</h2>
+<div id="countdownArea" class="countdown countdown-live"><div class="time"><strong id="d">00</strong><span>Days</span></div><div class="time"><strong id="h">00</strong><span>Hours</span></div><div class="time"><strong id="m">00</strong><span>Minutes</span></div><div class="time"><strong id="s">00</strong><span>Seconds</span></div></div>
+<div id="birthdayLive" class="hidden"><div class="big-burst">🎂✨🎉</div><div class="live-message">It’s finally here.<br><strong>Happy Birthday, Muntaha!</strong><br>Today isn’t a countdown anymore. Today is your celebration. ❤️</div></div>
+<p id="countdownCaption">And yes… I made you wait for this part. 👀</p><div class="actions"><button class="btn gold" id="ready">I’m Ready ✨</button></div></div>
+</section>
+
+<!-- 04 -->
+<section class="scene">
+<div class="bg"></div><div class="aurora"></div>
+<div class="card"><div class="eyebrow">Okay… here we go</div><h1 id="happy">🎂 Happy Birthday</h1><h2 id="name">Muntaha</h2><div class="typed" id="revealText"></div><div class="actions"><button class="btn gold" id="revealNext">Continue →</button></div></div>
+</section>
+
+<!-- 05 -->
+<section class="scene">
+<div class="bg"></div><div class="aurora"></div>
+<div class="card"><div class="eyebrow">Important birthday announcement</div><h2>🚨 Very serious information 🚨</h2><p id="funny">Muntaha has officially unlocked another year of being awesome.</p>
+<div class="actions"><button class="btn pink" id="funnyBtn">Click Me 😂</button><button class="btn gold" id="funnyNext">Okay, enough 😂</button></div></div>
+</section>
+
+<!-- 06 -->
+<section class="scene">
+<div class="bg"></div><div class="aurora"></div>
+<div class="card"><div class="eyebrow">A few words from the heart</div><h2>For you 🌸</h2>
+<p class="urdu">دعا ہے کہ تیری ہر صبح مسکراہٹ سے شروع ہو،<br>ہر شام سکون لے کر آئے،<br>اور زندگی کا ہر نیا موڑ<br>تیرے لیے کوئی خوبصورت خوشخبری بن جائے۔</p>
+<div class="actions"><button class="btn gold" id="urduNext">یہ تو بس آغاز ہے ✨</button></div></div>
+</section>
+
+<!-- 07 -->
+<section class="scene">
+<div class="bg" style="background:linear-gradient(145deg,#151021,#463653,#10121d)"></div><div class="aurora"></div>
+<div class="card"><div class="eyebrow">A little poetry for you</div><h2>For the year ahead</h2>
+<div class="type-wrap"><div id="poemType" class="type-line"></div></div>
+<div class="actions"><button class="btn gold locked" id="poemNext">Keep going ✨</button></div></div>
+</section>
+
+<!-- 08 -->
+<section class="scene">
+<div class="bg" style="background:radial-gradient(circle at 50% 35%,#65485a,#18101c 55%,#08070c)"></div>
+<div class="card"><div class="eyebrow">A quiet wish for you</div><h2>ایک چھوٹی سی دعا 🤲</h2>
+<div class="type-wrap"><div id="duaType" class="urdu"></div></div>
+<div class="actions"><button class="btn gold locked" id="duaNext">آمین 🤍</button></div></div>
+</section>
+
+<!-- 09 -->
+<section class="scene">
+<div class="bg"></div><div class="aurora"></div>
+<div class="card"><div class="eyebrow">Pick one little wish</div><h2>Birthday wishes ✨</h2>
+<div class="wish-grid">
+<button class="wish" data-text="May your happiest moments become your favorite memories.">01<b>Beautiful moments</b></button>
+<button class="wish" data-text="May every new adventure give you another reason to smile.">02<b>New adventures</b></button>
+<button class="wish" data-text="May opportunities find you exactly when you need them.">03<b>New beginnings</b></button>
+<button class="wish" data-text="May there always be something wonderful waiting around the corner.">04<b>More magic ahead</b></button>
+</div><div class="wish-detail" id="wishDetail">Tap one ✨</div><div class="actions"><button class="btn gold" id="wishNext">One More Surprise →</button></div></div>
+</section>
+
+<!-- 10 -->
+<section class="scene">
+<div class="bg"></div>
+<div class="card"><div class="letter"><div class="eyebrow">A little note from Muhammad Rizwan</div><h2>Dear Muntaha,</h2>
+<div class="type-wrap"><p id="letterType"></p></div></div>
+<div class="actions"><button class="btn gold locked" id="letterNext">There’s a surprise →</button></div></div>
+</section>
+
+<!-- 11 -->
+<section class="scene">
+<div class="bg"></div><div class="aurora"></div>
+<div class="card"><div class="eyebrow">You found it</div><h2>Open your birthday surprise 🎁</h2><p>Go on. I promise it isn’t another pair of socks. 😂</p>
+<div class="gift" id="gift" tabindex="0"><div class="lid"></div><div class="ribbon"></div><div class="box"></div></div>
+<div class="ribbon-hint" id="giftHint">🎁 Hint: Tap the gift box or press Enter. The ribbon is hiding something…</div>
+<div id="rewards" class="hidden"><h3>🎉 Birthday Rewards Unlocked</h3><div class="rewards"><span>Unlimited wishes</span><span>Extra cake 🍰</span><span>Great memories</span><span>Endless laughter</span><span>Big adventures</span><span>Reasons to smile</span></div></div>
+<div class="actions"><button class="btn gold" id="giftNext" disabled>Next Surprise →</button></div></div>
+</section>
+
+<!-- 12 -->
+<section class="scene">
+<div class="bg" style="background:radial-gradient(circle at 50% 35%,#5a3e4d,#130d18 60%,#07060b)"></div>
+<div class="card"><div class="eyebrow">The most important part</div><h2>Make a birthday wish…</h2><p>🕯️ Tap the candles to make a wish. 🎂 Double-click the cake for fireworks. 🎆</p>
+<div class="cake" id="cake"><div class="plate"></div><div class="layer l1"></div><div class="layer l2"></div><div class="layer l3"></div><div class="cream"></div><div class="candle c1"><i class="flame"></i></div><div class="candle c2"><i class="flame"></i></div><div class="candle c3"><i class="flame"></i></div></div>
+<h3 id="wishDone" class="hidden">✨ May all your wishes come true.</h3><div class="actions"><button class="btn gold hidden" id="cut">🔪 Cut the Cake</button><button class="btn hidden" id="cakeNext">Continue →</button></div></div>
+</section>
+
+<!-- 13 -->
+<section class="scene">
+<div class="bg" style="background:linear-gradient(180deg,#d58e80,#5b4664 42%,#111727 72%,#07090f)"></div><div class="aurora"></div><div id="fireflies"></div>
+<div class="card"><div class="eyebrow">A beautiful chapter begins</div><h2>Every birthday is the beginning of another amazing chapter.</h2><p>May this chapter bring peaceful mornings, exciting adventures, kind people, meaningful moments and countless reasons to smile.</p>
+<div class="secret-reveal" style="display:block;margin-top:1.5rem">
+<div class="micro-label">A little truth, just for Muntaha</div>
+<h3>You’re Dear to Me — In Your Own Special Way</h3>
+<p>Some people become important without needing a complicated name for the relationship. You are one of those people to me.</p>
+
+<p>So on your birthday, I just want to say: stay the same kind, genuine and beautiful person you are. Keep smiling, keep growing, and never forget that your happiness matters.</p>
+<p class="urdu">تم میرے لیے ایک عزیز انسان ہو، اور بس یہی رشتہ اپنی جگہ بہت خوبصورت ہے۔ اللہ تمہیں ہمیشہ خوش رکھے، عزت دے، سکون دے اور زندگی میں بہت سی کامیابیاں عطا فرمائے۔ آمین۔</p>
+</div>
+<div class="actions"><button class="btn gold" id="chapterNext">One Last Thing… ✨</button></div></div>
+</section>
+
+<!-- 14 -->
+<section class="scene">
+<div class="bg"></div><div class="aurora"></div>
+<div class="card"><div class="eyebrow">Wait… one last thing</div><h2>Did you really think that was all? 👀</h2><p id="lastJoke">You have reached the secret level of the birthday website.</p>
+<div class="actions"><button class="btn pink" id="lastBtn">Reveal It 😂</button><button class="btn gold" id="finalBtn">I’m ready ❤️</button></div></div>
+</section>
+
+
+
+<!-- 17 -->
+<section class="scene" id="shockScene">
+<div class="bg" style="background:radial-gradient(circle at 50% 35%,#6d4b58,#1b111b 58%,#050509)"></div><div class="aurora"></div>
+<div class="card shock">
+<div class="eyebrow">Before the final page…</div>
+<div class="big-burst">🎁💌🎂✨</div>
+<h2>One thing I really want you to remember</h2>
+<p class="urdu">تمہاری زندگی کا ہر آنے والا دن، آج سے زیادہ خوبصورت ہو۔<br>تمہیں وہ خوشیاں ملیں جن کی تم نے دعا کی، اور وہ بھی جو تم نے کبھی مانگی ہی نہیں۔</p>
+<p class="poem">And when life gets loud, I hope you always find a quiet little reason to smile.</p>
+<div class="pill-row"><span class="pill">More laughter 😂</span><span class="pill">More peace 🤍</span><span class="pill">More adventures ✈️</span><span class="pill">More dreams ✨</span><span class="pill">More cake 🎂</span></div>
+<div class="actions"><button class="btn gold" id="shockNext">Now, the real ending ❤️</button></div>
+</div></section>
+
+<!-- 15 -->
+<section class="scene">
+<div class="bg"></div><div class="aurora"></div>
+<div class="card">
+<div class="eyebrow">A tiny birthday game</div>
+<h2>Choose a little bit of magic ✨</h2>
+<p>There is no wrong answer. Pick the one that feels most like today.</p>
+<div class="choice-grid">
+<button class="choice" data-choice="🌸 Peace">🌸 A peaceful year</button>
+<button class="choice" data-choice="🚀 Adventure">🚀 A year of adventure</button>
+<button class="choice" data-choice="💫 Everything">💫 A little bit of everything</button>
+</div>
+<div id="choiceResult" class="secret">Your choice is waiting…</div>
+<div class="actions"><button class="btn gold locked" id="choiceNext" disabled>Unlock the next surprise →</button></div>
+</div></section>
+
+<!-- 16 -->
+<section class="scene">
+<div class="bg" style="background:radial-gradient(circle at 50% 30%,#5e4555,#160f19 60%,#07060b)"></div><div class="aurora"></div>
+<div class="card">
+<div class="eyebrow">One more little envelope</div>
+<h2>There is a secret message inside 💌</h2>
+<p>Hint: tap the envelope. The message is shy. 😌</p>
+<div class="envelope" id="envelope" tabindex="0" aria-label="Open secret envelope">
+<div class="env-body"></div><div class="env-paper"><span id="envelopeMessage">For Muntaha: a little reminder from someone who genuinely wishes the best for you. ✨</span></div><div class="env-flap"></div>
+</div>
+<div id="secretReveal" class="secret-reveal hidden">
+<div class="micro-label">A secret just for you</div>
+<p class="urdu">کبھی کبھی کسی عزیز انسان کے لیے الفاظ واقعی کم پڑ جاتے ہیں۔ تم میرے لیے ایک ایسی ہی عزیز شخصیت ہو جس کے لیے دل سے ہمیشہ اچھا سوچتا ہوں۔ نہ کوئی خاص نام ضروری ہے، نہ کسی رشتے کی تعریف؛ بس تمہاری خوشی، عزت اور کامیابی میرے لیے اہم ہے۔ اللہ تمہیں ہمیشہ خوش رکھے، تمہارے راستے آسان کرے اور تمہیں ہر وہ خوشی دے جو تمہارے حق میں بہتر ہو۔ آمین۔ 🤍</p>
+<div id="secretCode" class="secret-code">M • 2 6 • R ✦</div>
+</div>
+<div class="actions"><button class="btn gold locked" id="envelopeNext" disabled>Now, the final surprise ❤️</button></div>
+</div></section>
+
+
+<!-- 17 -->
+<section class="scene">
+<div class="bg" style="background:radial-gradient(circle at 30% 25%,#6c5261,#241523 52%,#08060c)"></div><div class="aurora"></div>
+<div class="card">
+<div class="eyebrow">A small box of good things</div><h2>Three little gifts for you 🎁</h2>
+<p>They are not expensive gifts. They are simply reminders of the good things I wish for you.</p>
+<div class="wish-grid">
+<button class="wish" data-gift="peace"><span class="big-burst">🤍</span><b>A little more peace</b></button>
+<button class="wish" data-gift="success"><span class="big-burst">✨</span><b>A lot of success</b></button>
+<button class="wish" data-gift="smiles"><span class="big-burst">🌸</span><b>Endless reasons to smile</b></button>
+<button class="wish" data-gift="people"><span class="big-burst">🫶</span><b>Good people around you</b></button>
+</div>
+<div id="giftMessage" class="wish-detail">Open any gift ✨</div>
+<div class="actions"><button class="btn gold" id="giftsNext">There’s more →</button></div>
+</div></section>
+
+<!-- 18 -->
+<section class="scene">
+<div class="bg" style="background:linear-gradient(145deg,#17101c,#50374c,#0b0a11)"></div><div class="aurora"></div>
+<div class="card">
+<div class="eyebrow">A tiny collection of wishes</div><h2>Things I genuinely wish for you 🌷</h2>
+<div class="pill-row"><span class="pill">Peace of mind</span><span class="pill">Good health</span><span class="pill">Success</span><span class="pill">Beautiful memories</span><span class="pill">Sincere friendships</span><span class="pill">Confidence</span><span class="pill">New opportunities</span><span class="pill">Lots of laughter</span></div>
+<div class="letter" style="margin-top:1.4rem"><h3>A reminder</h3><p>You never have to prove your worth by becoming someone else. Keep your kindness, protect your peace, and keep moving toward the life you want.</p><p class="urdu">اپنی قدر کسی کے رویّے سے مت ناپنا۔ تم جیسی ہو، اپنی جگہ قیمتی ہو۔ اللہ تمہیں سکون، عزت، کامیابی اور خوشیوں سے نوازے۔ آمین۔</p></div>
+<div class="actions"><button class="btn gold" id="wishesNext">One final message →</button></div>
+</div></section>
+
+<!-- 19 -->
+<section class="scene">
+<div class="bg" style="background:radial-gradient(circle at 50% 25%,#735364,#1a101a 60%,#060509)"></div><div class="aurora"></div>
+<div class="card">
+<div class="eyebrow">No complicated title needed</div><div class="quote-mark">“</div>
+<h2>You’re simply dear to me.</h2>
+
+<p class="urdu" style="margin-top:1.4rem">تم میرے لیے ایک عزیز انسان ہو۔ بس اتنا سا رشتہ بھی کبھی کبھی بہت خوبصورت ہوتا ہے۔ میری دعا ہے کہ تمہاری زندگی ہمیشہ آسانیوں، خوشیوں اور کامیابیوں سے بھری رہے۔</p>
+<div class="actions"><button class="btn gold" id="messageNext">Open the final page ❤️</button></div>
+</div></section>
+
+<!-- 15 -->
+<section class="scene">
+<div class="bg"></div><div class="aurora"></div><div class="grain"></div>
+<div class="card"><div class="final-orbit"><span>26<br>August</span></div><div class="eyebrow">Made especially for</div>
+<h1>Happy Birthday</h1><h2>Muntaha</h2>
+<p>Thank you for being one of those people who are simply dear to the heart.<br>Wishing you happiness, success, good health, peace, and countless wonderful memories in the year ahead.<br><br>You don’t need a special title to be important. Just keep being the person you are, and keep smiling. Have a beautiful birthday, Muntaha! ❤️</p>
+<p class="urdu">اللہ تمہیں ہمیشہ خوش رکھے،<br>تمہاری ہر نیک دعا قبول فرمائے،<br>اور زندگی کے ہر قدم پر آسانیاں عطا فرمائے۔ آمین۔</p>
+<h3>🎉 Have the best birthday ever! 🎉</h3><p>With best wishes,<br><strong>Muhammad Rizwan</strong></p>
+<div class="actions"><button class="btn" id="replay">↻ Replay the Surprise</button></div></div>
+</section>
+
+<section class="scene">
+<div class="bg"></div><div class="aurora"></div>
+<div class="card">
+<div class="eyebrow">A little note for your day</div>
+<h2>Just a few simple wishes 🌷</h2>
+<p>May your days be filled with peace, your efforts bring beautiful results, and your smile always find a reason to return.</p>
+<p class="urdu">اللہ تمہیں سکون، خوشیاں، کامیابی اور زندگی کے ہر موڑ پر آسانیاں عطا فرمائے۔ آمین۔</p>
+<div class="actions"><button class="btn gold" onclick="go()">Keep the surprise going →</button></div>
+</div>
+</section>
+
+</div>
+<div id="toast" class="toast"></div>
+<audio id="music" src="music.mp3" loop preload="metadata"></audio>
+
+<script>
+"use strict";
+const scenes=[...document.querySelectorAll(".scene")],music=document.querySelector("#music");
+let current=0,musicStarted=false,loadingTimer,countdownTimer,holdTimer;
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+
+function toast(t){const x=$("#toast");x.textContent=t;x.classList.add("show");clearTimeout(x.t);x.t=setTimeout(()=>x.classList.remove("show"),2100)}
+function show(i,force=false){
+ if(i<0||i>=scenes.length||(!force&&i===current))return;
+ const old=scenes[current],next=scenes[i];old.classList.remove("active");old.classList.add("exit");
+ setTimeout(()=>old.classList.remove("exit"),1100);current=i;next.classList.add("active");
+}
+function go(){show(current+1)}
+function confetti(n=45){
+ for(let i=0;i<n;i++){let e=document.createElement("i");e.className="confetti";e.style.left=Math.random()*100+"vw";e.style.top=(Math.random()*25-8)+"vh";e.style.setProperty("--x",(Math.random()*160-80)+"vw");e.style.setProperty("--y",(65+Math.random()*45)+"vh");e.style.background=["#dcaab5","#e8ca8a","#fff0c8","#cdb9df","#f3c2a5"][i%5];document.body.appendChild(e);setTimeout(()=>e.remove(),2300)}
+}
+function butterflies(x,y){for(let i=0;i<11;i++){let b=document.createElement("i");b.className="butterfly";b.textContent=i%3?"🦋":"✦";b.style.left=x+"px";b.style.top=y+"px";b.style.setProperty("--x",(Math.random()*360-180)+"px");b.style.setProperty("--y",(-70-Math.random()*280)+"px");b.style.setProperty("--r",(Math.random()*100-50)+"deg");document.body.appendChild(b);setTimeout(()=>b.remove(),4000)}}
+function stars(el,n=45){for(let i=0;i<n;i++){let s=document.createElement("i");s.style.position="absolute";s.style.width="3px";s.style.height="3px";s.style.borderRadius="50%";s.style.left=Math.random()*100+"%";s.style.top=Math.random()*100+"%";s.style.background="#fff5c7";s.style.boxShadow="0 0 12px #ffe9a0";s.style.animation=`twinkle ${1.5+Math.random()*2}s ease-in-out infinite`;el.appendChild(s)}}
+const style=document.createElement("style");style.textContent="@keyframes twinkle{50%{opacity:.15;transform:scale(.5)}}";document.head.appendChild(style);
+
+function musicInit(){
+ $("#musicBtn").onclick=()=>{if(music.paused){music.play().then(()=>{musicStarted=true;$("#musicBtn").textContent="♫"}).catch(()=>{})}else{music.pause();musicStarted=false;$("#musicBtn").textContent="×"}};
+ document.addEventListener("pointerdown",()=>{if(!musicStarted)music.play().then(()=>musicStarted=true).catch(()=>{})},{once:true});
+}
+function loading(){
+ let v=0;clearInterval(loadingTimer);loadingTimer=setInterval(()=>{v++;$("#bar").style.width=v+"%";$("#percent").textContent=v+"%";if(v>=100){clearInterval(loadingTimer);setTimeout(()=>show(1,true),500)}},27)
+}
+function countdown(){
+ const target=new Date("2026-08-26T00:00:00+05:00").getTime();
+ const area=$("#countdownArea"), live=$("#birthdayLive"), cap=$("#countdownCaption");
+ const tick=()=>{
+ const now=Date.now(), z=Math.max(0,target-now);
+ if(now>=target){
+ clearInterval(countdownTimer);
+ area.classList.add("hidden"); live.classList.remove("hidden");
+ cap.textContent="The countdown is over. 🎉 Today is all about Muntaha.";
+ $(".scene.active")?.classList.add("birthday-live");
+ confetti(90);
+ return;
+ }
+ let r=z,d=Math.floor(r/86400000);r%=86400000;
+ let h=Math.floor(r/3600000);r%=3600000;
+ let m=Math.floor(r/60000);let sec=Math.floor(r/1000)%60;
+ $("#d").textContent=String(d).padStart(2,"0");
+ $("#h").textContent=String(h).padStart(2,"0");
+ $("#m").textContent=String(m).padStart(2,"0");
+ $("#s").textContent=String(sec).padStart(2,"0");
+ };
+ tick();clearInterval(countdownTimer);countdownTimer=setInterval(tick,1000);
+}
+function birthdayReveal(){
+ confetti(70);const x=$("#revealText"),lines=["Today is all about celebrating you. 🎂","Wishing you happiness, laughter, and unforgettable memories. ✨","Hope this year brings everything you’ve been hoping for. ❤️"];let i=0;
+ const cycle=()=>{x.animate([{opacity:0,transform:"translateY(12px)"},{opacity:1,transform:"none"}],{duration:550,fill:"forwards"});x.textContent=lines[i++%lines.length]};cycle();let timer=setInterval(()=>current===3?cycle():clearInterval(timer),2300)
+}
+const funnyLines=["Muntaha has officially unlocked another year of being awesome. 😎","Birthday calories do not count today. This is science. 🍰","Your age is classified information. Even Google doesn’t know. 🤫","Congratulations! You are now 365 days more experienced at being amazing. 😂","Breaking news: Muntaha is the main character today. Everyone else may resume normal activities tomorrow. 🚨👑","Official birthday rule #1: smile. Rule #2: eat cake. Rule #3: ignore rule #1 if there is more cake. 😂🎂"];
+let fi=0;$("#funnyBtn").onclick=()=>{$("#funny").textContent=funnyLines[++fi%funnyLines.length];confetti(16)};
+$$(".wish").forEach(w=>w.onclick=()=>{$$(".wish").forEach(x=>x.classList.remove("open"));w.classList.add("open");$("#wishDetail").textContent=w.dataset.text;confetti(10)});
+let opened=false;const gift=$("#gift");function openGift(){if(opened)return;opened=true;gift.classList.add("open");confetti(60);setTimeout(()=>{$("#rewards").classList.remove("hidden");$("#giftNext").disabled=false;$("#giftHint").textContent="✨ You found the surprise! Opened with a little birthday magic.";toast("🎉 Surprise unlocked!")},650)}
+gift.onclick=openGift;gift.onkeydown=e=>{if(e.key==="Enter"||e.key===" ")openGift()};
+
+let blown=false;$("#cake").onclick=()=>{if(blown)return;blown=true;$("#cake").classList.add("blown");$("#wishDone").classList.remove("hidden");$("#cut").classList.remove("hidden");confetti(45);toast("✨ Make that wish!")};
+$("#cake").ondblclick=()=>{confetti(120);toast("🎆 Fireworks!")};
+$("#cut").onclick=()=>{$("#cake").animate([{transform:"rotate(0)"},{transform:"rotate(-3deg)"},{transform:"rotate(3deg)"},{transform:"none"}],{duration:700,easing:"ease-in-out"});confetti(75);$("#cut").disabled=true;$("#cakeNext").classList.remove("hidden");toast("🍰 Cake successfully shared!")};
+
+$("#refresh").onclick=async()=>{confetti(55);await sleep(450);show(2,true);stars($(".stars"),45);countdown();musicInit()};
+$("#ready").onclick=()=>{show(3);birthdayReveal()};
+$("#revealNext").onclick=go;$("#funnyNext").onclick=go;$("#urduNext").onclick=go;$("#poemNext").onclick=go;$("#duaNext").onclick=go;$("#wishNext").onclick=go;$("#letterNext").onclick=go;$("#giftNext").onclick=go;$("#cakeNext").onclick=go;$("#chapterNext").onclick=go;
+$("#lastBtn").onclick=()=>{$("#lastJoke").textContent="Plot twist: there is cake. And yes, you are required to have some. 🍰😂";confetti(35)};
+$("#finalBtn").onclick=()=>{confetti(100);show(14)};
+$("#happy").onclick=()=>confetti(75);
+$("#replay").onclick=()=>{
+ scenes.forEach((s,i)=>s.classList.toggle("active",i===0));
+ scenes.forEach(s=>s.classList.remove("exit","birthday-live"));
+ current=0; loading();
+};
+document.addEventListener("pointermove",e=>{if(matchMedia("(pointer:coarse)").matches)return;let s=document.createElement("i");s.className="star-cursor";s.style.left=e.clientX+"px";s.style.top=e.clientY+"px";document.body.appendChild(s);setTimeout(()=>s.remove(),700)},{passive:true});
+document.addEventListener("pointerdown",e=>{holdTimer=setTimeout(()=>{butterflies(e.clientX,e.clientY);toast("🦋 A little magic escaped!")},3000)});
+document.addEventListener("pointerup",()=>clearTimeout(holdTimer));
+
+const typingJobs = new Map();
+function typeText(el, text, speed=32, onDone=()=>{}){
+ if(!el)return;
+ if(typingJobs.has(el)) clearInterval(typingJobs.get(el));
+ el.innerHTML="";
+ let i=0;
+ const caret=document.createElement("span"); caret.className="typing-caret"; el.appendChild(caret);
+ const timer=setInterval(()=>{
+ if(i<text.length){
+ caret.insertAdjacentText("beforebegin",text[i++]);
+ }else{
+ clearInterval(timer); typingJobs.delete(el); caret.remove(); onDone();
+ }
+ },speed);
+ typingJobs.set(el,timer);
+}
+function unlockAfterTyping(btn){btn.classList.remove("locked");}
+const poemText="May every chapter ahead be softer and brighter, may every dream find its way a little closer, and may every ordinary day hide an extraordinary reason to smile.";
+const duaText="یا اللہ، اس کے آنے والے سال کو خوشیوں، سکون، کامیابی، صحت اور بے شمار خوبصورت لمحات سے بھر دے۔\n\nاس کے دل کی نیک تمناؤں کو پورا فرما، اس کے راستے آسان فرما، اور اسے ہمیشہ اپنی رحمت اور حفاظت میں رکھ۔ آمین۔";
+const letterText="Happy Birthday, Muntaha!\n\nThere are some people who become dear to us simply because of the kind of person they are. You are one of those people.\n\nI’m not calling you my bestie, and I’m not trying to give this bond a romantic name. You’re just genuinely dear to me, and I truly wish good things for you.\n\nMay this new year of your life bring you peaceful days, sincere people, beautiful opportunities, success in whatever you choose, and plenty of moments that make you smile.\n\nKeep being yourself. Keep your heart kind, keep your dreams alive, and always remember that you deserve happiness and respect.\n\nHave a beautiful birthday, Muntaha.\n\nWith sincere good wishes,\nMuhammad Rizwan";
+$("#poemNext").classList.add("locked");
+$("#duaNext").classList.add("locked");
+$("#letterNext").classList.add("locked");
+$("#poemNext").disabled=true; $("#duaNext").disabled=true; $("#letterNext").disabled=true;
+function startGatedText(sceneIndex, el, text, btn, speed, extraClass){
+ if(current!==sceneIndex)return;
+ if(extraClass)el.className=extraClass;
+ btn.disabled=true;btn.classList.add("locked");
+ typeText(el,text,speed,()=>{btn.disabled=false;unlockAfterTyping(btn);confetti(12)});
+}
+const originalShow=show;
+show=function(i,force=false){
+ originalShow(i,force);
+ setTimeout(()=>{
+ if(i===6)startGatedText(6,$("#poemType"),poemText,$("#poemNext"),25,"type-line");
+ if(i===7)startGatedText(7,$("#duaType"),duaText,$("#duaNext"),24,"urdu");
+ if(i===9)startGatedText(9,$("#letterType"),letterText,$("#letterNext"),20,"");
+ },350);
+};
+$("#moon")?.addEventListener("click",()=>{confetti(18);toast("🌙 A shooting star just crossed the sky… ✨");let x=document.createElement("div");x.style.cssText="position:fixed;z-index:210;width:110px;height:2px;background:linear-gradient(90deg,transparent,#fff,#e8ca8a);left:75%;top:17%;transform:rotate(-25deg);box-shadow:0 0 16px #fff;pointer-events:none;";document.body.appendChild(x);x.animate([{transform:"translate(0,0) rotate(-25deg)",opacity:1},{transform:"translate(-65vw,55vh) rotate(-25deg)",opacity:0}],{duration:900,easing:"ease-in"}).onfinish=()=>x.remove()});
+
+
+// Extra interactive birthday features
+const choices=$$(".choice"), choiceNext=$("#choiceNext"), choiceResult=$("#choiceResult");
+choices.forEach(c=>c.addEventListener("click",()=>{
+ choices.forEach(x=>x.classList.remove("selected")); c.classList.add("selected");
+ choiceResult.textContent=c.dataset.choice==="🌸 Peace"?
+ "Then may your days feel calm, kind and beautifully peaceful. 🌸":
+ c.dataset.choice==="🚀 Adventure"?
+ "Then may the next chapter be full of stories worth remembering. 🚀":
+ "Then may life give you peace, adventure, laughter and a little harmless chaos. 💫";
+ choiceNext.disabled=false;choiceNext.classList.remove("locked");confetti(16);
+}));
+choiceNext?.addEventListener("click",go);
+
+const envelope=$("#envelope"), envelopeNext=$("#envelopeNext");
+function openEnvelope(){
+ if(envelope.classList.contains("open"))return;
+ envelope.classList.add("open");
+ $("#secretReveal").classList.remove("hidden");
+ $("#envelopeMessage").textContent="You opened it. So here is the part I couldn’t fit into the envelope… ❤️";
+ envelopeNext.disabled=false;
+ envelopeNext.classList.remove("locked");
+ confetti(35);
+ toast("💌 Secret message unlocked");
+}
+envelope?.addEventListener("click",openEnvelope);
+envelope?.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" ")openEnvelope()});
+envelopeNext?.addEventListener("click",()=>show(17));
+$("#shockNext")?.addEventListener("click",()=>show(15));
+$("#giftsNext")?.addEventListener("click",()=>show(18));
+$("#wishesNext")?.addEventListener("click",()=>show(19));
+$("#messageNext")?.addEventListener("click",()=>show(20));
+
+// Extra gift interactions
+$$('[data-gift]').forEach(g=>g.addEventListener('click',()=>{
+ const messages={
+ peace:'May you have calm mornings, peaceful nights, and a heart that feels lighter. 🤍',
+ success:'May your hard work open doors you never expected and take you exactly where you want to go. ✨',
+ smiles:'May life keep giving you little reasons to smile, even on ordinary days. 🌸',
+ people:'May sincere, respectful and kind people always find their way into your life. 🫶'
+ };
+ $('#giftMessage').textContent=messages[g.dataset.gift]||'A little happiness, just for you. ✨';
+ $$('.wish').forEach(x=>x.classList.remove('open'));
+ g.classList.add('open'); confetti(12);
+}));
+
+// Extra ambient particles on every transition
+const oldShow2=show;
+show=function(i,force=false){
+ oldShow2(i,force);
+ setTimeout(()=>{
+ if(current===i){
+ const scene=scenes[i];
+ for(let n=0;n<7;n++){
+ const dot=document.createElement("i");
+ dot.className="firefly";
+ dot.style.left=(8+Math.random()*84)+"%";
+ dot.style.top=(12+Math.random()*72)+"%";
+ dot.style.animationDelay=(-Math.random()*5)+"s";
+ scene.appendChild(dot);
+ setTimeout(()=>dot.remove(),9000);
+ }
+ }
+ },180);
+};
+
+musicInit();loading();
+</script>
+
+<script>
+/* FINAL RESET GUARD */
+(function(){
+  const replay = document.getElementById("replay");
+  if (!replay) return;
+  replay.addEventListener("click", function(){
+    document.querySelectorAll(".hidden").forEach(function(el){
+      if (el.id === "birthdayLive" || el.id === "rewards" || el.id === "wishDone" ||
+          el.id === "cut" || el.id === "cakeNext" || el.id === "secretReveal") {
+        el.classList.add("hidden");
+      }
+    });
+    document.querySelectorAll(".open,.selected").forEach(function(el){
+      el.classList.remove("open","selected");
+    });
+    document.querySelectorAll(".locked").forEach(function(el){
+      if (el.id === "poemNext" || el.id === "duaNext" || el.id === "letterNext" ||
+          el.id === "choiceNext" || el.id === "envelopeNext") {
+        el.classList.add("locked");
+      }
+    });
+  }, {once:false});
+})();
+</script>
+
+</body>
+</html>
