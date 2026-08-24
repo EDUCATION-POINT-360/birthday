@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
 <meta charset="utf-8"/>
@@ -227,8 +226,48 @@ body{
 #duaType { line-height: 2.05; }
 #poemType { line-height: 1.85; }
 
-</style>
-<link as="audio" href="music1.mp3" rel="preload"/><meta content="#070916" name="theme-color"/><style>
+/* BALLOON CSS ADDED HERE */
+.balloon {
+  position: fixed;
+  bottom: -150px;
+  width: 45px;
+  height: 55px;
+  border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
+  box-shadow: inset -5px -5px 0 rgba(0,0,0,0.15);
+  animation: floatUp 8s ease-in forwards;
+  z-index: 150;
+  pointer-events: none;
+  opacity: 0;
+}
+.balloon::before {
+  content: "";
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-bottom: 8px solid inherit;
+  background: inherit;
+  filter: brightness(0.8);
+}
+.balloon::after {
+  content: "";
+  position: absolute;
+  bottom: -45px;
+  left: 50%;
+  width: 1px;
+  height: 45px;
+  background: rgba(255,255,255,0.4);
+}
+@keyframes floatUp {
+  0% { transform: translate3d(0, 0, 0) scale(0.8) rotate(0deg); opacity: 0; }
+  10% { opacity: 0.9; }
+  100% { transform: translate3d(0, -120vh, 0) scale(1.1) rotate(25deg); opacity: 0; }
+}
+
 /* FINAL RESPONSIVE CONTENT SAFETY */
 .scene{overflow:hidden}
 .scene .card{max-height:calc(100vh - 42px);overflow:auto;scrollbar-width:none}
@@ -413,7 +452,7 @@ h1,h2,h3{hyphens:none}
 }
 
 /* Prevent accidental horizontal overflow from animated/generated elements */
-.confetti,.butterfly,.star-cursor{max-width:none!important}
+.confetti,.butterfly,.star-cursor,.balloon{max-width:none!important}
 
 </style></head>
 <body>
@@ -620,11 +659,6 @@ h1,h2,h3{hyphens:none}
 </div>
 <div class="actions"><button class="btn gold locked" disabled="" id="envelopeNext">Now, the final surprise ❤️</button></div>
 </div></section>
-<!-- 18 -->
-<!-- 19 -->
-<!-- BESTIE EXTRA -->
-<!-- BESTIE PROMISE -->
-<!-- 17 -->
 <!-- 15 -->
 <section class="scene">
 <div class="bg"></div><div class="aurora"></div><div class="grain"></div>
@@ -655,14 +689,50 @@ function go(){show(current+1)}
 function confetti(n=45){
  for(let i=0;i<n;i++){let e=document.createElement("i");e.className="confetti";e.style.left=Math.random()*100+"vw";e.style.top=(Math.random()*25-8)+"vh";e.style.setProperty("--x",(Math.random()*160-80)+"vw");e.style.setProperty("--y",(65+Math.random()*45)+"vh");e.style.background=["#dcaab5","#e8ca8a","#fff0c8","#cdb9df","#f3c2a5"][i%5];document.body.appendChild(e);setTimeout(()=>e.remove(),2300)}
 }
+function releaseBalloons(n=12) {
+ const colors = ["#ff8fb8", "#71d9ff", "#9c7cff", "#e8ca8a", "#dcaab5"];
+ for(let i=0; i<n; i++){
+   let b = document.createElement("div");
+   b.className = "balloon";
+   b.style.left = (Math.random() * 90 + 5) + "vw";
+   b.style.background = colors[Math.floor(Math.random() * colors.length)];
+   b.style.animationDuration = (6 + Math.random() * 4) + "s";
+   b.style.animationDelay = (Math.random() * 1.5) + "s";
+   document.body.appendChild(b);
+   setTimeout(() => b.remove(), 10000);
+ }
+}
+function party(confettiCount=60, balloonCount=10) {
+  confetti(confettiCount);
+  releaseBalloons(balloonCount);
+}
+
 function butterflies(x,y){for(let i=0;i<11;i++){let b=document.createElement("i");b.className="butterfly";b.textContent=i%3?"🦋":"✦";b.style.left=x+"px";b.style.top=y+"px";b.style.setProperty("--x",(Math.random()*360-180)+"px");b.style.setProperty("--y",(-70-Math.random()*280)+"px");b.style.setProperty("--r",(Math.random()*100-50)+"deg");document.body.appendChild(b);setTimeout(()=>b.remove(),4000)}}
 function stars(el,n=45){for(let i=0;i<n;i++){let s=document.createElement("i");s.style.position="absolute";s.style.width="3px";s.style.height="3px";s.style.borderRadius="50%";s.style.left=Math.random()*100+"%";s.style.top=Math.random()*100+"%";s.style.background="#fff5c7";s.style.boxShadow="0 0 12px #ffe9a0";s.style.animation=`twinkle ${1.5+Math.random()*2}s ease-in-out infinite`;el.appendChild(s)}}
 const style=document.createElement("style");style.textContent="@keyframes twinkle{50%{opacity:.15;transform:scale(.5)}}";document.head.appendChild(style);
 
 function musicInit(){
- $("#musicBtn").onclick=()=>{if(music.paused){music.play().then(()=>{musicStarted=true;$("#musicBtn").textContent="♫"}).catch(()=>{})}else{music.pause();musicStarted=false;$("#musicBtn").textContent="×"}};
- document.addEventListener("pointerdown",()=>{if(!musicStarted)music.play().then(()=>musicStarted=true).catch(()=>{})},{once:true});
+ const playGlobalAudio = () => {
+    if (!musicStarted && music.paused) {
+        music.play().then(() => {
+            musicStarted = true;
+            $("#musicBtn").textContent = "♫";
+        }).catch(()=>{});
+    }
+ };
+ 
+ $("#musicBtn").onclick=(e)=>{
+    e.stopPropagation();
+    if(music.paused){music.play().then(()=>{musicStarted=true;$("#musicBtn").textContent="♫"}).catch(()=>{})}
+    else{music.pause();musicStarted=false;$("#musicBtn").textContent="×"}
+ };
+ 
+ // Global interaction triggers for audio (1 click anywhere)
+ ['click', 'touchstart', 'keydown'].forEach(evt => {
+    document.addEventListener(evt, playGlobalAudio, { once: true });
+ });
 }
+
 function loading(){
  let v=0;
  clearInterval(loadingTimer);
@@ -688,7 +758,7 @@ function countdown(){
      area?.classList.add("hidden");
      live?.classList.remove("hidden");
      if(cap) cap.textContent="🎂 The countdown is over. Welcome to your birthday, Malaika. 💜";
-     confetti(100);
+     party(100, 20); // Confetti + Balloons
      return;
    }
    let r=target-now;
@@ -705,28 +775,28 @@ function countdown(){
  countdownTimer=setInterval(tick,1000);
 }
 function birthdayReveal(){
- confetti(70);const x=$("#revealText"),lines=["Malaika, today deserves to feel a little different. 🎂","May this new chapter bring peaceful mornings, brave decisions, genuine laughter, and moments you never want to forget. ✨","You deserve a year that feels lighter, kinder, brighter, and completely your own. 💜","And yes, bestie privilege means unlimited cake and zero serious conversations today. 😂🍰"];let i=0;
+ party(70, 5);const x=$("#revealText"),lines=["Malaika, today deserves to feel a little different. 🎂","May this new chapter bring peaceful mornings, brave decisions, genuine laughter, and moments you never want to forget. ✨","You deserve a year that feels lighter, kinder, brighter, and completely your own. 💜","And yes, bestie privilege means unlimited cake and zero serious conversations today. 😂🍰"];let i=0;
  const cycle=()=>{x.animate([{opacity:0,transform:"translateY(12px)"},{opacity:1,transform:"none"}],{duration:550,fill:"forwards"});x.textContent=lines[i++%lines.length]};cycle();let timer=setInterval(()=>current===3?cycle():clearInterval(timer),2300)
 }
 const funnyLines=["Malaika has officially unlocked another year of being awesome. 😎","Birthday calories do not count today. This is science. 🍰","Your age is classified information. Even Google doesn’t know. 🤫","Congratulations! You are now 365 days more experienced at being amazing. 😂","Breaking news: Malaika is the main character today. Everyone else may resume normal activities tomorrow. 🚨👑","Official birthday rule #1: smile. Rule #2: eat cake. Rule #3: ignore rule #1 if there is more cake. 😂🎂"];
 let fi=0;$("#funnyBtn").onclick=()=>{$("#funny").textContent=funnyLines[++fi%funnyLines.length];confetti(16)};
 $$(".wish").forEach(w=>w.onclick=()=>{$$(".wish").forEach(x=>x.classList.remove("open"));w.classList.add("open");$("#wishDetail").textContent=w.dataset.text;confetti(10)});
-let opened=false;const gift=$("#gift");function openGift(){if(opened)return;opened=true;gift.classList.add("open");confetti(60);setTimeout(()=>{$("#rewards").classList.remove("hidden");$("#giftNext").disabled=false;$("#giftHint").textContent="✨ You found the surprise! Opened with a little birthday magic.";toast("🎉 Surprise unlocked!")},650)}
+let opened=false;const gift=$("#gift");function openGift(){if(opened)return;opened=true;gift.classList.add("open");party(60, 15);setTimeout(()=>{$("#rewards").classList.remove("hidden");$("#giftNext").disabled=false;$("#giftHint").textContent="✨ You found the surprise! Opened with a little birthday magic.";toast("🎉 Surprise unlocked!")},650)}
 gift.onclick=openGift;gift.onkeydown=e=>{if(e.key==="Enter"||e.key===" ")openGift()};
 
-let blown=false;$("#cake").onclick=()=>{if(blown)return;blown=true;$("#cake").classList.add("blown");$("#wishDone").classList.remove("hidden");$("#cut").classList.remove("hidden");confetti(45);toast("✨ Make that wish!")};
+let blown=false;$("#cake").onclick=()=>{if(blown)return;blown=true;$("#cake").classList.add("blown");$("#wishDone").classList.remove("hidden");$("#cut").classList.remove("hidden");party(45, 10);toast("✨ Make that wish!")};
 $("#cake").ondblclick=()=>{confetti(120);toast("🎆 Fireworks!")};
-$("#cut").onclick=()=>{$("#cake").animate([{transform:"rotate(0)"},{transform:"rotate(-3deg)"},{transform:"rotate(3deg)"},{transform:"none"}],{duration:700,easing:"ease-in-out"});confetti(75);$("#cut").disabled=true;$("#cakeNext").classList.remove("hidden");toast("🍰 Cake successfully shared!")};
+$("#cut").onclick=()=>{$("#cake").animate([{transform:"rotate(0)"},{transform:"rotate(-3deg)"},{transform:"rotate(3deg)"},{transform:"none"}],{duration:700,easing:"ease-in-out"});party(75, 15);$("#cut").disabled=true;$("#cakeNext").classList.remove("hidden");toast("🍰 Cake successfully shared!")};
 
 $("#refresh").onclick=async()=>{confetti(55);await sleep(450);show(2,true);stars($(".stars"),45);countdown();musicInit()};
 $("#ready").onclick=()=>{startJourneyUI();show(3);birthdayReveal();petals(16)};
 $("#revealNext").onclick=go;$("#funnyNext").onclick=go;$("#urduNext").onclick=go;$("#poemNext").onclick=go;$("#duaNext").onclick=go;$("#wishNext").onclick=go;$("#letterNext").onclick=go;$("#giftNext").onclick=go;$("#cakeNext").onclick=go;$("#chapterNext").onclick=go;
 $("#lastBtn").onclick=()=>{$("#lastJoke").textContent="Plot twist: there is cake. And yes, you are required to have some. 🍰😂";confetti(35)};
-$("#finalBtn").onclick=()=>{confetti(100);show(14)};
+$("#finalBtn").onclick=()=>{party(100, 25);show(14)};
 const happyHeading=$("#happy"); if(happyHeading) happyHeading.onclick=()=>confetti(75);
 $("#replay").onclick=()=>{scenes.forEach((s,i)=>s.classList.toggle("active",i===0));scenes.forEach(s=>s.classList.remove("exit"));current=0;loading()};
 document.addEventListener("pointermove",e=>{if(matchMedia("(pointer:coarse)").matches)return;let s=document.createElement("i");s.className="star-cursor";s.style.left=e.clientX+"px";s.style.top=e.clientY+"px";document.body.appendChild(s);setTimeout(()=>s.remove(),700)},{passive:true});
-document.addEventListener("pointerdown",e=>{holdTimer=setTimeout(()=>{butterflies(e.clientX,e.clientY);toast("🦋 A little magic escaped!")},3000)});
+document.addEventListener("pointerdown",e=>{if(e.target.closest('button') || e.target.closest('.gift') || e.target.closest('.cake'))return;holdTimer=setTimeout(()=>{butterflies(e.clientX,e.clientY);toast("🦋 A little magic escaped!")},3000)});
 document.addEventListener("pointerup",()=>clearTimeout(holdTimer));
 
 const typingJobs = new Map();
@@ -793,13 +863,11 @@ function openEnvelope(){
  $("#envelopeMessage").textContent="You opened it. So here is the part I couldn’t fit into the envelope… ❤️";
  envelopeNext.disabled=false;
  envelopeNext.classList.remove("locked");
- confetti(35);
+ party(35, 5);
  toast("💌 Secret message unlocked");
 }
 envelope?.addEventListener("click",openEnvelope);
 envelope?.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" ")openEnvelope()});
-
-
 
 
 // Extra ambient particles on every transition
@@ -823,7 +891,7 @@ show=function(i,force=false){
 };
 
 
-// Cinematic pacing: the journey is deliberately slower so a 3–4 minute song can breathe.
+// Cinematic pacing
 const journeyStartedAt=Date.now();
 const MIN_JOURNEY_MS=0;
 let pacingTimer=null;
@@ -871,25 +939,13 @@ vaultGifts.forEach((g,index)=>{
         vaultNext.textContent="All four opened • Continue →";
       }
       if(miniReveal) miniReveal.innerHTML+="<br><span>💜 You found every surprise. The next chapter is ready.</span>";
-      confetti(70);
+      party(70, 8);
     }
   });
 });
 
 
-// Keep Continue unavailable until the minimum cinematic journey has elapsed.
-const originalFinalBtn=$("#finalBtn")?.onclick;
-$("#finalBtn")?.addEventListener("click",(ev)=>{
- const elapsed=Date.now()-journeyStartedAt;
- if(false){ev.preventDefault();return}
-});
-document.addEventListener("click",e=>{
- if(e.target.matches(".btn.gold") && e.target.textContent.includes("real ending") && Date.now()-journeyStartedAt<MIN_JOURNEY_MS){
-   e.preventDefault();toast("🎬 Let the music finish its little story first…");
- }
-});
-
-
+// Final safety & button event routing
 function showNextSceneFromButton(btn){
   const all=[...document.querySelectorAll(".scene")];
   const currentScene=btn.closest(".scene");
@@ -903,12 +959,10 @@ $("#deepNext")?.addEventListener("click",()=>showNextSceneFromButton($("#deepNex
 $("#shockNext")?.addEventListener("click",()=>showNextSceneFromButton($("#shockNext")));
 $("#envelopeNext")?.addEventListener("click",()=>showNextSceneFromButton($("#envelopeNext")));
 
-
 vaultGifts?.forEach(g=>{
  g.setAttribute("tabindex","0");
  g.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" ") {e.preventDefault();g.click();}});
 });
-
 
 const bestieNext=$("#bestieNext"), promiseNext=$("#promiseNext");
 function nextFrom(btn){
@@ -920,11 +974,9 @@ bestieNext?.addEventListener("click",()=>nextFrom(bestieNext));
 promiseNext?.addEventListener("click",()=>nextFrom(promiseNext));
 
 document.addEventListener("dblclick",e=>{
- if(e.target.closest(".malaika-orbit")){confetti(60);toast("🪽 Bestie energy unlocked ✨")}
+ if(e.target.closest(".malaika-orbit")){party(60, 5);toast("🪽 Bestie energy unlocked ✨")}
 });
 
-
-// Startup safety: never let an optional interaction stop the loading screen.
 window.addEventListener("error", e=>{
   const bar=$("#bar"), pct=$("#percent");
   if(bar && pct && pct.textContent==="0%"){
