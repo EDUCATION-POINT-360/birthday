@@ -1,1213 +1,3072 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0,
-                   maximum-scale=1.0, user-scalable=no">
-
-    <meta name="theme-color" content="#050505">
-    <meta name="color-scheme" content="dark">
-
-    <title>Private Birthday Access</title>
-
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        html,
-        body {
-            width: 100%;
-            min-height: 100%;
-        }
-
-        body {
-            min-height: 100vh;
-            min-height: 100dvh;
-
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            overflow: hidden;
-
-            font-family:
-                Inter,
-                Poppins,
-                Arial,
-                sans-serif;
-
-            color: #fff;
-            background: #050505;
-        }
-
-        /* =========================================
-           BACKGROUND
-        ========================================= */
-
-        .background {
-            position: fixed;
-            inset: 0;
-            overflow: hidden;
-            z-index: 0;
-
-            background:
-                radial-gradient(
-                    circle at 15% 15%,
-                    rgba(0, 234, 255, .12),
-                    transparent 30%
-                ),
-                radial-gradient(
-                    circle at 85% 85%,
-                    rgba(255, 20, 147, .12),
-                    transparent 30%
-                ),
-                #050505;
-        }
-
-        .orb {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(80px);
-            pointer-events: none;
-            animation: floatOrb 9s ease-in-out infinite alternate;
-        }
-
-        .orb.one {
-            width: 240px;
-            height: 240px;
-
-            left: -100px;
-            top: -90px;
-
-            background: #00eaff;
-            opacity: .18;
-        }
-
-        .orb.two {
-            width: 300px;
-            height: 300px;
-
-            right: -120px;
-            bottom: -120px;
-
-            background: #ff1493;
-            opacity: .18;
-
-            animation-delay: 2s;
-        }
-
-        .orb.three {
-            width: 170px;
-            height: 170px;
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="theme-color" content="#09030a">
+
+<title>Malaika Bestuuu — I'm Sorry ❤️</title>
+
+<!-- Lucide Icons -->
+<script src="https://unpkg.com/lucide@latest"></script>
+
+<style>
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400&family=Pacifico&family=Playfair+Display:ital,wght@0,500;0,600;1,500;1,600&family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    background:#070207;
+    color:#fff;
+    font-family:Poppins,sans-serif;
+    overflow-x:hidden;
+}
+
+/* =========================
+   BACKGROUND
+========================= */
+
+body:before{
+    content:"";
+    position:fixed;
+    inset:0;
+    z-index:-10;
+    pointer-events:none;
+
+    background:
+        radial-gradient(
+            circle at 15% 15%,
+            rgba(255,40,115,.14),
+            transparent 28%
+        ),
+        radial-gradient(
+            circle at 85% 80%,
+            rgba(150,40,255,.12),
+            transparent 30%
+        );
+}
 
-            left: 45%;
-            top: 42%;
+.noise{
+    position:fixed;
+    inset:0;
+    z-index:9990;
+    pointer-events:none;
+    opacity:.035;
 
-            background: #7c3cff;
-            opacity: .10;
+    background-image:
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E");
+}
+
+
+/* =========================
+   LOADER
+========================= */
+
+.loader{
+    position:fixed;
+    inset:0;
+    background:#070207;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+
+    z-index:99999;
+
+    transition:
+        opacity 1s,
+        visibility 1s;
+}
+
+.loader.hide{
+    opacity:0;
+    visibility:hidden;
+}
+
+.loader-heart{
+    font-size:70px;
+    animation:pulse 1s infinite;
+
+    filter:
+    drop-shadow(0 0 15px #ff3d7f)
+    drop-shadow(0 0 40px #ff3d7f);
+}
 
-            animation-delay: 4s;
-        }
+.loader small{
+    margin-top:20px;
+    color:#a98794;
+    font-size:10px;
+    letter-spacing:4px;
+}
 
-        @keyframes floatOrb {
-            from {
-                transform: translate(0, 0) scale(1);
-            }
 
-            to {
-                transform: translate(35px, -25px) scale(1.12);
-            }
-        }
+/* =========================
+   MUSIC
+========================= */
 
-        /* =========================================
-           PARTICLES
-        ========================================= */
+audio{
+    display:none;
+}
 
-        .particles {
-            position: fixed;
-            inset: 0;
+.music-pill{
 
-            pointer-events: none;
-            z-index: 1;
-        }
+    position:fixed;
 
-        .particle {
-            position: absolute;
+    right:18px;
+    bottom:18px;
 
-            width: 2px;
-            height: 2px;
+    width:52px;
+    height:52px;
 
-            border-radius: 50%;
+    border-radius:50%;
 
-            background: rgba(255,255,255,.8);
+    background:
+        rgba(255,255,255,.06);
 
-            box-shadow:
-                0 0 10px rgba(255,255,255,.7);
+    border:
+        1px solid
+        rgba(255,120,160,.25);
 
-            animation:
-                particleMove linear infinite;
-        }
+    backdrop-filter:blur(20px);
 
-        @keyframes particleMove {
-            from {
-                transform: translateY(110vh);
-                opacity: 0;
-            }
+    display:flex;
+    align-items:center;
+    justify-content:center;
 
-            15% {
-                opacity: 1;
-            }
+    z-index:5000;
 
-            85% {
-                opacity: 1;
-            }
+    cursor:pointer;
 
-            to {
-                transform: translateY(-10vh);
-                opacity: 0;
-            }
-        }
+    transition:.3s;
+}
 
-        /* =========================================
-           MAIN
-        ========================================= */
+.music-pill:hover{
+    transform:scale(1.08);
+}
 
-        .container {
-            position: relative;
-            z-index: 5;
+.music-pill.playing{
+    box-shadow:
+        0 0 25px
+        rgba(255,50,130,.45);
+}
 
-            width: 100%;
-            max-width: 470px;
+.music-wave{
+    position:absolute;
+    bottom:7px;
+    display:flex;
+    gap:2px;
+}
 
-            padding: 20px;
-        }
+.music-wave span{
+    width:2px;
+    height:4px;
+    background:#ff6b9c;
+    animation:wave .6s infinite alternate;
+}
 
-        /* =========================================
-           CARD
-        ========================================= */
-
-        .card {
-            position: relative;
-
-            width: 100%;
-
-            padding:
-                38px
-                28px
-                30px;
+.music-wave span:nth-child(2){
+    animation-delay:.15s;
+}
 
-            border-radius: 30px;
+.music-wave span:nth-child(3){
+    animation-delay:.3s;
+}
 
-            background:
-                linear-gradient(
-                    145deg,
-                    rgba(255,255,255,.09),
-                    rgba(255,255,255,.025)
-                );
+@keyframes wave{
+    to{
+        height:9px;
+    }
+}
 
-            border:
-                1px solid rgba(255,255,255,.12);
 
-            box-shadow:
-                0 30px 90px rgba(0,0,0,.75),
-                inset 0 1px rgba(255,255,255,.08);
+/* =========================
+   NAV
+========================= */
 
-            backdrop-filter: blur(25px);
-            -webkit-backdrop-filter: blur(25px);
+nav{
 
-            animation:
-                cardEnter .8s ease;
-        }
+    position:fixed;
 
-        @keyframes cardEnter {
-            from {
-                opacity: 0;
-                transform:
-                    translateY(30px)
-                    scale(.95);
-            }
+    top:18px;
+    left:50%;
 
-            to {
-                opacity: 1;
-                transform:
-                    translateY(0)
-                    scale(1);
-            }
-        }
+    transform:translateX(-50%);
 
-        /* =========================================
-           LOCK
-        ========================================= */
+    width:min(94%,1000px);
 
-        .lock {
-            width: 82px;
-            height: 82px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
 
-            margin:
-                0 auto
-                22px;
+    padding:12px 18px;
 
-            display: flex;
-            align-items: center;
-            justify-content: center;
+    border:
+        1px solid
+        rgba(255,255,255,.09);
 
-            border-radius: 50%;
+    border-radius:100px;
 
-            background:
-                linear-gradient(
-                    135deg,
-                    rgba(0,234,255,.15),
-                    rgba(255,20,147,.15)
-                );
+    background:
+        rgba(15,4,11,.62);
 
-            border:
-                1px solid rgba(255,255,255,.12);
+    backdrop-filter:blur(20px);
 
-            box-shadow:
-                0 0 35px rgba(0,234,255,.12);
+    z-index:4000;
+}
 
-            font-size: 34px;
+.logo{
+    font-family:Pacifico,cursive;
+    color:#ff729f;
+    font-size:19px;
+}
 
-            animation:
-                lockPulse 3s ease-in-out infinite;
-        }
+nav a{
+    color:#fff;
+    text-decoration:none;
+    font-size:11px;
+    margin:0 8px;
+    opacity:.65;
+    transition:.3s;
+}
 
-        @keyframes lockPulse {
-            0%,
-            100% {
-                transform: scale(1);
-                box-shadow:
-                    0 0 25px rgba(0,234,255,.10);
-            }
+nav a:hover{
+    color:#ff6a9a;
+    opacity:1;
+}
 
-            50% {
-                transform: scale(1.05);
-                box-shadow:
-                    0 0 45px rgba(0,234,255,.20);
-            }
-        }
 
-        /* =========================================
-           TITLE
-        ========================================= */
+/* =========================
+   HERO
+========================= */
 
-        .title {
-            text-align: center;
+.hero{
 
-            font-size:
-                clamp(27px, 7vw, 39px);
+    min-height:100vh;
 
-            font-weight: 800;
+    display:flex;
+    justify-content:center;
+    align-items:center;
 
-            letter-spacing: -1px;
+    text-align:center;
 
-            background:
-                linear-gradient(
-                    90deg,
-                    #fff,
-                    #00eaff,
-                    #fff,
-                    #ff4db8,
-                    #fff
-                );
+    position:relative;
 
-            background-size: 300% auto;
+    overflow:hidden;
 
-            -webkit-background-clip: text;
-            background-clip: text;
+    padding:
+        120px 20px 80px;
+}
 
-            color: transparent;
+.hero-orb{
+    position:absolute;
 
-            animation:
-                titleGradient 6s linear infinite;
-        }
+    width:500px;
+    height:500px;
 
-        @keyframes titleGradient {
-            to {
-                background-position:
-                    300% center;
-            }
-        }
+    border-radius:50%;
 
-        .subtitle {
-            margin-top: 10px;
+    background:#ff216d;
 
-            text-align: center;
+    filter:blur(150px);
 
-            color:
-                rgba(255,255,255,.58);
+    opacity:.13;
 
-            font-size: 14px;
+    animation:
+        orb 10s
+        ease-in-out
+        infinite alternate;
+}
 
-            line-height: 1.6;
-        }
+@keyframes orb{
 
-        /* =========================================
-           INPUT
-        ========================================= */
+    from{
+        transform:
+            translate(-180px,-100px)
+            scale(.9);
+    }
 
-        .input-wrapper {
-            position: relative;
+    to{
+        transform:
+            translate(180px,100px)
+            scale(1.2);
+    }
+}
 
-            margin-top: 28px;
-        }
+.hero-content{
+    max-width:950px;
+    position:relative;
+    z-index:2;
+}
 
-        .code-input {
-            width: 100%;
-            height: 58px;
+.eyebrow{
 
-            padding:
-                0 55px
-                0 18px;
+    color:#ff729e;
 
-            border-radius: 17px;
+    font-size:10px;
 
-            border:
-                1px solid rgba(255,255,255,.12);
+    letter-spacing:6px;
 
-            outline: none;
+    margin-bottom:25px;
+}
 
-            background:
-                rgba(0,0,0,.35);
+.hero h1{
 
-            color: #fff;
+    font-size:
+        clamp(55px,10vw,120px);
 
-            text-align: center;
+    line-height:.88;
 
-            font-size: 16px;
+    letter-spacing:-6px;
 
-            letter-spacing: 2px;
+    font-weight:800;
+}
 
-            transition:
-                .25s ease;
-        }
+.hero h1 span{
 
-        .code-input::placeholder {
-            color:
-                rgba(255,255,255,.32);
+    display:block;
 
-            letter-spacing: 0;
-        }
+    font-family:
+        Playfair Display,serif;
 
-        .code-input:focus {
-            border-color:
-                rgba(0,234,255,.65);
+    font-weight:500;
 
-            box-shadow:
-                0 0 0 4px
-                rgba(0,234,255,.07),
+    font-style:italic;
 
-                0 0 30px
-                rgba(0,234,255,.10);
-        }
+    color:#ff6798;
 
-        /* =========================================
-           SHOW / HIDE
-        ========================================= */
+    margin-top:14px;
 
-        .toggle {
-            position: absolute;
+    text-shadow:
+        0 0 50px
+        rgba(255,60,130,.25);
+}
 
-            right: 13px;
-            top: 50%;
+.hero-description{
 
-            transform:
-                translateY(-50%);
+    max-width:680px;
 
-            width: 38px;
-            height: 38px;
+    margin:
+        35px auto;
 
-            border: none;
+    color:#bbaab2;
 
-            background:
-                transparent;
+    line-height:2;
 
-            color:
-                rgba(255,255,255,.5);
+    font-size:14px;
+}
 
-            cursor: pointer;
+.buttons{
 
-            font-size: 17px;
+    display:flex;
 
-            border-radius: 10px;
+    justify-content:center;
 
-            transition:
-                .2s ease;
-        }
+    flex-wrap:wrap;
 
-        .toggle:hover {
-            color: #00eaff;
+    gap:12px;
+}
 
-            background:
-                rgba(255,255,255,.05);
-        }
+.btn{
 
-        /* =========================================
-           BUTTON
-        ========================================= */
+    border:0;
 
-        .unlock-btn {
-            width: 100%;
-            height: 58px;
+    border-radius:100px;
 
-            margin-top: 15px;
+    padding:
+        14px 24px;
 
-            border: none;
+    font-family:Poppins;
 
-            border-radius: 17px;
+    font-weight:600;
 
-            cursor: pointer;
+    cursor:pointer;
 
-            color: #fff;
+    transition:.3s;
+}
 
-            font-size: 15px;
-            font-weight: 700;
+.btn:hover{
 
-            background:
-                linear-gradient(
-                    100deg,
-                    #00bcd4,
-                    #007cff,
-                    #a000ff,
-                    #ff1493
-                );
+    transform:
+        translateY(-4px)
+        scale(1.02);
+}
 
-            background-size: 300% 100%;
+.btn-main{
 
-            box-shadow:
-                0 12px 35px
-                rgba(0,150,255,.18);
+    color:#fff;
 
-            transition:
-                transform .2s ease,
-                box-shadow .2s ease;
+    background:
+        linear-gradient(
+            135deg,
+            #ff397e,
+            #a82cff
+        );
 
-            animation:
-                buttonGradient 5s linear infinite;
-        }
+    box-shadow:
+        0 12px 40px
+        rgba(255,40,120,.25);
+}
 
-        @keyframes buttonGradient {
-            to {
-                background-position:
-                    300% 0;
-            }
-        }
+.btn-ghost{
 
-        .unlock-btn:hover {
-            transform:
-                translateY(-2px);
+    color:#fff;
 
-            box-shadow:
-                0 16px 45px
-                rgba(0,150,255,.28);
-        }
+    background:
+        rgba(255,255,255,.05);
 
-        .unlock-btn:active {
-            transform:
-                scale(.98);
-        }
+    border:
+        1px solid
+        rgba(255,255,255,.12);
+}
 
-        .unlock-btn.loading {
-            pointer-events: none;
-            opacity: .7;
-        }
 
-        /* =========================================
-           MESSAGE
-        ========================================= */
+/* =========================
+   GENERAL
+========================= */
 
-        .message {
-            min-height: 22px;
+section{
+    padding:
+        120px 7%;
+    position:relative;
+}
 
-            margin-top: 14px;
+.section-head{
+    text-align:center;
+    max-width:700px;
+    margin:0 auto 60px;
+}
 
-            text-align: center;
+.section-head small{
 
-            font-size: 13px;
+    color:#ff6d9b;
 
-            color:
-                rgba(255,255,255,.5);
+    letter-spacing:4px;
 
-            transition:
-                .25s ease;
-        }
+    font-size:10px;
+}
 
-        .message.error {
-            color: #ff6b8a;
+.section-head h2{
 
-            animation:
-                shake .35s ease;
-        }
+    font-family:
+        Playfair Display,serif;
 
-        .message.success {
-            color: #5fffe5;
-        }
+    font-size:
+        clamp(35px,6vw,65px);
 
-        @keyframes shake {
-            0%,
-            100% {
-                transform: translateX(0);
-            }
+    margin-top:12px;
+}
 
-            25% {
-                transform: translateX(-7px);
-            }
+.section-head p{
 
-            50% {
-                transform: translateX(7px);
-            }
+    color:#96868e;
 
-            75% {
-                transform: translateX(-4px);
-            }
-        }
+    margin-top:15px;
 
-        /* =========================================
-           FOOTER
-        ========================================= */
+    line-height:1.9;
 
-        .footer {
-            margin-top: 24px;
+    font-size:13px;
+}
 
-            text-align: center;
 
-            color:
-                rgba(255,255,255,.3);
+/* =========================
+   MORNING + AGAIN
+========================= */
 
-            font-size: 11px;
+.two-moments{
 
-            letter-spacing: .5px;
-        }
+    max-width:1050px;
 
-        .footer span {
-            color:
-                rgba(0,234,255,.65);
-        }
+    margin:auto;
 
-        /* =========================================
-           SUCCESS SCREEN
-        ========================================= */
+    display:grid;
 
-        .success-screen {
-            position: fixed;
-            inset: 0;
+    grid-template-columns:
+        1fr 1fr;
 
-            z-index: 50;
+    gap:20px;
+}
 
-            display: none;
+.moment{
 
-            align-items: center;
-            justify-content: center;
+    padding:35px;
 
-            background:
-                #050505;
+    border-radius:30px;
 
-            opacity: 0;
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.07),
+            rgba(255,255,255,.025)
+        );
 
-            transition:
-                opacity .45s ease;
-        }
+    border:
+        1px solid
+        rgba(255,255,255,.08);
 
-        .success-screen.show {
-            display: flex;
-            opacity: 1;
-        }
+    transition:.5s;
 
-        .success-content {
-            text-align: center;
-            padding: 30px;
-        }
+    position:relative;
 
-        .success-icon {
-            width: 90px;
-            height: 90px;
+    overflow:hidden;
+}
 
-            margin: 0 auto 22px;
+.moment:after{
 
-            display: flex;
-            align-items: center;
-            justify-content: center;
+    content:"";
 
-            border-radius: 50%;
+    position:absolute;
 
-            border:
-                1px solid rgba(0,255,200,.25);
+    width:150px;
+    height:150px;
 
-            background:
-                rgba(0,255,200,.08);
+    border-radius:50%;
 
-            box-shadow:
-                0 0 50px
-                rgba(0,255,200,.15);
+    background:#ff3d7d;
 
-            font-size: 38px;
-        }
+    filter:blur(80px);
 
-        .success-text {
-            font-size: 19px;
-            font-weight: 700;
-        }
+    opacity:.08;
 
-        .success-subtext {
-            margin-top: 8px;
+    right:-50px;
+    bottom:-50px;
+}
 
-            color:
-                rgba(255,255,255,.5);
+.moment:hover{
 
-            font-size: 13px;
-        }
+    transform:
+        translateY(-8px);
 
-        /* =========================================
-           MOBILE
-        ========================================= */
+    border-color:
+        rgba(255,90,140,.3);
+}
 
-        @media (max-width: 480px) {
+.icon-circle{
 
-            .container {
-                padding: 16px;
-            }
+    width:52px;
+    height:52px;
 
-            .card {
-                padding:
-                    32px
-                    20px
-                    26px;
+    border-radius:18px;
 
-                border-radius: 26px;
-            }
+    display:flex;
+    align-items:center;
+    justify-content:center;
 
-            .lock {
-                width: 72px;
-                height: 72px;
-                font-size: 30px;
-            }
+    background:
+        rgba(255,75,135,.1);
 
-            .subtitle {
-                font-size: 13px;
-            }
+    color:#ff709d;
 
-            .code-input,
-            .unlock-btn {
-                height: 56px;
-            }
-        }
+    margin-bottom:22px;
+}
 
-        /* =========================================
-           REDUCED MOTION
-        ========================================= */
+.moment h3{
+    font-size:22px;
+    margin-bottom:12px;
+}
 
-        @media (prefers-reduced-motion: reduce) {
+.moment p{
 
-            *,
-            *::before,
-            *::after {
-                animation-duration: 0.01ms !important;
-                animation-iteration-count: 1 !important;
-                transition-duration: 0.01ms !important;
-            }
-        }
-    </style>
+    color:#a6959d;
+
+    line-height:1.9;
+
+    font-size:13px;
+}
+
+
+/* =========================
+   STORY TIMELINE
+========================= */
+
+.timeline{
+
+    max-width:900px;
+
+    margin:auto;
+
+    position:relative;
+}
+
+.timeline:before{
+
+    content:"";
+
+    position:absolute;
+
+    left:50%;
+
+    top:0;
+    bottom:0;
+
+    width:1px;
+
+    background:
+        linear-gradient(
+            transparent,
+            #ff4e89,
+            transparent
+        );
+
+    opacity:.35;
+}
+
+.timeline-item{
+
+    width:50%;
+
+    padding:
+        0 35px 55px;
+
+    position:relative;
+}
+
+.timeline-item:nth-child(even){
+
+    margin-left:50%;
+}
+
+.timeline-dot{
+
+    position:absolute;
+
+    width:13px;
+    height:13px;
+
+    border-radius:50%;
+
+    background:#ff5d93;
+
+    top:4px;
+
+    box-shadow:
+        0 0 20px
+        rgba(255,70,130,.7);
+}
+
+.timeline-item:nth-child(odd)
+.timeline-dot{
+
+    right:-6px;
+}
+
+.timeline-item:nth-child(even)
+.timeline-dot{
+
+    left:-6px;
+}
+
+.timeline-card{
+
+    padding:28px;
+
+    border-radius:25px;
+
+    background:
+        rgba(255,255,255,.04);
+
+    border:
+        1px solid
+        rgba(255,255,255,.08);
+}
+
+.timeline-card span{
+
+    font-family:
+        "DM Mono",monospace;
+
+    color:#ff6c9b;
+
+    font-size:10px;
+
+    letter-spacing:2px;
+}
+
+.timeline-card h3{
+
+    margin:
+        10px 0;
+
+    font-size:20px;
+}
+
+.timeline-card p{
+
+    color:#9f8d96;
+
+    line-height:1.8;
+
+    font-size:13px;
+}
+
+
+/* =========================
+   SKETCH
+========================= */
+
+.sketch-wrap{
+
+    max-width:900px;
+
+    margin:auto;
+
+    perspective:1000px;
+}
+
+.paper{
+
+    min-height:500px;
+
+    padding:
+        55px 45px;
+
+    border-radius:10px;
+
+    position:relative;
+
+    color:#211419;
+
+    background:#f5ebe2;
+
+    box-shadow:
+        0 35px 100px
+        rgba(0,0,0,.4);
+
+    transform:
+        rotate(-1deg);
+
+    overflow:hidden;
+}
+
+.paper:before{
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    background:
+        repeating-linear-gradient(
+            transparent 0 31px,
+            rgba(50,30,25,.09) 32px
+        );
+}
+
+.tape{
+
+    position:absolute;
+
+    width:130px;
+    height:35px;
+
+    background:
+        rgba(218,188,164,.65);
+
+    top:18px;
+
+    left:50%;
+
+    transform:
+        translateX(-50%)
+        rotate(-2deg);
+}
+
+.sketch-heart{
+
+    text-align:center;
+
+    font-size:85px;
+
+    opacity:.65;
+
+    filter:grayscale(1);
+
+    animation:
+        heartbeat 2s infinite;
+}
+
+.handwriting{
+
+    position:relative;
+
+    z-index:2;
+
+    text-align:center;
+
+    font-family:
+        "Comic Sans MS",
+        cursive;
+
+    font-size:
+        clamp(21px,4vw,34px);
+
+    line-height:1.65;
+}
+
+.handwriting strong{
+    color:#b12858;
+}
+
+.signature{
+
+    margin-top:35px;
+
+    font-family:
+        Pacifico,cursive;
+
+    color:#9d2e50;
+}
+
+
+/* =========================
+   SHAYARI
+========================= */
+
+.shayari-container{
+
+    max-width:900px;
+
+    margin:auto;
+
+    position:relative;
+}
+
+.quote-mark{
+
+    position:absolute;
+
+    font-family:
+        Playfair Display,serif;
+
+    font-size:150px;
+
+    color:#ff4c88;
+
+    opacity:.08;
+
+    top:-65px;
+
+    left:15px;
+}
+
+.shayari{
+
+    padding:
+        70px 35px;
+
+    border-radius:35px;
+
+    text-align:center;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(255,60,130,.1),
+            transparent 60%
+        ),
+        rgba(255,255,255,.03);
+
+    border:
+        1px solid
+        rgba(255,255,255,.08);
+
+    font-family:
+        Playfair Display,serif;
+
+    font-size:
+        clamp(23px,4vw,38px);
+
+    line-height:1.8;
+
+    font-style:italic;
+
+    color:#f4dce5;
+}
+
+.shayari em{
+    color:#ff709d;
+}
+
+
+/* =========================
+   PROMISES
+========================= */
+
+.promise-grid{
+
+    max-width:1050px;
+
+    margin:auto;
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap:18px;
+}
+
+.promise{
+
+    padding:32px;
+
+    border-radius:27px;
+
+    background:
+        rgba(255,255,255,.035);
+
+    border:
+        1px solid
+        rgba(255,255,255,.08);
+
+    transition:.4s;
+}
+
+.promise:hover{
+
+    transform:
+        translateY(-7px);
+
+    border-color:
+        rgba(255,90,145,.35);
+}
+
+.promise-icon{
+
+    color:#ff6798;
+
+    margin-bottom:20px;
+}
+
+.promise h3{
+
+    font-size:17px;
+
+    margin-bottom:10px;
+}
+
+.promise p{
+
+    color:#97868e;
+
+    font-size:12px;
+
+    line-height:1.8;
+}
+
+
+/* =========================
+   SECRET
+========================= */
+
+.secret-box{
+
+    max-width:850px;
+
+    margin:auto;
+
+    text-align:center;
+
+    padding:55px 30px;
+
+    border-radius:35px;
+
+    background:
+        rgba(255,255,255,.035);
+
+    border:
+        1px solid
+        rgba(255,255,255,.08);
+}
+
+.secret-content{
+
+    max-height:0;
+
+    overflow:hidden;
+
+    transition:
+        max-height 1.2s ease;
+
+    color:#b6a5ad;
+
+    line-height:2;
+
+    font-size:14px;
+}
+
+.secret-box.open
+.secret-content{
+
+    max-height:500px;
+
+    margin-top:30px;
+}
+
+.secret-icon{
+
+    width:65px;
+    height:65px;
+
+    margin:auto;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border-radius:22px;
+
+    background:
+        rgba(255,75,135,.1);
+
+    color:#ff719d;
+}
+
+
+/* =========================
+   FORGIVE
+========================= */
+
+.forgive{
+
+    min-height:90vh;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    text-align:center;
+}
+
+.forgive-content{
+
+    max-width:800px;
+}
+
+.forgive-content h2{
+
+    font-family:
+        Playfair Display,serif;
+
+    font-size:
+        clamp(45px,8vw,90px);
+
+    line-height:1;
+}
+
+.forgive-content h2 span{
+
+    display:block;
+
+    color:#ff6598;
+
+    font-style:italic;
+
+    margin-top:10px;
+}
+
+.forgive-content p{
+
+    max-width:600px;
+
+    margin:25px auto;
+
+    color:#a3929a;
+
+    line-height:1.9;
+
+    font-size:13px;
+}
+
+.choice{
+
+    width:320px;
+
+    height:80px;
+
+    margin:35px auto;
+
+    position:relative;
+}
+
+.choice button{
+
+    border:0;
+
+    padding:
+        14px 25px;
+
+    border-radius:100px;
+
+    font-family:Poppins;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    position:absolute;
+
+    transition:.2s;
+}
+
+.yes{
+
+    left:10px;
+
+    color:#fff;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ff3d80,
+            #b62dff
+        );
+}
+
+.no{
+
+    right:10px;
+
+    background:#fff;
+
+    color:#222;
+}
+
+
+/* =========================
+   FINAL
+========================= */
+
+.final{
+
+    position:fixed;
+
+    inset:0;
+
+    z-index:9000;
+
+    display:none;
+
+    align-items:center;
+
+    justify-content:center;
+
+    text-align:center;
+
+    padding:25px;
+
+    background:
+        rgba(5,1,6,.97);
+}
+
+.final.show{
+
+    display:flex;
+
+    animation:
+        finalIn .8s ease;
+}
+
+@keyframes finalIn{
+
+    from{
+        opacity:0;
+        transform:scale(1.05);
+    }
+
+    to{
+        opacity:1;
+        transform:scale(1);
+    }
+}
+
+.final-inner{
+    max-width:750px;
+}
+
+.final-heart{
+
+    font-size:90px;
+
+    animation:
+        heartbeat 1s infinite;
+
+    filter:
+        drop-shadow(
+            0 0 30px
+            rgba(255,50,120,.6)
+        );
+}
+
+.final h2{
+
+    font-family:
+        Playfair Display,serif;
+
+    font-size:
+        clamp(40px,7vw,75px);
+
+    margin:20px 0;
+}
+
+.final p{
+
+    color:#c2b1b9;
+
+    line-height:2;
+
+    font-size:14px;
+}
+
+.final strong{
+    color:#ff709d;
+}
+
+
+/* =========================
+   FOOTER
+========================= */
+
+footer{
+
+    text-align:center;
+
+    padding:50px 20px;
+
+    color:#66545d;
+
+    font-size:10px;
+
+    letter-spacing:1px;
+}
+
+footer span{
+    color:#ff5f92;
+}
+
+
+/* =========================
+   FLOATING HEART
+========================= */
+
+.float-heart{
+
+    position:fixed;
+
+    bottom:-40px;
+
+    z-index:1;
+
+    pointer-events:none;
+
+    animation:
+        float 7s linear forwards;
+
+    opacity:.7;
+}
+
+@keyframes float{
+
+    to{
+
+        transform:
+            translateY(-115vh)
+            rotate(360deg);
+
+        opacity:0;
+    }
+}
+
+
+/* =========================
+   PARTICLES
+========================= */
+
+.particle{
+
+    position:fixed;
+
+    width:3px;
+    height:3px;
+
+    background:#fff;
+
+    border-radius:50%;
+
+    pointer-events:none;
+
+    opacity:.35;
+
+    animation:
+        particle 12s linear infinite;
+}
+
+@keyframes particle{
+
+    from{
+        transform:
+            translateY(100vh);
+    }
+
+    to{
+        transform:
+            translateY(-10vh);
+    }
+}
+
+
+/* =========================
+   REVEAL
+========================= */
+
+.reveal{
+
+    opacity:0;
+
+    transform:
+        translateY(35px);
+
+    transition:
+        1s ease;
+}
+
+.reveal.visible{
+
+    opacity:1;
+
+    transform:
+        translateY(0);
+}
+
+
+/* =========================
+   ANIMATIONS
+========================= */
+
+@keyframes pulse{
+
+    50%{
+        transform:scale(1.22);
+    }
+}
+
+@keyframes heartbeat{
+
+    0%,100%{
+        transform:scale(1);
+    }
+
+    15%{
+        transform:scale(1.2);
+    }
+
+    30%{
+        transform:scale(1);
+    }
+
+    45%{
+        transform:scale(1.12);
+    }
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:750px){
+
+    nav .links{
+        display:none;
+    }
+
+    nav{
+        width:94%;
+    }
+
+    .hero h1{
+        letter-spacing:-3px;
+    }
+
+    section{
+        padding:
+            85px 5%;
+    }
+
+    .two-moments{
+        grid-template-columns:1fr;
+    }
+
+    .timeline:before{
+        left:8px;
+    }
+
+    .timeline-item,
+    .timeline-item:nth-child(even){
+
+        width:100%;
+
+        margin-left:0;
+
+        padding:
+            0 0 40px 35px;
+    }
+
+    .timeline-item:nth-child(odd)
+    .timeline-dot,
+    .timeline-item:nth-child(even)
+    .timeline-dot{
+
+        left:2px;
+        right:auto;
+    }
+
+    .promise-grid{
+        grid-template-columns:1fr;
+    }
+
+    .paper{
+        padding:
+            45px 20px;
+    }
+
+}
+
+</style>
 </head>
+
 
 <body>
 
-    <!-- =========================================
-         BACKGROUND
-    ========================================== -->
+<div class="noise"></div>
 
-    <div class="background">
 
-        <div class="orb one"></div>
-        <div class="orb two"></div>
-        <div class="orb three"></div>
+<!-- =========================
+     LOADER
+========================= -->
+
+<div class="loader" id="loader">
+
+    <div class="loader-heart">
+        ❤️
+    </div>
+
+    <small>
+        THIS ONE IS FOR BESTUUU...
+    </small>
+
+</div>
+
+
+<!-- =========================
+     MUSIC
+========================= -->
+
+<audio
+    id="music"
+    src="music.mp3"
+    loop
+    preload="auto">
+</audio>
+
+
+<div
+    class="music-pill"
+    id="musicPill"
+    title="Music">
+
+    <i data-lucide="music-2"></i>
+
+    <div class="music-wave">
+
+        <span></span>
+        <span></span>
+        <span></span>
 
     </div>
 
-    <div class="particles" id="particles"></div>
+</div>
 
 
-    <!-- =========================================
-         MAIN ACCESS CARD
-    ========================================== -->
+<!-- =========================
+     NAV
+========================= -->
 
-    <main class="container" id="mainContainer">
+<nav>
 
-        <section class="card">
+    <div class="logo">
+        Malaika ♡
+    </div>
 
-            <div class="lock">
-                🔐
+    <div class="links">
+
+        <a href="#story">Story</a>
+        <a href="#sketch">Sorry</a>
+        <a href="#shayari">Shayari</a>
+        <a href="#promise">Promise</a>
+        <a href="#forgive">Forgive</a>
+
+    </div>
+
+</nav>
+
+
+<!-- =========================
+     HERO
+========================= -->
+
+<header class="hero">
+
+    <div class="hero-orb"></div>
+
+    <div class="hero-content">
+
+        <div class="eyebrow">
+            A MESSAGE I SHOULD HAVE SAID EARLIER
+        </div>
+
+        <h1>
+
+            I'm Sorry
+
+            <span>
+                Bestuuu ❤️
+            </span>
+
+        </h1>
+
+        <p class="hero-description">
+
+            Malaika...
+            mujhe pata hai tum bohat zyada naraz ho.
+
+            Aur honestly,
+            I understand why.
+
+            Mere peeche ek logic tha,
+            lekin tumhe woh logic na batana
+            meri mistake thi.
+
+            <br><br>
+
+            So this time,
+            I'm not making excuses.
+
+            I'm saying
+            <strong>I'm sorry.</strong>
+
+        </p>
+
+
+        <div class="buttons">
+
+            <button
+                class="btn btn-main"
+                onclick="startExperience()">
+
+                <i data-lucide="heart"></i>
+                Start This Story
+
+            </button>
+
+
+            <a
+                href="#forgive"
+                class="btn btn-ghost">
+
+                One Last Question →
+
+            </a>
+
+        </div>
+
+    </div>
+
+</header>
+
+
+<!-- =========================
+     TWO MOMENTS
+========================= -->
+
+<section>
+
+    <div class="section-head reveal">
+
+        <small>
+            I KNOW...
+        </small>
+
+        <h2>
+            It happened twice.
+        </h2>
+
+        <p>
+            Aur isi liye mujhe aur bhi bura lag raha hai.
+        </p>
+
+    </div>
+
+
+    <div class="two-moments">
+
+
+        <div class="moment reveal">
+
+            <div class="icon-circle">
+
+                <i data-lucide="sun"></i>
+
             </div>
 
-            <h1 class="title">
-                Private Wish
-            </h1>
+            <h3>
+                This Morning
+            </h3>
 
-            <p class="subtitle">
-                Enter your private access code
-                to continue.
+            <p>
+
+                Subah bhi meri wajah se
+                tum naraz hui.
+
+                Mujhe us waqt hi realize karna
+                chahiye tha ke tumhari feelings
+                ko seriously explain karna
+                zaroori hai.
+
+                I'm sorry for that too.
+
             </p>
 
+        </div>
 
-            <form id="accessForm"
-                  autocomplete="off">
 
-                <div class="input-wrapper">
+        <div class="moment reveal">
 
-                    <input
-                        id="codeInput"
-                        class="code-input"
-                        type="password"
-                        placeholder="Enter secret code"
-                        autocomplete="off"
-                        autocapitalize="none"
-                        spellcheck="false"
-                        maxlength="100"
-                        required
-                    >
+            <div class="icon-circle">
 
-                    <button
-                        type="button"
-                        class="toggle"
-                        id="togglePassword"
-                        aria-label="Show password">
+                <i data-lucide="heart-crack"></i>
 
-                        👁
+            </div>
 
-                    </button>
+            <h3>
+                And Then Again...
+            </h3>
 
+            <p>
+
+                Aur phir dobara wohi hua.
+
+                Ek hi din mein tumhe
+                do baar hurt karna
+                definitely something
+                I'm not proud of.
+
+                Tumhara naraz hona
+                completely understandable hai.
+
+            </p>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     STORY
+========================= -->
+
+<section id="story">
+
+    <div class="section-head reveal">
+
+        <small>
+            THE REAL STORY
+        </small>
+
+        <h2>
+            What I should've told you.
+        </h2>
+
+        <p>
+            There was a reason...
+            but I handled it badly.
+        </p>
+
+    </div>
+
+
+    <div class="timeline">
+
+
+        <div class="timeline-item reveal">
+
+            <div class="timeline-dot"></div>
+
+            <div class="timeline-card">
+
+                <span>
+                    THE REASON
+                </span>
+
+                <h3>
+                    There was a logic behind it.
+                </h3>
+
+                <p>
+
+                    Jo baat maine nahi batayi,
+                    uske peeche meri apni logic thi.
+
+                    Mera intention tumhe hurt karna
+                    ya tumse kuch hide karke
+                    tumhe disrespect karna nahi tha.
+
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="timeline-item reveal">
+
+            <div class="timeline-dot"></div>
+
+            <div class="timeline-card">
+
+                <span>
+                    MY MISTAKE
+                </span>
+
+                <h3>
+                    But I should've told you.
+                </h3>
+
+                <p>
+
+                    Logic hona alag baat hai,
+                    aur apne Bestuuu ko explain
+                    na karna alag.
+
+                    Mujhe tumhe bata dena chahiye tha.
+
+                    That's where I went wrong.
+
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="timeline-item reveal">
+
+            <div class="timeline-dot"></div>
+
+            <div class="timeline-card">
+
+                <span>
+                    REALIZATION
+                </span>
+
+                <h3>
+                    I understand your side.
+                </h3>
+
+                <p>
+
+                    Agar meri jagah tum hoti
+                    aur tumhe bhi koi important
+                    baat nahi batata,
+
+                    maybe tumhe bhi bura lagta.
+
+                    Ab mujhe tumhari side
+                    samajh aa rahi hai.
+
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="timeline-item reveal">
+
+            <div class="timeline-dot"></div>
+
+            <div class="timeline-card">
+
+                <span>
+                    RIGHT NOW
+                </span>
+
+                <h3>
+                    I'm not defending myself.
+                </h3>
+
+                <p>
+
+                    Aaj mujhe apni baat prove
+                    nahi karni.
+
+                    Bas tumhe ye feel karwana hai
+                    ke your feelings matter.
+
+                    More than my ego.
+
+                </p>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     SKETCH
+========================= -->
+
+<section id="sketch">
+
+    <div class="section-head reveal">
+
+        <small>
+            HANDWRITTEN
+        </small>
+
+        <h2>
+            If I could write my apology...
+        </h2>
+
+    </div>
+
+
+    <div class="sketch-wrap reveal">
+
+        <div class="paper">
+
+            <div class="tape"></div>
+
+            <div class="sketch-heart">
+                ♡
+            </div>
+
+            <div class="handwriting">
+
+                Dear
+                <strong>Malaika Bestuuu</strong>,
+
+                <br><br>
+
+                Mujhe pata hai tum
+                bohat zyada naraz ho.
+
+                <br><br>
+
+                Aur iss baar
+                main excuses nahi banaunga.
+
+                <br>
+
+                <strong>
+                    Meri galti thi.
+                </strong>
+
+                <br><br>
+
+                Mere peeche ek logic tha,
+                lekin tumhe woh baat
+                na batana meri mistake thi.
+
+                <br><br>
+
+                I should have trusted you
+                enough to explain everything.
+
+                <br><br>
+
+                Aur subah jo hua...
+                uske liye bhi
+                <strong>I'm sorry.</strong>
+
+                <br><br>
+
+                Please don't think
+                that your feelings
+                don't matter to me.
+
+                <br><br>
+
+                They do.
+
+                <br><br>
+
+                <strong>
+                    A LOT.
+
+                </strong>
+
+                <div class="signature">
+                    — Someone who really doesn't want
+                    to lose his Bestuuu ♡
                 </div>
 
-
-                <button
-                    type="submit"
-                    class="unlock-btn"
-                    id="unlockButton">
-
-                    Unlock Your Surprise Page
-
-                </button>
-
-            </form>
-
-
-            <div
-                class="message"
-                id="message"
-                aria-live="polite">
-            </div>
-
-
-            <div class="footer">
-                Private Access •
-                <span>Muhammad Rizwan</span>
-            </div>
-
-        </section>
-
-    </main>
-
-
-    <!-- =========================================
-         SUCCESS SCREEN
-    ========================================== -->
-
-    <div
-        class="success-screen"
-        id="successScreen">
-
-        <div class="success-content">
-
-            <div class="success-icon">
-                ✓
-            </div>
-
-            <div class="success-text">
-                Access Granted
-            </div>
-
-            <div class="success-subtext">
-                Opening your private birthday page...
             </div>
 
         </div>
 
     </div>
 
-
-    <script>
-
-        /* ==================================================
-           CONFIGURATION
-        ================================================== */
-
-        const CONFIG = {
-
-            /* Code 1 */
-            code1: "Rizwan123",
-
-            /* Code 2 */
-            code2: "Wan123",
-
-            /* Page for Code 1 */
-            page1: "birthday1.html",
-
-            /* Page for Code 2 */
-            page2: "birthday2.html",
-
-            /* Redirect delay */
-            redirectDelay: 850
-
-        };
+</section>
 
 
-        /* ==================================================
-           ELEMENTS
-        ================================================== */
+<!-- =========================
+     SHAYARI
+========================= -->
 
-        const form =
-            document.getElementById("accessForm");
+<section id="shayari">
 
-        const input =
-            document.getElementById("codeInput");
+    <div class="section-head reveal">
 
-        const button =
-            document.getElementById("unlockButton");
+        <small>
+            FOR THE ANGRY BEST FRIEND
+        </small>
 
-        const message =
-            document.getElementById("message");
+        <h2>
+            Kuch dil se...
+        </h2>
 
-        const toggle =
-            document.getElementById("togglePassword");
-
-        const successScreen =
-            document.getElementById("successScreen");
-
-        const particles =
-            document.getElementById("particles");
+    </div>
 
 
-        /* ==================================================
-           CREATE PARTICLES
-        ================================================== */
+    <div class="shayari-container reveal">
 
-        function createParticles() {
+        <div class="quote-mark">
+            “
+        </div>
 
-            const total = 35;
+        <div class="shayari">
 
-            for (let i = 0; i < total; i++) {
+            ناراض ہو تو حق ہے تمہارا،
 
-                const particle =
-                    document.createElement("span");
+            <br>
 
-                particle.className =
-                    "particle";
+            غلطی جو ہوئی ہے،
+            مانتا ہوں میں سارا۔
 
-                particle.style.left =
-                    Math.random() * 100 + "%";
+            <br><br>
 
-                particle.style.animationDuration =
-                    (5 + Math.random() * 9) + "s";
+            بات چھپانے کی
+            <em>وجہ</em> تھی کوئی،
 
-                particle.style.animationDelay =
-                    (-Math.random() * 10) + "s";
+            <br>
 
-                const size =
-                    1 + Math.random() * 2.5;
+            مگر بتانا چاہیے تھا،
+            <em>غلطی میری</em> تھی وہی۔
 
-                particle.style.width =
-                    size + "px";
+            <br><br>
 
-                particle.style.height =
-                    size + "px";
+            بس اتنی سی دعا ہے
+            آج میری...
 
-                particles.appendChild(particle);
-            }
-        }
+            <br>
 
-        createParticles();
+            پھر سے مسکرا دو،
+            <em>Bestuuu میری۔</em> ❤️
+
+        </div>
+
+    </div>
+
+</section>
 
 
-        /* ==================================================
-           SHOW / HIDE PASSWORD
-        ================================================== */
+<!-- =========================
+     PROMISES
+========================= -->
 
-        toggle.addEventListener(
-            "click",
-            function () {
+<section id="promise">
 
-                if (input.type === "password") {
+    <div class="section-head reveal">
 
-                    input.type = "text";
+        <small>
+            THIS TIME — A PROMISE
+        </small>
 
-                    toggle.textContent = "🙈";
+        <h2>
+            Next time, never again.
+        </h2>
 
-                    toggle.setAttribute(
-                        "aria-label",
-                        "Hide password"
-                    );
+        <p>
+            Sirf words nahi.
+            These are the things I promise to remember.
+        </p>
 
-                } else {
+    </div>
 
-                    input.type = "password";
 
-                    toggle.textContent = "👁";
+    <div class="promise-grid">
 
-                    toggle.setAttribute(
-                        "aria-label",
-                        "Show password"
-                    );
-                }
 
-                input.focus();
+        <div class="promise reveal">
+
+            <div class="promise-icon">
+                <i data-lucide="message-circle"></i>
+            </div>
+
+            <h3>
+                I'll communicate.
+            </h3>
+
+            <p>
+
+                Agar koi important baat hogi,
+                main tumhe explain karunga.
+
+                Tumhe guess karne ke liye
+                nahi chhodunga.
+
+            </p>
+
+        </div>
+
+
+        <div class="promise reveal">
+
+            <div class="promise-icon">
+                <i data-lucide="shield-check"></i>
+            </div>
+
+            <h3>
+                I'll be honest.
+            </h3>
+
+            <p>
+
+                Reason ho ya situation,
+                main tumhe unnecessarily
+                kisi baat se unaware
+                nahi rakhunga.
+
+            </p>
+
+        </div>
+
+
+        <div class="promise reveal">
+
+            <div class="promise-icon">
+                <i data-lucide="heart-handshake"></i>
+            </div>
+
+            <h3>
+                I'll understand.
+            </h3>
+
+            <p>
+
+                Tumhari feelings ko
+                overreaction nahi samjhunga.
+
+                Pehle samjhunga,
+                phir explain karunga.
+
+            </p>
+
+        </div>
+
+
+        <div class="promise reveal">
+
+            <div class="promise-icon">
+                <i data-lucide="rotate-ccw"></i>
+            </div>
+
+            <h3>
+                I'll do better.
+            </h3>
+
+            <p>
+
+                Same mistake repeat karna
+                meri intention nahi hogi.
+
+                Especially with you.
+
+            </p>
+
+        </div>
+
+
+        <div class="promise reveal">
+
+            <div class="promise-icon">
+                <i data-lucide="lock-keyhole"></i>
+            </div>
+
+            <h3>
+                Trust comes first.
+            </h3>
+
+            <p>
+
+                Tum meri Bestuuu ho.
+
+                Tumhare saath clarity
+                aur trust dono important hain.
+
+            </p>
+
+        </div>
+
+
+        <div class="promise reveal">
+
+            <div class="promise-icon">
+                <i data-lucide="infinity"></i>
+            </div>
+
+            <h3>
+                And finally...
+            </h3>
+
+            <p>
+
+                <strong style="color:#ff719d">
+
+                    Next time aisa kabhi nahi hoga.
+
+                </strong>
+
+                I mean it.
+
+            </p>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     SECRET
+========================= -->
+
+<section>
+
+    <div class="section-head reveal">
+
+        <small>
+            DON'T OPEN THIS
+        </small>
+
+        <h2>
+            One secret message.
+        </h2>
+
+    </div>
+
+
+    <div
+        class="secret-box reveal"
+        id="secretBox">
+
+        <div class="secret-icon">
+
+            <i
+                data-lucide="lock">
+            </i>
+
+        </div>
+
+        <h3 style="margin-top:20px">
+
+            You probably shouldn't open this...
+
+        </h3>
+
+        <p
+            style="
+            color:#84737c;
+            margin-top:8px;
+            font-size:12px;
+            ">
+
+            But if you're still reading...
+
+        </p>
+
+
+        <button
+            class="btn btn-main"
+            style="margin-top:22px"
+            onclick="openSecret()">
+
+            Open Secret 💌
+
+        </button>
+
+
+        <div class="secret-content">
+
+            The truth is...
+
+            <br><br>
+
+            I don't want a perfect friendship.
+
+            <br>
+
+            I want a real one.
+
+            <br><br>
+
+            Jahan kabhi meri mistake ho,
+            tum naraz ho sako,
+
+            aur main ego side par rakh kar
+            tumhare paas aa sakun.
+
+            <br><br>
+
+            Because losing a Bestuuu
+            over one mistake
+            would never be worth it.
+
+            <br><br>
+
+            <strong style="color:#ff719d">
+                I'm sorry, Malaika. ❤️
+            </strong>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     FORGIVE
+========================= -->
+
+<section
+    class="forgive"
+    id="forgive">
+
+    <div class="forgive-content reveal">
+
+        <i
+            data-lucide="heart"
+            style="
+            width:55px;
+            height:55px;
+            color:#ff6799;
+            margin-bottom:25px;
+            ">
+        </i>
+
+        <h2>
+
+            Can I have
+
+            <span>
+                one more chance?
+            </span>
+
+        </h2>
+
+        <p>
+
+            I know you're angry.
+
+            And honestly,
+            you have every right to be.
+
+            <br><br>
+
+            But if there is even
+            a tiny little space
+            in your heart...
+
+            let this be my chance
+            to make things right.
+
+        </p>
+
+
+        <div class="choice">
+
+            <button
+                class="yes"
+                onclick="forgiveYes()">
+
+                ❤️ Okay...
+
+            </button>
+
+
+            <button
+                class="no"
+                id="noBtn">
+
+                Still Angry 😭
+
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     FINAL
+========================= -->
+
+<div
+    class="final"
+    id="final">
+
+    <div class="final-inner">
+
+        <div class="final-heart">
+            ❤️
+        </div>
+
+        <h2>
+            Thank You,
+            <span style="color:#ff6799">
+                Bestuuu.
+            </span>
+        </h2>
+
+        <p>
+
+            I won't say
+            "I'll never make a mistake again."
+
+            <br><br>
+
+            Because I'm human.
+
+            <br><br>
+
+            But I can promise this:
+
+            <br><br>
+
+            <strong>
+                Next time,
+                I'll communicate.
+            </strong>
+
+            <br>
+
+            <strong>
+                Next time,
+                I'll explain.
+            </strong>
+
+            <br>
+
+            <strong>
+                Next time,
+                I won't leave you wondering.
+            </strong>
+
+            <br><br>
+
+            And most importantly...
+
+            <br><br>
+
+            <strong>
+                Next time aisa kabhi nahi hoga. ❤️
+            </strong>
+
+        </p>
+
+
+        <button
+            class="btn btn-main"
+            style="margin-top:30px"
+            onclick="closeFinal()">
+
+            Come Back ♡
+
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- =========================
+     FOOTER
+========================= -->
+
+<footer>
+
+    Made with
+    <span>♥</span>
+    for Malaika Bestuuu
+
+    <br><br>
+
+    Not a perfect apology.
+    Just a real one.
+
+</footer>
+
+
+<script>
+
+/* =========================
+   LUCIDE
+========================= */
+
+lucide.createIcons();
+
+
+/* =========================
+   LOADER
+========================= */
+
+window.addEventListener(
+    "load",
+    ()=>{
+        setTimeout(
+            ()=>{
+                document
+                .getElementById("loader")
+                .classList.add("hide");
+            },
+            1200
+        );
+    }
+);
+
+
+/* =========================
+   MUSIC
+========================= */
+
+const music =
+    document.getElementById("music");
+
+const musicPill =
+    document.getElementById("musicPill");
+
+let musicStarted=false;
+
+
+async function startMusic(){
+
+    if(musicStarted)
+        return;
+
+    try{
+
+        music.volume=.55;
+
+        await music.play();
+
+        musicStarted=true;
+
+        musicPill
+        .classList
+        .add("playing");
+
+    }
+    catch(e){
+
+        /*
+        Browser autoplay protection.
+
+        The first user interaction
+        allows the music to start.
+        */
+
+    }
+
+}
+
+
+/*
+   Any interaction can start music.
+*/
+
+[
+    "click",
+    "pointerdown",
+    "touchstart",
+    "wheel",
+    "keydown"
+]
+.forEach(
+    event=>{
+
+        document.addEventListener(
+            event,
+            startMusic,
+            {
+                passive:true
             }
         );
 
+    }
+);
 
-        /* ==================================================
-           MESSAGE
-        ================================================== */
 
-        function showMessage(
-            text,
-            type = ""
-        ) {
+/* Music toggle */
 
-            message.textContent = text;
+musicPill.addEventListener(
+    "click",
+    async e=>{
 
-            message.className =
-                "message " + type;
+        e.stopPropagation();
+
+        if(music.paused){
+
+            try{
+
+                await music.play();
+
+                musicStarted=true;
+
+                musicPill
+                .classList
+                .add("playing");
+
+            }catch(e){}
+
+        }else{
+
+            music.pause();
+
+            musicPill
+            .classList
+            .remove("playing");
+
         }
 
+    }
+);
 
-        /* ==================================================
-           OPEN PAGE
-        ================================================== */
 
-        function openBirthdayPage(page) {
+/* =========================
+   HEARTS
+========================= */
 
-            successScreen.classList.add("show");
+function createHeart(){
+
+    const h=
+        document.createElement("div");
+
+    h.className="float-heart";
+
+    h.innerHTML=
+        [
+            "♡",
+            "♥",
+            "💗",
+            "💕",
+            "✨",
+            "🦋"
+        ][
+            Math.floor(
+                Math.random()*6
+            )
+        ];
+
+    h.style.left=
+        Math.random()*100+"vw";
+
+    h.style.fontSize=
+        (12+
+        Math.random()*24)+"px";
+
+    h.style.animationDuration=
+        (5+
+        Math.random()*6)+"s";
+
+    document.body.appendChild(h);
+
+    setTimeout(
+        ()=>{
+            h.remove();
+        },
+        12000
+    );
+
+}
+
+setInterval(
+    createHeart,
+    700
+);
+
+
+/* =========================
+   PARTICLES
+========================= */
+
+for(
+    let i=0;
+    i<35;
+    i++
+){
+
+    const p=
+        document.createElement("div");
+
+    p.className="particle";
+
+    p.style.left=
+        Math.random()*100+"vw";
+
+    p.style.animationDuration=
+        (7+
+        Math.random()*12)+"s";
+
+    p.style.animationDelay=
+        (-Math.random()*12)+"s";
+
+    document.body.appendChild(p);
+
+}
+
+
+/* =========================
+   CLICK BURST
+========================= */
+
+document.addEventListener(
+    "click",
+    e=>{
+
+        for(
+            let i=0;
+            i<6;
+            i++
+        ){
+
+            const h=
+                document.createElement("div");
+
+            h.innerHTML=
+                [
+                    "♥",
+                    "♡",
+                    "💗",
+                    "✨"
+                ][
+                    Math.floor(
+                        Math.random()*4
+                    )
+                ];
+
+            h.style.position="fixed";
+
+            h.style.left=
+                e.clientX+"px";
+
+            h.style.top=
+                e.clientY+"px";
+
+            h.style.zIndex="9998";
+
+            h.style.pointerEvents="none";
+
+            h.style.fontSize="18px";
+
+            const x=
+                (Math.random()-.5)*130;
+
+            const y=
+                (Math.random()-.5)*130;
+
+            h.animate(
+                [
+                    {
+                        transform:
+                            "translate(-50%,-50%) scale(.2)",
+                        opacity:1
+                    },
+                    {
+                        transform:
+                            `translate(
+                                calc(-50% + ${x}px),
+                                calc(-50% + ${y}px)
+                            ) scale(1.3)`,
+                        opacity:0
+                    }
+                ],
+                {
+                    duration:900,
+                    easing:
+                        "cubic-bezier(.2,.8,.3,1)"
+                }
+            );
+
+            document.body.appendChild(h);
 
             setTimeout(
-                function () {
-
-                    window.location.replace(page);
-
+                ()=>{
+                    h.remove();
                 },
-                CONFIG.redirectDelay
+                950
             );
+
         }
 
+    }
+);
 
-        /* ==================================================
-           ACCESS CHECK
-        ================================================== */
 
-        function checkAccess(code) {
+/* =========================
+   REVEAL
+========================= */
 
-            /*
-             * IMPORTANT:
-             *
-             * Code 1 ONLY opens page 1.
-             *
-             * Code 2 ONLY opens page 2.
-             */
+const observer=
+    new IntersectionObserver(
+        entries=>{
 
-            if (code === CONFIG.code1) {
+            entries.forEach(
+                entry=>{
 
-                return CONFIG.page1;
+                    if(
+                        entry.isIntersecting
+                    ){
 
-            }
+                        entry.target
+                        .classList
+                        .add("visible");
 
-            if (code === CONFIG.code2) {
+                    }
 
-                return CONFIG.page2;
+                }
+            );
 
-            }
-
-            return null;
+        },
+        {
+            threshold:.12
         }
+    );
 
 
-        /* ==================================================
-           FORM SUBMIT
-        ================================================== */
+document
+.querySelectorAll(".reveal")
+.forEach(
+    el=>observer.observe(el)
+);
 
-        form.addEventListener(
-            "submit",
-            function (event) {
 
-                event.preventDefault();
+/* =========================
+   START
+========================= */
 
-                const enteredCode =
-                    input.value.trim();
+function startExperience(){
 
-                if (!enteredCode) {
+    startMusic();
 
-                    showMessage(
-                        "Please enter your secret code.",
-                        "error"
-                    );
+    document
+    .getElementById("story")
+    .scrollIntoView({
+        behavior:"smooth"
+    });
 
-                    input.focus();
+    heartExplosion();
 
-                    return;
+}
+
+
+/* =========================
+   HEART EXPLOSION
+========================= */
+
+function heartExplosion(){
+
+    for(
+        let i=0;
+        i<30;
+        i++
+    ){
+
+        const h=
+            document.createElement("div");
+
+        h.innerHTML=
+            [
+                "❤",
+                "💗",
+                "💕",
+                "✨",
+                "🦋"
+            ][
+                Math.floor(
+                    Math.random()*5
+                )
+            ];
+
+        h.style.position="fixed";
+
+        h.style.left="50%";
+        h.style.top="50%";
+
+        h.style.zIndex="9999";
+
+        h.style.pointerEvents="none";
+
+        const x=
+            (Math.random()-.5)*800;
+
+        const y=
+            (Math.random()-.5)*700;
+
+        h.animate(
+            [
+                {
+                    transform:
+                        "translate(-50%,-50%) scale(.1)",
+                    opacity:1
+                },
+                {
+                    transform:
+                        `translate(
+                            calc(-50% + ${x}px),
+                            calc(-50% + ${y}px)
+                        ) scale(1.5)`,
+                    opacity:0
                 }
-
-
-                const page =
-                    checkAccess(enteredCode);
-
-
-                /* ==========================================
-                   WRONG CODE
-                ========================================== */
-
-                if (!page) {
-
-                    showMessage(
-                        "Incorrect access code.",
-                        "error"
-                    );
-
-                    input.value = "";
-
-                    input.focus();
-
-                    return;
-                }
-
-
-                /* ==========================================
-                   CORRECT CODE
-                ========================================== */
-
-                button.classList.add("loading");
-
-                button.textContent =
-                    "Access Granted...";
-
-                showMessage(
-                    "Opening private birthday page...",
-                    "success"
-                );
-
-                input.disabled = true;
-
-                openBirthdayPage(page);
+            ],
+            {
+                duration:1400,
+                easing:
+                    "cubic-bezier(.2,.8,.2,1)"
             }
         );
 
+        document.body.appendChild(h);
 
-        /* ==================================================
-           ENTER KEY
-        ================================================== */
-
-        input.addEventListener(
-            "keydown",
-            function (event) {
-
-                if (event.key === "Enter") {
-
-                    event.preventDefault();
-
-                    form.requestSubmit();
-                }
-            }
+        setTimeout(
+            ()=>{
+                h.remove();
+            },
+            1500
         );
 
+    }
 
-        /* ==================================================
-           CLEAR ERROR WHEN USER TYPES
-        ================================================== */
+}
 
-        input.addEventListener(
-            "input",
-            function () {
 
-                if (
-                    message.classList.contains("error")
-                ) {
+/* =========================
+   SECRET
+========================= */
 
-                    showMessage("");
-                }
-            }
+function openSecret(){
+
+    document
+    .getElementById("secretBox")
+    .classList
+    .add("open");
+
+    heartExplosion();
+
+}
+
+
+/* =========================
+   NO BUTTON
+========================= */
+
+const noBtn=
+    document.getElementById("noBtn");
+
+function moveNo(){
+
+    const padding=15;
+
+    const maxX=
+        window.innerWidth -
+        noBtn.offsetWidth -
+        padding*2;
+
+    const maxY=
+        window.innerHeight -
+        noBtn.offsetHeight -
+        padding*2;
+
+    noBtn.style.position="fixed";
+
+    noBtn.style.left=
+        Math.max(
+            padding,
+            Math.random()*maxX
+        )+"px";
+
+    noBtn.style.top=
+        Math.max(
+            padding,
+            Math.random()*maxY
+        )+"px";
+
+    noBtn.innerHTML=
+        [
+            "Still Angry 😭",
+            "Nope 🥺",
+            "Not Yet 😭",
+            "Really? 🥹",
+            "Please? 💔"
+        ][
+            Math.floor(
+                Math.random()*5
+            )
+        ];
+
+}
+
+noBtn.addEventListener(
+    "mouseenter",
+    moveNo
+);
+
+noBtn.addEventListener(
+    "touchstart",
+    e=>{
+        e.preventDefault();
+        moveNo();
+    }
+);
+
+
+/* =========================
+   YES
+========================= */
+
+function forgiveYes(){
+
+    startMusic();
+
+    heartExplosion();
+
+    setTimeout(
+        ()=>{
+            document
+            .getElementById("final")
+            .classList
+            .add("show");
+        },
+        500
+    );
+
+}
+
+
+/* =========================
+   CLOSE
+========================= */
+
+function closeFinal(){
+
+    document
+    .getElementById("final")
+    .classList
+    .remove("show");
+
+}
+
+
+/* =========================
+   CARD TILT
+========================= */
+
+document
+.querySelectorAll(".moment,.promise,.timeline-card")
+.forEach(card=>{
+
+    card.addEventListener(
+        "mousemove",
+        e=>{
+
+            if(
+                window.innerWidth<750
+            )
+                return;
+
+            const r=
+                card.getBoundingClientRect();
+
+            const x=
+                e.clientX-r.left;
+
+            const y=
+                e.clientY-r.top;
+
+            const rx=
+                ((y/r.height)-.5)*-4;
+
+            const ry=
+                ((x/r.width)-.5)*4;
+
+            card.style.transform=
+                `perspective(700px)
+                 rotateX(${rx}deg)
+                 rotateY(${ry}deg)
+                 translateY(-5px)`;
+
+        }
+    );
+
+    card.addEventListener(
+        "mouseleave",
+        ()=>{
+            card.style.transform="";
+        }
+    );
+
+});
+
+
+/* =========================
+   AUDIO ERROR
+========================= */
+
+music.addEventListener(
+    "error",
+    ()=>{
+        console.warn(
+            "Place music.mp3 in the same folder as index.html."
         );
+    }
+);
 
-
-        /* ==================================================
-           PREVENT EASY RIGHT CLICK
-        ================================================== */
-
-        document.addEventListener(
-            "contextmenu",
-            function (event) {
-
-                event.preventDefault();
-
-            }
-        );
-
-
-        /* ==================================================
-           PREVENT COMMON DEVTOOLS SHORTCUTS
-        ================================================== */
-
-        document.addEventListener(
-            "keydown",
-            function (event) {
-
-                if (
-                    event.key === "F12" ||
-                    (
-                        event.ctrlKey &&
-                        event.shiftKey &&
-                        (
-                            event.key === "I" ||
-                            event.key === "J" ||
-                            event.key === "C"
-                        )
-                    ) ||
-                    (
-                        event.ctrlKey &&
-                        event.key === "U"
-                    )
-                ) {
-
-                    event.preventDefault();
-
-                }
-
-            }
-        );
-
-
-        /* ==================================================
-           INITIAL FOCUS
-        ================================================== */
-
-        window.addEventListener(
-            "load",
-            function () {
-
-                setTimeout(
-                    function () {
-
-                        input.focus();
-
-                    },
-                    600
-                );
-
-            }
-        );
-
-    </script>
+</script>
 
 </body>
 </html>
