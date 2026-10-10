@@ -412,7 +412,56 @@ h1,h2,h3{hyphens:none}
 /* Prevent accidental horizontal overflow from animated/generated elements */
 .confetti,.butterfly,.star-cursor{max-width:none!important}
 
-</style></head>
+</style>
+<style id="final-polish">
+:root{--ease:cubic-bezier(.16,1,.3,1);scroll-behavior:smooth}
+.scene{will-change:opacity,transform;transform-style:preserve-3d}
+.card{transform:translateZ(0);transition:border-color .5s,box-shadow .5s}
+.card:hover{border-color:rgba(232,202,138,.28);box-shadow:0 38px 120px rgba(0,0,0,.48),0 0 50px rgba(220,170,181,.06)}
+.btn,.wish,.choice,.mini-gift{touch-action:manipulation}
+.btn:active,.wish:active,.choice:active,.mini-gift:active{transform:scale(.97)}
+/* Little 3D birthday companions */
+.birthday-companions{position:fixed;z-index:80;right:18px;bottom:16px;display:flex;align-items:flex-end;gap:8px;pointer-events:none;perspective:700px;filter:drop-shadow(0 12px 16px rgba(0,0,0,.24));transition:opacity .4s,transform .4s}
+.companion{position:relative;width:72px;height:91px;transform-style:preserve-3d;animation:companionFloat 4s ease-in-out infinite}
+.companion.bunny{width:63px;height:102px;animation-delay:-1.5s}
+.companion .body3d{position:absolute;bottom:0;left:14px;width:46px;height:46px;border-radius:48% 48% 42% 42%;background:linear-gradient(130deg,#fff1e6 0%,#e4b5c5 46%,#a86e8d 100%);box-shadow:inset -7px -5px 10px #83516a, inset 5px 4px 8px rgba(255,255,255,.8),5px 8px 10px rgba(0,0,0,.22);transform:rotateX(-7deg)}
+.companion .head3d{position:absolute;z-index:3;top:14px;left:10px;width:53px;height:51px;border-radius:48%;background:radial-gradient(circle at 30% 24%,#fff6ed,#efcbd3 48%,#bb849a 100%);box-shadow:inset -6px -5px 9px rgba(111,61,82,.38),inset 4px 4px 7px rgba(255,255,255,.75),4px 7px 12px rgba(0,0,0,.2);transform:translateZ(8px)}
+.companion .ear{position:absolute;z-index:2;top:3px;left:13px;width:20px;height:27px;border-radius:70% 70% 30% 30%;background:linear-gradient(135deg,#fce7eb,#bd8198);transform:rotate(-25deg);box-shadow:inset -3px -3px 5px #9c647d}
+.companion .ear.right{left:40px;transform:rotate(25deg)}
+.companion .eye{position:absolute;top:22px;left:14px;width:5px;height:7px;border-radius:50%;background:#35202e;box-shadow:1px 1px 0 #fff9}
+.companion .eye.right{left:34px}
+.companion .muzzle{position:absolute;top:30px;left:21px;width:13px;height:9px;border-radius:50%;background:#fff1e7;box-shadow:7px 0 #fff1e7}
+.companion .nose{position:absolute;z-index:2;top:31px;left:28px;width:6px;height:5px;border-radius:50%;background:#714253}
+.companion .bow{position:absolute;z-index:5;top:9px;right:3px;width:17px;height:11px;background:#e8ca8a;clip-path:polygon(0 50%,0 0,48% 28%,100% 0,100% 100%,48% 72%);filter:drop-shadow(1px 2px 2px #78504e)}
+.companion.bunny .ear{height:43px;width:15px;top:-13px;left:17px;border-radius:80% 80% 30% 30%;transform:rotate(-10deg);background:linear-gradient(90deg,#f8e9ef,#dcaab5)}
+.companion.bunny .ear.right{left:38px;top:-16px;transform:rotate(12deg)}
+.companion.bunny .head3d{background:radial-gradient(circle at 30% 25%,#fff,#f7e6ee 55%,#d6a3bc)}
+.companion.bunny .body3d{background:linear-gradient(130deg,#fff,#e5c5df 50%,#a58ac8);box-shadow:inset -7px -5px 10px #8a6ba7,inset 5px 4px 8px #fff,5px 8px 10px rgba(0,0,0,.22)}
+.companion .heart3d{position:absolute;z-index:7;bottom:22px;left:31px;font-size:15px;filter:drop-shadow(1px 3px 2px rgba(0,0,0,.25));transform:translateZ(16px)}
+.companion-shadow{position:absolute;bottom:-3px;left:9px;width:58px;height:10px;border-radius:50%;background:rgba(0,0,0,.28);filter:blur(5px);animation:shadowPulse 4s ease-in-out infinite}
+
+
+.tool-btn:hover{transform:translateY(-3px) rotate(-5deg);background:rgba(232,202,138,.18)}
+.birthday-progress{position:fixed;z-index:240;top:0;left:0;height:3px;width:100%;background:rgba(255,255,255,.07);pointer-events:none}
+.birthday-progress i{display:block;width:0;height:100%;background:linear-gradient(90deg,#dcaab5,#e8ca8a,#f6e6ff);box-shadow:0 0 12px rgba(232,202,138,.65);transition:width .5s var(--ease)}
+body.soft-mode .bg{filter:saturate(.75) brightness(1.17)}body.soft-mode .card{background:linear-gradient(135deg,rgba(255,255,255,.15),rgba(255,255,255,.065));border-color:rgba(255,255,255,.25)}body.soft-mode .birthday-toolbar{background:rgba(48,32,48,.7)}
+#quickNote{position:fixed;z-index:260;left:50%;top:70px;transform:translate(-50%,-8px);opacity:0;pointer-events:none;max-width:min(90vw,420px);padding:10px 16px;border:1px solid rgba(232,202,138,.3);border-radius:16px;background:rgba(16,10,19,.88);color:#fff4e6;font-size:.78rem;text-align:center;backdrop-filter:blur(15px);transition:opacity .3s,transform .3s}
+#quickNote.show{opacity:1;transform:translate(-50%,0)}
+@keyframes companionFloat{0%,100%{transform:translateY(0) rotateY(-7deg) rotateZ(-2deg)}50%{transform:translateY(-9px) rotateY(8deg) rotateZ(2deg)}}
+@keyframes shadowPulse{0%,100%{transform:scaleX(1);opacity:.55}50%{transform:scaleX(.78);opacity:.3}}
+@media(max-width:600px){.birthday-toolbar{top:9px;right:8px;gap:4px;padding:5px}.birthday-companions{right:5px;bottom:4px;transform:scale(.78);transform-origin:bottom right;opacity:.94}.companion.bunny{display:none}#quickNote{top:58px;font-size:.72rem}.card{backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+
+/* Modern compact controls + tap-to-start birthday melody */
+.birthday-toolbar{gap:5px;padding:6px;background:rgba(10,12,30,.42);border-color:rgba(215,196,255,.16)}
+
+.tool-btn:hover{transform:translateY(-2px);background:rgba(185,156,255,.22)}
+
+
+@media(max-width:600px){.birthday-toolbar{top:8px;right:8px}}
+
+</style>
+</head>
 <body>
 <div id="app">
 
@@ -429,10 +478,10 @@ h1,h2,h3{hyphens:none}
 <!-- 03 -->
 <section class="scene">
 <div class="bg"></div><div class="aurora"></div><div class="stars"></div><div class="moon" id="moon" title="Tap the moon"></div>
-<div class="card"><div class="eyebrow">10 October • A special day for my sister</div><h2>Fatima Saeed’s day is getting closer…</h2>
+<div class="card"><div class="eyebrow">11 October • A special day for my sister</div><h2>Fatima Saeed’s day is getting closer…</h2>
 <div class="countdown countdown-live" id="countdownArea"><div class="time"><strong id="d">00</strong><span>Days</span></div><div class="time"><strong id="h">00</strong><span>Hours</span></div><div class="time"><strong id="m">00</strong><span>Minutes</span></div><div class="time"><strong id="s">00</strong><span>Seconds</span></div></div>
 <div class="hidden" id="birthdayLive"><div class="big-burst">🎂✨🎉</div><div class="live-message">It’s finally here.<br/><strong>Happy Birthday, Fatima Saeed!</strong><br/>Today isn’t a countdown anymore. Today is your celebration. ❤️</div></div>
-<p id="countdownCaption">No rush. Let the little moments build up. When 10 October arrives, the clock disappears and the celebration takes over. 💜</p><div class="actions"><button class="btn gold" id="ready">I’m Ready ✨</button></div></div>
+<p id="countdownCaption">No rush. Let the little moments build up. When 11 October arrives, the clock disappears and the celebration takes over. 💜</p><div class="actions"><button class="btn gold" id="ready">I’m Ready ✨</button></div></div>
 </section>
 <!-- 04 -->
 <section class="scene">
@@ -613,7 +662,7 @@ h1,h2,h3{hyphens:none}
 <div class="secret-reveal hidden" id="secretReveal">
 <div class="micro-label">A secret just for you</div>
 <p class="urdu">فاطمہ سعید، میری پیاری بہن! میری دعا ہے کہ اللہ تمہیں ہمیشہ اپنی حفاظت میں رکھے، تمہارے دل کو سکون، تمہاری زندگی کو خوشیوں، تمہارے نصیب کو خیر اور تمہارے مستقبل کو کامیابیوں سے بھر دے۔ تمہیں ہمیشہ عزت، محبت اور آسانیاں نصیب ہوں۔ تمہارا بھائی ہمیشہ تمہارے لیے دعاگو رہے گا۔ آمین۔ 🤍</p>
-<div class="secret-code" id="secretCode">M • BFF • R ✦</div>
+<div class="secret-code" id="secretCode">BROTHER • SISTER • LOVE ✦</div>
 </div>
 <div class="actions"><button class="btn gold locked" disabled="" id="envelopeNext">Now, the final surprise ❤️</button></div>
 </div></section>
@@ -625,7 +674,7 @@ h1,h2,h3{hyphens:none}
 <!-- 15 -->
 <section class="scene">
 <div class="bg"></div><div class="aurora"></div><div class="grain"></div>
-<div class="card"><div class="final-orbit"><span>10<br/>October</span></div><div class="eyebrow">Made especially for</div>
+<div class="card"><div class="final-orbit"><span>11<br/>October</span></div><div class="eyebrow">Made especially for</div>
 <h1>Happy Birthday</h1><h2>Fatima Saeed</h2>
 <p>I am grateful to Allah for the blessing of having you as my sister. May your life be filled with faith, happiness, good health, dignity, success, peace, and beautiful opportunities. Whatever path you choose, may you always find love and support at home.<br/><br/>Enjoy your special day! ❤️</p>
 <p class="urdu">اللہ تمہیں ہمیشہ خوش رکھے،<br/>تمہاری ہر نیک دعا قبول فرمائے،<br/>اور زندگی کے ہر قدم پر آسانیاں عطا فرمائے۔ آمین۔</p>
@@ -633,6 +682,14 @@ h1,h2,h3{hyphens:none}
 <div class="actions"><button class="btn" id="replay">↻ Replay the Surprise</button></div></div>
 </section>
 </div>
+
+<div class="birthday-progress" aria-hidden="true"><i id="birthdayProgressBar"></i></div>
+<div id="quickNote" role="status" aria-live="polite"></div>
+<div class="birthday-companions" aria-label="Two little 3D birthday companions" role="img">
+ <div class="companion teddy"><div class="ear"></div><div class="ear right"></div><div class="head3d"><i class="eye"></i><i class="eye right"></i><i class="muzzle"></i><i class="nose"></i></div><div class="body3d"></div><div class="bow"></div><div class="heart3d">♥</div><div class="companion-shadow"></div></div>
+ <div class="companion bunny"><div class="ear"></div><div class="ear right"></div><div class="head3d"><i class="eye"></i><i class="eye right"></i><i class="muzzle"></i><i class="nose"></i></div><div class="body3d"></div><div class="heart3d">♡</div><div class="companion-shadow"></div></div>
+</div>
+
 <div class="toast" id="toast"></div>
 
 <script>
@@ -674,10 +731,10 @@ function loading(){
 function countdown(){
  const nowDate = new Date();
   let birthdayYear = nowDate.getFullYear();
-  let target = new Date(`${birthdayYear}-10-10T00:00:00+05:00`).getTime();
+  let target = new Date(`${birthdayYear}-10-11T00:00:00+05:00`).getTime();
   if (Date.now() >= target + 86400000) {
     birthdayYear += 1;
-    target = new Date(`${birthdayYear}-10-10T00:00:00+05:00`).getTime();
+    target = new Date(`${birthdayYear}-10-11T00:00:00+05:00`).getTime();
   }
  const area=$("#countdownArea"), live=$("#birthdayLive"), cap=$("#countdownCaption");
  const tick=()=>{
@@ -948,5 +1005,53 @@ loading();
     }
   });
 })();
-</script></body>
+</script>
+<script id="birthday-polish-script">
+(()=>{
+ const all=[...document.querySelectorAll('.scene')];
+ const progress=document.getElementById('birthdayProgressBar');
+ const note=document.getElementById('quickNote');
+ let noteTimer;
+ const activeIndex=()=>Math.max(0,all.findIndex(s=>s.classList.contains('active')));
+ function refreshProgress(){const i=activeIndex(); if(progress)progress.style.width=((i+1)/all.length*100)+'%';}
+ function noteShow(msg){if(!note)return;note.textContent=msg;note.classList.add('show');clearTimeout(noteTimer);noteTimer=setTimeout(()=>note.classList.remove('show'),2400)}
+ function move(delta){const i=activeIndex(),target=Math.max(2,Math.min(all.length-1,i+delta));if(target===i){noteShow(delta>0?'You reached the final page. 💜':'The birthday journey starts just ahead. ✨');return}if(typeof window.show==='function')window.show(target,true);else{all[i].classList.remove('active');all[target].classList.add('active')}setTimeout(refreshProgress,60)}
+ document.getElementById('previousScene')?.addEventListener('click',()=>move(-1));
+ document.getElementById('nextScene')?.addEventListener('click',()=>move(1));
+ document.getElementById('celebrateNow')?.addEventListener('click',()=>{if(typeof window.confetti==='function')window.confetti(70);else{for(let i=0;i<40;i++){const x=document.createElement('span');x.textContent=['✦','♡','✨','🌸'][i%4];x.style.cssText=`position:fixed;z-index:400;left:${Math.random()*100}vw;top:${Math.random()*80}vh;font-size:${12+Math.random()*20}px;pointer-events:none;animation:companionFloat 1.8s ease-out`;document.body.appendChild(x);setTimeout(()=>x.remove(),1900)}}noteShow('A little extra birthday magic for Fatima! ✨')});
+
+ document.getElementById('copyWish')?.addEventListener('click',async()=>{const message='Happy Birthday, Fatima Saeed! 🎂💜 May Allah bless you with happiness, good health, peace, success, and a beautiful future. With love and prayers, your brother Muhammad Rizwan.';try{await navigator.clipboard.writeText(message);noteShow('Birthday wish copied — ready to share! 💌')}catch(e){const ta=document.createElement('textarea');ta.value=message;ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.select();try{document.execCommand('copy');noteShow('Birthday wish copied — ready to share! 💌')}catch(_){noteShow(message)}ta.remove()}});
+ document.addEventListener('keydown',e=>{if(['INPUT','TEXTAREA'].includes(document.activeElement?.tagName))return;if(e.key==='ArrowRight')move(1);if(e.key==='ArrowLeft')move(-1);if(e.key==='Escape')note?.classList.remove('show')});
+ const observer=new MutationObserver(refreshProgress);all.forEach(s=>observer.observe(s,{attributes:true,attributeFilter:['class']}));
+ refreshProgress();
+})();
+</script>
+
+<script id="birthday-melody">
+(()=> {
+  // External MP3 birthday music. Browsers require a user gesture before audio can play.
+  const song = new Audio('https://www.orangefreesounds.com/wp-content/uploads/2016/06/Happy-birthday-song.mp3');
+  song.loop = true;
+  song.preload = 'auto';
+  song.volume = 0.65;
+  let started = false;
+  async function startBirthdaySong(){
+    if (started) return;
+    try {
+      await song.play();
+      started = true;
+      document.removeEventListener('pointerdown', startBirthdaySong);
+      document.removeEventListener('keydown', startBirthdaySong);
+    } catch (err) {
+      // If network/audio playback is blocked, allow the next user interaction to retry.
+    }
+  }
+  document.addEventListener('pointerdown', startBirthdaySong, {passive:true});
+  document.addEventListener('keydown', startBirthdaySong);
+  // Make it possible for other controls or future UI to toggle playback if needed.
+  window.birthdaySong = song;
+})();
+</script>
+
+</body>
 </html>
